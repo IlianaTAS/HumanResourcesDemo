@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a57fdcca-1480-43ef-9c91-0b1a3601926e">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="456"/>
+	<parameter name="nombreConsultor" class="java.lang.String"/>
+	<field name="registro.candidato.nombre" class="java.lang.String"/>
+	<field name="registro.candidato.apellidopaterno" class="java.lang.String"/>
+	<field name="registro.candidato.apellidomaterno" class="java.lang.String"/>
+	<field name="registro.vacante.puestonivel.puesto.descripcion" class="java.lang.String"/>
+	<field name="registro.vacante.puestonivel.nivel.descripcion" class="java.lang.String"/>
+	<field name="registro.candidato.curriculum.habilidadesCandidatosSR" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="registro.candidato.curriculum.experienciaProfesionalSR" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="registro.candidato.curriculum.resumenejecutivo" class="java.lang.String"/>
+	<field name="registro.candidato.curriculum.certificacionsSR" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="registro.candidato.idiomacandidatosSR" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="registro.candidato.curriculum.cursosSR" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="registro.candidato.curriculum.estudiosAcademicosSR" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="registro.candidato.curriculum.titulocurriculum" class="java.lang.String"/>
+	<title>
+		<band height="59">
+			<image>
+				<reportElement x="452" y="4" width="93" height="55" uuid="58f3a012-7e49-4e7a-a855-db8c5e5fa81c"/>
+				<imageExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateImage" + File.separator + "nubaj.png"))]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="126" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="40" width="32" height="20" backcolor="#3ABFE7" uuid="907bb430-a122-4fe0-ac67-af3f8737841c"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="33" y="0" width="252" height="20" forecolor="#666666" uuid="50dd1f87-8e00-428c-ac68-e51ca57a396a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreConsultor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="33" y="20" width="364" height="20" forecolor="#666666" uuid="45f214c1-95e6-4cbe-b4c3-b95cde4df1d1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{registro.candidato.curriculum.titulocurriculum}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="0" y="40" width="555" height="20" forecolor="#666666" backcolor="#FFFFFF" uuid="6f227911-3a13-4e6d-934f-2794a70dde55"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[         RESUMEN]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="33" y="60" width="522" height="66" uuid="8d307638-6ea4-44ef-8d74-185d078bf259"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{registro.candidato.curriculum.resumenejecutivo} == null ? " " : $F{registro.candidato.curriculum.resumenejecutivo}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="120">
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="33" y="20" width="522" height="100" uuid="eb802dce-03e3-4ef8-8bd3-cc57d45ad150"/>
+				<dataSourceExpression><![CDATA[$F{registro.candidato.curriculum.experienciaProfesionalSR}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateCliente" + File.separator + "JRTemplateNubaj_ExperienciaProfesional.jasper"))]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#666666" backcolor="#FFFFFF" uuid="b6d6d387-a391-4ab5-ab63-7964314e8a50"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[          EXPERIENCIA PROFESIONAL]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="0" width="32" height="20" backcolor="#3ABFE7" uuid="9324bff3-6be8-4015-a008-ec29213e9364"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+		<band height="83">
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="33" y="20" width="522" height="63" uuid="a5ccf9c0-5d52-484d-bef9-385e4922dcab"/>
+				<dataSourceExpression><![CDATA[$F{registro.candidato.curriculum.estudiosAcademicosSR}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateCliente" + File.separator + "JRTemplateNubaj_EstudiosAcademicos.jasper"))]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#666666" backcolor="#FFFFFF" uuid="b5493092-4b0a-4a66-8d33-0bb2cd9b14be"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[          EDUCACIÓN]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="0" width="32" height="20" backcolor="#3ABFE7" uuid="1b22dda1-2e04-41c1-8137-eae0a003964d"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+		<band height="93">
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="33" y="20" width="522" height="73" uuid="f469aa18-ac91-4b5d-bcf1-840df59aa1f0"/>
+				<dataSourceExpression><![CDATA[$F{registro.candidato.curriculum.cursosSR}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateCliente" + File.separator + "JRTemplateNubaj_Cursos.jasper"))]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#666666" backcolor="#FFFFFF" uuid="b2a80937-5a9c-4b81-90ea-f564b4c47fe6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[           CURSOS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="0" width="32" height="20" backcolor="#3ABFE7" uuid="75b6f8c8-83d0-4024-8f59-cfa1555e3b36"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+		<band height="113" splitType="Prevent">
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" mode="Opaque" x="33" y="20" width="170" height="93" backcolor="#D8D8D8" uuid="29087436-9b21-444d-98b4-76cd1e927463"/>
+				<dataSourceExpression><![CDATA[$F{registro.candidato.curriculum.habilidadesCandidatosSR}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateCliente" + File.separator + "JRTemplateNubaj_Habilidades.jasper"))]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" mode="Opaque" x="375" y="20" width="180" height="93" backcolor="#D8D8D8" uuid="4e4d0ace-1bcf-46e6-9070-1ce2d5892bb5"/>
+				<dataSourceExpression><![CDATA[$F{registro.candidato.curriculum.certificacionsSR}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateCliente" + File.separator + "JRTemplateNubaj_Certificaciones.jasper"))]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" mode="Opaque" x="203" y="20" width="172" height="93" backcolor="#D8D8D8" uuid="79502ebd-f3d9-47d4-b30f-7e35fb159002"/>
+				<dataSourceExpression><![CDATA[$F{registro.candidato.idiomacandidatosSR}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateCliente" + File.separator + "JRTemplateNubaj_idioma.jasper"))]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#666666" backcolor="#FFFFFF" uuid="4d08e87a-4f44-44c4-a70e-17af8a6bd2c5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[          HABILIDADES TÉCNICAS Y CERTIFICACIONES ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="0" width="32" height="20" backcolor="#3ABFE7" uuid="050848db-9a67-422d-9cf6-365b129dfad9"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#7BD4EF" uuid="6eb417b4-62c7-4178-9505-08a218989994"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="5512c5dd-fe9f-4cbb-b435-3e17efdd2a5d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="5741e073-8654-4218-bddd-04cf9dce4a36"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="204" y="0" width="100" height="20" forecolor="#FFFFFF" uuid="3ca46413-92fe-45d9-ad25-b83b391d3290"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<text><![CDATA[w w w.n u b a j.c o m]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/custom-theme/theme.css" />
+        <link rel="shortcut icon" href="#{request.contextPath}/resources/images/faviconss.png" type="image/x-icon" />
+        <title>BPMS</title>
+    </h:head>
+
+
+    <h:body>   
+        <h:form id="loginForm">
+            <p:growl id="growl" showDetail="true" life="5000"/>
+            <b:row  styleClass="show-grid">
+                <b:column col-xs="12" col-md="12">  
+                    <div>
+                        <p:graphicImage  library="images" name="bannerNAPP.png" />
+                        <p:graphicImage library="images" name="bmt.png" style="width:50px; float: right;"/>
+                    </div>
+
+                </b:column>              
+            </b:row>
+            <b:row styleClass="show-grid">
+                <b:column col-xs="6" col-md="4"></b:column>
+                <b:column col-xs="6" col-md="4">
+                    <ui:insert name="content">
+
+                    </ui:insert> </b:column>
+                <b:column col-xs="6" col-md="4"></b:column>
+            </b:row>
+        </h:form>
+    </h:body>
+
+</html>
+
+

@@ -1,0 +1,1217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00cd5a4a-8c73-494c-ab91-fd0fea63ba6f">
+	<property name="ireport.zoom" value="1.7715610000000177"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="972"/>
+	<parameter name="dias" class="java.lang.String"/>
+	<parameter name="saldo" class="java.lang.Integer"/>
+	<parameter name="diasSolicitados" class="java.lang.Integer"/>
+	<parameter name="diasRestantes" class="java.lang.Integer"/>
+	<parameter name="razon" class="java.lang.String"/>
+	<parameter name="goceDeSueldo" class="java.lang.String"/>
+	<field name="empleado.candidato.nombre" class="java.lang.String"/>
+	<field name="empleado.candidato.apellidopaterno" class="java.lang.String"/>
+	<field name="empleado.candidato.apellidomaterno" class="java.lang.String"/>
+	<field name="empleado.division.descripcion" class="java.lang.String"/>
+	<field name="empleado.contrato.usuario.nombre" class="java.lang.String"/>
+	<field name="empleado.contrato.usuario.apellidopaterno" class="java.lang.String"/>
+	<field name="empleado.contrato.usuario.apellidomaterno" class="java.lang.String"/>
+	<field name="empleado.contrato.fechainiciocontrato" class="java.util.Date"/>
+	<field name="dias" class="java.lang.Integer"/>
+	<field name="fechainicio" class="java.util.Date"/>
+	<field name="fechafin" class="java.util.Date"/>
+	<field name="fechapago" class="java.util.Date"/>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="motivo" class="java.lang.String"/>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<rectangle>
+				<reportElement x="84" y="559" width="128" height="11" uuid="eb408618-627f-479d-af5d-c6d019ddf99b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="497" width="176" height="15" uuid="1dd18e8f-df6b-46e7-a1f4-2d8b4906c5ae"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="84" y="537" width="128" height="11" uuid="b7d01709-e61b-45f7-a60e-c00f87c7acc8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="526" width="176" height="44" uuid="333f118c-9999-4af8-bb15-30c62b09d006"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="64" width="555" height="109" uuid="104503d9-e175-46b1-8fe1-bc51976f7423"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="76" width="457" height="88" uuid="83de0d9c-0cec-43d7-b41d-daf0d969238f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="173" width="555" height="59" uuid="94234dd1-9ec5-4001-85f5-6380e4cc6223"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="212" y="91" width="88" height="15" uuid="5e04f789-9cb4-4557-ad08-b3f7440d0ec3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="17" y="76" width="67" height="88" uuid="cc0a81e5-8d1a-49d5-bfa1-acbd8519ad1d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="76" width="67" height="44" uuid="5e1a2d1b-ce83-4fc1-9cbd-60eeb8d36267"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="84" y="76" width="128" height="44" uuid="61b5b2aa-0f9c-4e9a-b361-b2e9f9dc528c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="76" width="176" height="15" uuid="f49d954c-359c-46ae-8da0-04fbaa0a2db2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="91" width="176" height="15" uuid="207af3b3-385d-41fc-aca7-065c71fea559"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="91" width="86" height="15" uuid="e89ab4e1-44cd-4c48-b641-d3817ca71c99"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="91" width="90" height="15" uuid="d32ac3c1-fb8d-467d-b328-245914510296"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="106" width="28" height="14" uuid="64c891e0-1640-45ef-ae59-8a5ecb97d35c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="106" width="28" height="14" uuid="7fd03e1b-9ccc-490e-afce-29288be8253f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="106" width="30" height="14" uuid="679664f3-ec10-4c04-aeb5-18b8ff72f8b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="106" width="30" height="14" uuid="851cd4a0-77c6-4df2-a9d6-9a2fac22ff74"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="106" width="30" height="14" uuid="a4fdb606-56e8-4f51-88e3-98d2779754c3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="106" width="30" height="14" uuid="a2c92630-1637-4679-9ef9-178672069390"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="120" width="176" height="44" uuid="27f7e0f5-0726-4a13-bfdb-954ff59348dd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="120" width="67" height="11" uuid="5273d3f3-b438-4934-b1b3-a963a8f5d9c9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="76" width="86" height="44" uuid="d2a0444d-a5c9-4ba6-af03-86b876ebd18b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="188" width="125" height="10" uuid="8939e30a-f0a0-43a2-a5fb-2c693d553c0f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Número de días a disfrutar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="198" width="125" height="11" uuid="f392e1d4-a4c0-476f-bfde-c75eceb1bc85"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Saldo de días por disfrutar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="173" width="129" height="16" uuid="8b85f32f-0731-444f-aa76-9c00aa5bd8f1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Año al que corresponden las vacaciones]]></text>
+			</staticText>
+			<line>
+				<reportElement x="146" y="188" width="128" height="1" uuid="d6a7839f-7b93-421e-8944-1a039af4e31c"/>
+			</line>
+			<line>
+				<reportElement x="146" y="198" width="128" height="1" uuid="e9434c39-804d-45ff-a445-54886ef9e405"/>
+			</line>
+			<line>
+				<reportElement x="146" y="208" width="128" height="1" uuid="562d7eab-3c64-4a42-92e6-b521e77cb39c"/>
+			</line>
+			<line>
+				<reportElement x="146" y="219" width="128" height="1" uuid="66e7b465-c5e7-496f-8340-10e25e7817a2"/>
+			</line>
+			<line>
+				<reportElement x="146" y="230" width="128" height="1" uuid="9a46ecb5-54c7-48b7-993d-d86eb353b907"/>
+			</line>
+			<staticText>
+				<reportElement x="290" y="178" width="255" height="20" uuid="4b277da4-1a0d-42ab-a21b-71859fd25eb5"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[En caso de permiso indicar la razón por la cual se le está otorgando:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="290" y="198" width="255" height="1" uuid="e23dc080-215c-4c27-82ba-799738290d31"/>
+			</line>
+			<staticText>
+				<reportElement x="17" y="208" width="125" height="11" uuid="827e9976-fb97-45b8-a699-913326fbf405"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Días solicitados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="219" width="125" height="11" uuid="bca579bf-02a6-4ef0-8ca6-3dec72ce0d35"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Días restantes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="17" y="131" width="67" height="11" uuid="c129fdbd-8783-4e6d-acfb-1b288484cfc8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="142" width="67" height="11" uuid="390b8aa0-3ef6-4fc2-a002-eab517b0f573"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="153" width="67" height="11" uuid="0d6816cf-f06f-4647-9c7e-5303da5b263c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="84" y="120" width="128" height="11" uuid="3998a748-5ab3-4903-8f93-db48ce85f054"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="84" y="131" width="128" height="11" uuid="e7ad17fb-3e85-4951-8a3c-4df29cd0c53c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="84" y="142" width="128" height="11" uuid="52c3fb35-1cc3-4657-a45d-fc2b23b8c7d0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="84" y="120" width="114" height="11" uuid="9c3eeef2-f1fb-4f94-9453-355ed946bf52"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Vacaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="131" width="114" height="11" uuid="c68ceeee-7b6f-47ee-a965-a2ddd47318ad"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Vacaciones adelantadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="142" width="114" height="11" uuid="c77a3165-eeeb-4637-8915-005a042912c8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Incapacidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="153" width="114" height="11" uuid="6b31716e-5b82-40fd-bc71-4fddb4928fe6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Permiso ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="212" y="120" width="28" height="11" uuid="5b9063b9-362a-4f69-aae5-f064b5d12bd2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="120" width="28" height="11" uuid="64a43c54-0cbe-462e-9e8a-b20dde89be3c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="120" width="30" height="11" uuid="087c8ebe-a788-4675-9a0c-f5d563decf78"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="120" width="30" height="11" uuid="84ad5569-0880-4da5-90b7-d468220b931f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="120" width="30" height="11" uuid="ca211f7e-8adf-4652-8572-51f74814b7b0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="120" width="30" height="11" uuid="2efe1201-9a70-45da-9e5d-eb04a8546cb9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="131" width="30" height="11" uuid="ce85b1b8-bc57-4774-97c9-1acc595a06c7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="131" width="28" height="11" uuid="e8916400-c0ae-4a99-ae03-fbf133d3942b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="131" width="30" height="11" uuid="bf6fc714-89a4-4b65-a54b-46325724a822"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="131" width="30" height="11" uuid="0f22b404-b83a-4f2d-a520-b62838cb386e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="131" width="30" height="11" uuid="9add5411-1c82-45b5-a937-2f92ebc79e8b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="131" width="28" height="11" uuid="67876aee-e1ea-46fa-a40d-3927758dc06f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="142" width="28" height="11" uuid="37a99ed2-095e-4828-8d6a-0728de8cab2d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="142" width="28" height="11" uuid="d0e4d92f-1f0c-453b-972b-c97df838fe77"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="142" width="30" height="11" uuid="ad3497ff-d654-4e10-ab1f-b4787fd1b33a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="142" width="30" height="11" uuid="9477249c-8656-4958-b146-7f4545dcae9e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="142" width="30" height="11" uuid="146e73e1-ecde-44cb-9607-ce6b42d37188"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="142" width="30" height="11" uuid="dfc22256-ea7f-4f8c-bdac-976aec837630"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="153" width="28" height="11" uuid="57c72a8a-8c22-4a5b-bfc2-44a437c2e308"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="153" width="28" height="11" uuid="eaffb8f5-e166-4d32-8f7c-310914f19847"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="153" width="30" height="11" uuid="4c21b214-9241-4a9c-bf23-bf1c493c492d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="153" width="30" height="11" uuid="7baa8f83-bb5e-4802-a8a9-e0dc61447a8b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="153" width="30" height="11" uuid="79d2a7e7-69d3-40fa-8ec6-131ac7bb4be5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="120" width="86" height="11" uuid="b007f7ab-ac58-49af-8c3d-900acc862912"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="131" width="86" height="11" uuid="1762777a-2048-4ceb-b9c7-ac7c220cb1e8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="142" width="86" height="11" uuid="d44e8704-b461-45cc-93d7-990a0ca51c79"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="409" width="555" height="63" uuid="133da928-d443-48f3-a6db-9985d52cfc89"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="396" width="555" height="24" uuid="8a4d30ee-e04b-47ad-a3a4-82ae7003fa17"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD DE VACACIONES, PERMISOS E INCAPACIDADES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="12" width="555" height="52" uuid="8f54c7f6-7a1f-4348-a39c-01b0b186c196"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="30" width="100" height="11" uuid="0812841e-01a6-4eb5-be4a-d700a47ea922"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[División]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="349" y="11" width="206" height="9" uuid="42cfa6ec-843f-4a94-9edd-ba84179da1a1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("MM/dd/yyyy",new Locale("es", "ES"))).format(new java.util.Date())+""]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="136" y="30" width="338" height="1" uuid="28297dd4-cc59-4042-8412-094fb016fdba"/>
+			</line>
+			<line>
+				<reportElement x="136" y="40" width="338" height="1" uuid="791b37b5-22b9-4c82-9574-d529f4469194"/>
+			</line>
+			<line>
+				<reportElement x="136" y="51" width="338" height="1" uuid="22a87017-9f2d-4c21-bb73-545c39810a38"/>
+			</line>
+			<line>
+				<reportElement x="300" y="30" width="103" height="1" uuid="f236655d-e6f8-43d2-b13d-542ffd2a2822"/>
+			</line>
+			<rectangle>
+				<reportElement x="0" y="231" width="555" height="57" uuid="75a8101f-11e2-4520-b2e1-118bd2fafe30"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="231" width="158" height="16" uuid="743e6607-b9bf-4d7f-a9de-f40fb69bbe07"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Firma empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="263" width="158" height="19" uuid="19706692-adc9-4436-91dd-a035d6760c27"/>
+				<text><![CDATA[Autorización jefe directo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="247" width="158" height="15" uuid="31ef600e-4188-4e45-8ac4-cc7293b0e710"/>
+				<text><![CDATA[Firma enterado Recursos Humanos]]></text>
+			</staticText>
+			<line>
+				<reportElement x="188" y="246" width="206" height="1" uuid="61773d7a-16fa-4b79-97b3-1dc7fa1fa96f"/>
+			</line>
+			<line>
+				<reportElement x="188" y="261" width="206" height="1" uuid="636a075c-6549-403d-bb39-b235f4132752"/>
+			</line>
+			<line>
+				<reportElement x="188" y="281" width="206" height="1" uuid="fee7be59-5787-4e68-a699-7d44ba2c8a4a"/>
+			</line>
+			<staticText>
+				<reportElement x="17" y="287" width="141" height="20" uuid="5ac3a558-805d-4254-bfc3-4548c8fed96d"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="297" width="528" height="32" uuid="4ce6cbc5-04c1-4a10-ab9b-a303837b36a6"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[1. Las vacaciones deberán concederse a los trabajadores dentro de los 6 meses siguientes al cumplimiento del año de servicios; esto significa, que una vez cumplido el año de trabajo, dentro de los primeros 6 meses, el patrón debe otorgar al trabajador las vacaciones que por Ley le corresponden.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="329" width="528" height="21" uuid="e2677de8-5e7a-4aef-8163-e85c489c4de8"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[2. Las ausencias por motivos de enfermedad deben ser justificadas con base a los parámetros establecidos por el IMSS (entregar incapacidad a RH)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="350" width="528" height="12" uuid="a2b80b89-f7f5-49e6-8c5c-7a0a90c1c2b0"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[3. Las ausencias por motivos de enfermedad, que hayan sido notificadas al IMSS, no pueden ser consideradas como días a cuenta de vacaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="362" width="528" height="21" uuid="5261128e-2d10-4360-a3b1-c973971b28f5"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[4. Todo permiso con goce de sueldo debe ser notificado a Recursos Humanos de lo contrario será considerado como a cuenta de vacaciones o en su defecto se podría descontar de nómina por considerarse falta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="383" width="528" height="13" uuid="95ee35e6-093e-4c3a-8b76-5f38048412fa"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[5. Cuando se trate de permiso se deberá indicar si es con o sin goce de sueldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="20" width="100" height="11" uuid="87d52210-d908-497b-b159-95d868a64515"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Nombre empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="41" width="100" height="11" uuid="3d9703cb-562e-450b-828a-ca4cf9111c8a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Jefe directo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="52" width="100" height="11" uuid="0daca9f6-4229-4ba4-a3f8-1e1b34897e73"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="11" width="41" height="11" uuid="e227b0b9-14f2-4250-a99c-39300944dd94"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="136" y="20" width="338" height="11" uuid="7d1d1313-8fd5-4226-b22b-8ef87b78e58d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empleado.candidato.nombre}+" "+$F{empleado.candidato.apellidopaterno}+" "+$F{empleado.candidato.apellidomaterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="30" width="338" height="11" uuid="d71ddff2-a8f8-4257-830c-8c54d25cf6ae"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empleado.division.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="40" width="334" height="11" uuid="4a7748f6-4208-425b-a4ab-338bad14e477"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empleado.contrato.usuario.nombre}+" "+$F{empleado.contrato.usuario.apellidopaterno}+" "+$F{empleado.contrato.usuario.apellidomaterno}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="188" y="685" width="206" height="1" uuid="6e5d7059-c9f9-45d7-bba5-0080e83c7722"/>
+			</line>
+			<staticText>
+				<reportElement x="17" y="693" width="141" height="20" uuid="a92e1b17-5f77-475b-bd5d-61ce0295851f"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="667" width="158" height="19" uuid="96e241a0-b9a7-46f5-8625-e7e984908fbd"/>
+				<text><![CDATA[Autorización jefe directo]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="635" width="555" height="57" uuid="6fe44380-84ea-403c-a481-e612de77b6c1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="635" width="158" height="16" uuid="24ce4794-cf69-4868-b549-ccb8e25c40e3"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Firma empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="756" width="528" height="12" uuid="b8631c5a-3a34-47ea-b8cb-152d71ace02b"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[3. Las ausencias por motivos de enfermedad, que hayan sido notificadas al IMSS, no pueden ser consideradas como días a cuenta de vacaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="651" width="158" height="15" uuid="624bbaf6-c617-4418-a2e7-74cf7329725b"/>
+				<text><![CDATA[Firma enterado Recursos Humanos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="768" width="528" height="21" uuid="6a031d8d-13a6-4776-b4be-9d630e4c7c8e"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[4. Todo permiso con goce de sueldo debe ser notificado a Recursos Humanos de lo contrario será considerado como a cuenta de vacaciones o en su defecto se podría descontar de nómina por considerarse falta]]></text>
+			</staticText>
+			<line>
+				<reportElement x="188" y="650" width="206" height="1" uuid="592b1e46-3c06-44fb-9af3-11ca7177f6e5"/>
+			</line>
+			<line>
+				<reportElement x="188" y="665" width="206" height="1" uuid="a93614ee-c425-408f-a6ad-5f8c145a2996"/>
+			</line>
+			<staticText>
+				<reportElement x="17" y="789" width="528" height="13" uuid="fefc3ccd-1b6a-4e75-bf5f-6fa7c04dd1b3"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[5. Cuando se trate de permiso se deberá indicar si es con o sin goce de sueldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="735" width="528" height="21" uuid="436f9b34-32ea-4195-b360-05b0538fe274"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[2. Las ausencias por motivos de enfermedad deben ser justificadas con base a los parámetros establecidos por el IMSS (entregar incapacidad a RH)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="703" width="528" height="32" uuid="58eb763b-f7ad-4b10-92b8-0b776e2ee4e4"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[1. Las vacaciones deberán concederse a los trabajadores dentro de los 6 meses siguientes al cumplimiento del año de servicios; esto significa, que una vez cumplido el año de trabajo, dentro de los primeros 6 meses, el patrón debe otorgar al trabajador las vacaciones que por Ley le corresponden.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="665" width="158" height="19" uuid="72e6e0b9-b8e5-4b49-96b7-7e006b6a5f47"/>
+				<text><![CDATA[Autorización jefe directo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="188" y="683" width="206" height="1" uuid="6015c45e-7420-428b-b92c-fc7a2618dcf0"/>
+			</line>
+			<line>
+				<reportElement x="136" y="40" width="338" height="1" uuid="2aecfc5b-f70f-481c-9d67-6120752a2990"/>
+			</line>
+			<line>
+				<reportElement x="126" y="450" width="338" height="1" uuid="3f28abca-6320-4e16-9b4c-64ad5d5375f9"/>
+			</line>
+			<line>
+				<reportElement x="310" y="40" width="103" height="1" uuid="bb6a9c2f-48f4-4fec-9a10-71c92ead5940"/>
+			</line>
+			<textField>
+				<reportElement x="126" y="420" width="338" height="11" uuid="66f377d9-80a1-40ee-9ee8-200caa19a5cd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empleado.candidato.nombre}+" "+$F{empleado.candidato.apellidopaterno}+" "+$F{empleado.candidato.apellidomaterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="430" width="338" height="11" uuid="5150ce8e-3991-4253-b8e6-022380aec273"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empleado.division.descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="421" width="100" height="11" uuid="c74bba9c-8646-4c50-9189-9dbd65d98c6b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Nombre empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="442" width="100" height="11" uuid="8dc6fba2-6fcf-49c0-807d-f65e9a683814"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Jefe directo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="431" width="100" height="11" uuid="cf2ede54-67a3-423f-a8a5-b8516a8c8a99"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[División]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="453" width="100" height="11" uuid="004c309d-77c4-4630-b2f5-2836b1b8f6a5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha ingreso]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="440" width="334" height="11" uuid="d5b5c9c6-10c3-4035-94c6-350a293eb39b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empleado.contrato.usuario.nombre}+" "+$F{empleado.contrato.usuario.apellidopaterno}+" "+$F{empleado.contrato.usuario.apellidomaterno}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="126" y="462" width="338" height="1" uuid="89421c9d-ac43-4e73-94b2-066ca6a49d1b"/>
+			</line>
+			<line>
+				<reportElement x="126" y="429" width="338" height="1" uuid="bca2a452-c7b5-49f9-86ea-387fe8ee7f88"/>
+			</line>
+			<line>
+				<reportElement x="126" y="439" width="338" height="1" uuid="3cd12d92-88e8-47a1-bb6b-e4b28616a28a"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="22" uuid="06492d06-b920-4816-8e53-f205eabaa392"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD DE VACACIONES, PERMISOS E INCAPACIDADES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="474" y="153" width="71" height="11" uuid="b0740985-5643-4814-beb3-92961b30bf8a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="537" width="30" height="11" uuid="2533abe6-2693-4fe6-b0cb-ad5d0827e832"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="482" width="67" height="88" uuid="9d299242-275c-407f-b1c6-a5a1b0bfd7cf"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="548" width="30" height="11" uuid="af25cceb-26b8-4a69-bb08-0cd3cf4bfd35"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="548" width="30" height="11" uuid="4a0d5b6e-3434-4f3f-9d6c-512bdefb7456"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="497" width="90" height="15" uuid="0002e4b1-bbed-40af-823b-cbe102c54527"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="298" y="497" width="90" height="15" uuid="39b3ca43-1fe9-465f-ab8f-d2c686ae7f3a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Termino]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="388" y="537" width="86" height="11" uuid="58e42237-98e9-4571-80cf-d6aa80bd0d55"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="482" width="457" height="88" uuid="1cad7216-6057-4632-aa3d-f3a34890d04c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="512" width="28" height="14" uuid="9cb6f0b3-0480-444a-be84-281c39266cd3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="472" width="555" height="101" uuid="e4cf554c-bc29-4a00-833b-b26238802b67"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="526" width="86" height="11" uuid="eca95dfa-0c13-4271-b3d5-37f641ecfe1e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="548" width="30" height="11" uuid="8443c60e-3eff-47b6-9dff-cecf044b8bb6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="537" width="67" height="11" uuid="542359ac-d176-48ec-8c68-a13f1848e1f5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="474" y="559" width="71" height="11" uuid="17cc7f0c-ae6d-4b70-ac9f-6c3408225bdc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="548" width="28" height="11" uuid="a8d58dec-c33b-49e1-8f54-1cf9508b7927"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="537" width="30" height="11" uuid="50b64e16-41be-44a3-8c93-07b141aa0833"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="548" width="86" height="11" uuid="3e0cd857-0ba0-4460-a9ed-075c5167342d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="559" width="30" height="11" uuid="899f7851-d72b-435e-8515-088997bb97d6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="84" y="537" width="114" height="11" uuid="00bd7844-bc30-4280-b72b-ad40f3b946c6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Vacaciones adelantadas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="240" y="537" width="28" height="11" uuid="f14e748d-4b6b-4269-990e-0ed561d37405"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="212" y="497" width="88" height="15" uuid="72578d3f-80c6-4715-b32f-6bc4c4b43f57"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="212" y="526" width="28" height="11" uuid="eab42956-3027-43de-be17-ba5713d2bbe3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="482" width="67" height="44" uuid="0691b228-90c7-4d82-9355-75018cf7c0f3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="512" width="30" height="14" uuid="5ea6a5c8-2e74-40d3-8050-70ec37847f85"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="559" width="28" height="11" uuid="334d61d8-aa87-4dc8-a3fa-048ca0cf486a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="512" width="30" height="14" uuid="e9778f35-9687-4053-bde0-8bd98143f694"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="537" width="28" height="11" uuid="912e4514-c25e-4404-8e1d-df33a716871c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="84" y="526" width="128" height="11" uuid="7c5c84b9-bade-4266-8d41-ae4a39ce7860"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="84" y="559" width="114" height="11" uuid="69a5543a-21d6-4604-9d6f-e3167675d092"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Permiso ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="84" y="482" width="128" height="44" uuid="b48945f5-126b-48ec-8db8-4eeb95170be4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="512" width="30" height="14" uuid="f5240512-8ef6-460e-97f8-3ab85c9cf727"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="526" width="30" height="11" uuid="4d8b48e3-7769-4b2e-85c9-e822378979f4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="482" width="86" height="44" uuid="2e6c4c80-5d6a-449e-977a-c0daccf4edd9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="497" width="86" height="15" uuid="44f15af4-3df6-4dbc-b6cd-e860f2446ac2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="512" width="28" height="14" uuid="07f32d61-ff7a-499a-82c0-6d4943fef55e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="482" width="176" height="15" uuid="45ce38f7-d5ad-43c1-8d57-669707e9d630"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="84" y="548" width="128" height="11" uuid="6425e7aa-0698-4ef9-84f3-b271f43038d1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="526" width="28" height="11" uuid="3f839d63-0567-40c3-ba5a-da92d8d1bd91"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="559" width="28" height="11" uuid="681d0585-4b6a-4830-95cd-c4f08c8bfac5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="537" width="30" height="11" uuid="2468c223-b76e-4198-91c2-e206c6ad14c7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="537" width="30" height="11" uuid="2774dce3-6dd0-4092-8bf1-104979c2aade"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="512" width="30" height="14" uuid="dec0e319-7ede-4876-9987-9af02524e52b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="548" width="28" height="11" uuid="9c094100-e2cc-4b21-8299-b6800764abb8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="526" width="30" height="11" uuid="0f0ac9a3-56b6-4adc-9833-1f872f80cc89"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="298" y="526" width="30" height="11" uuid="2adb913c-4d5f-4c43-85cc-f96b892d8eb5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="548" width="67" height="11" uuid="f0990019-4b96-4bca-887c-66ef118c83e4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="548" width="30" height="11" uuid="834d69e2-a421-4974-9643-1bd7f92dbba1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="84" y="548" width="114" height="11" uuid="47f001e7-f42c-4c76-be4d-a4b100c2432a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Incapacidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="526" width="114" height="11" uuid="3430aa9a-bf10-40cf-ad37-c818df0c3eb5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Vacaciones]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="17" y="559" width="67" height="11" uuid="2cc7a1af-7cbd-4619-b43a-9b123cf478d4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="328" y="559" width="30" height="11" uuid="c42b683b-2d40-46b8-9353-32e1a36225af"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="526" width="30" height="11" uuid="57970881-72b9-44e5-b79b-a995a47619d1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="268" y="559" width="30" height="11" uuid="6ba99267-4d45-403a-86d1-af1fcdcf63b0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="17" y="526" width="67" height="11" uuid="3f954a77-9802-4a80-8634-4be520feca29"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="482" width="67" height="44" uuid="dcf3fad8-f73c-4cce-8f87-01005918fb70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Marcar la opción correspondiente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="481" width="128" height="44" uuid="408f1ea1-ba7a-49ac-ac3d-72d44774fa07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO DE AUSENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="482" width="172" height="15" uuid="a252a40c-a8ec-4690-af06-cd5dde49251a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo Solicitado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="497" width="88" height="15" uuid="d8fa10f5-c9da-4f06-866c-bb3c70f24008"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="512" width="28" height="14" uuid="8f37ce79-6901-4942-b43f-da5b395f7ae5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DÍA	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="512" width="28" height="14" uuid="05e2a213-3c46-484d-b935-c043e429673e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="512" width="28" height="14" uuid="af6a28da-5b6d-4ea5-b6df-10ffef1bc823"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="512" width="28" height="14" uuid="f33d3b79-63c6-4b6b-9d7d-b61745a134f4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DÍA	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="512" width="28" height="14" uuid="ded87a74-aa61-4b12-9663-939813d9b9c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="512" width="28" height="14" uuid="3cbc5fe7-6db9-4618-b174-7d784f219b60"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="482" width="86" height="44" uuid="028b59e9-f076-49fc-a17a-f114341b19cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DÍA QUE REGRESA A LABORAR]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="573" width="555" height="62" uuid="db3ba6dd-8156-42c2-9695-691c7a0b6a15"/>
+			</rectangle>
+			<line>
+				<reportElement x="146" y="589" width="128" height="1" uuid="f64e6212-54a2-4c5e-bc2e-53198b610ca6"/>
+			</line>
+			<staticText>
+				<reportElement x="11" y="620" width="125" height="11" uuid="d2ce3f2c-0db7-41cb-8a0e-dbe227f23fa5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Días restantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="600" width="125" height="11" uuid="9b28de52-67e0-4e82-84c7-72d51983b4b0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Saldo de días por disfrutar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="579" width="129" height="15" uuid="582b8a4c-795c-45ac-84d7-39b8e4153534"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Año al que corresponden las vacaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="590" width="125" height="10" uuid="1a8dcfab-17e4-4024-9d93-fd8955a8b3a5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Número de días a disfrutar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="610" width="125" height="11" uuid="f4bad6f2-4b86-43e5-bd1a-5b1173a45596"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Días solicitados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="580" width="255" height="20" uuid="608d4887-31e3-4199-a21d-696e89f0e87e"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[En caso de permiso indicar la razÓn por la cual se le está otorgando:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="146" y="599" width="128" height="1" uuid="db2cdc7f-a2d0-4032-b531-7ce0cf6883f7"/>
+			</line>
+			<line>
+				<reportElement x="146" y="609" width="128" height="1" uuid="3ffdd7fe-6c95-4f12-bebf-8d9190bd6f77"/>
+			</line>
+			<line>
+				<reportElement x="146" y="619" width="128" height="1" uuid="94255b80-7977-4a37-831b-1452b2b0e6ef"/>
+			</line>
+			<line>
+				<reportElement x="290" y="598" width="255" height="1" uuid="f6b06cf1-6f96-4815-a991-e04f803d9075"/>
+			</line>
+			<staticText>
+				<reportElement x="298" y="497" width="90" height="15" uuid="4b5d949d-5909-4ca5-a427-0289ef650f62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Termino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="91" width="90" height="15" uuid="cec03687-9551-4c15-ba78-3d2a8462e911"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Termino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="91" width="88" height="15" uuid="d68131b3-6736-4dda-a01a-f45feb6b3e23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="106" width="28" height="14" uuid="97233799-9908-4172-9fd7-bfedcd3d9969"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="76" width="86" height="44" uuid="fdf58cdc-7ba4-4fb5-bdf7-aa333420ef2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DÍA QUE REGRESA A LABORAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="75" width="128" height="44" uuid="30a04479-90cf-43dc-879f-6cc36a318531"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO DE AUSENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="76" width="176" height="15" uuid="85b29723-2ad7-4027-b42e-376b6230e527"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo Solicitado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="106" width="28" height="14" uuid="48732084-79f1-46a3-9478-3d06fa1cfbd6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="106" width="28" height="14" uuid="e9f0e12e-fdc0-4b99-a927-6364054cbb90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DÍA	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="76" width="67" height="44" uuid="e03e8032-e140-4eba-8029-06a8bcb8c736"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Marcar la opción correspondiente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="106" width="28" height="14" uuid="be1324fe-5d04-4472-9fde-b0c6af481458"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DÍA	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="106" width="28" height="14" uuid="6cee369d-5aa1-44f6-9486-d16872438098"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="106" width="28" height="14" uuid="87523b83-1aab-45e4-be16-12aaa33417ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="328" y="548" width="30" height="11" uuid="933128ff-ed43-4577-b2c9-f8a363768096"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="548" width="30" height="11" uuid="f91d1dd3-0002-47cf-9046-33c8913f2bec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="358" y="559" width="30" height="11" uuid="a3a795f0-b93a-4ed1-bf9f-19c6877e172c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="537" width="86" height="11" uuid="fe308aae-bfdf-454f-a57c-e3dc1f43d397"/>
+			</rectangle>
+			<textField>
+				<reportElement x="136" y="52" width="334" height="11" uuid="b0c02130-4710-45fd-81aa-1fb3783dffee"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("MM/dd/yyyy",new Locale("es", "ES"))).format($F{empleado.contrato.fechainiciocontrato})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="409" width="41" height="11" uuid="ddf8aaa8-e909-4d81-94fc-4df638989417"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="310" y="409" width="206" height="9" uuid="abc7383a-0b44-4201-a8eb-05e327cce923"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("MM/dd/yyyy",new Locale("es", "ES"))).format(new java.util.Date())+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="450" width="334" height="11" uuid="a38da0db-5c6d-4896-9349-851c23e4faf6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("MM/dd/yyyy",new Locale("es", "ES"))).format($F{empleado.contrato.fechainiciocontrato})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="178" width="96" height="11" uuid="a4cf893c-ed16-4623-800c-22d49ca650aa"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="188" width="96" height="11" uuid="639f9632-5e69-4200-b73a-b98c1d0d740f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="197" width="96" height="11" uuid="48f3f1fa-eff6-44b9-bd6f-6640004a272e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="208" width="96" height="11" uuid="a6423403-97ea-4f6e-a034-c09cbe7fbd42"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="219" width="123" height="11" uuid="e7379b2d-4bbe-453c-bc56-42704508fc23"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{saldo}-$F{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="188" width="255" height="11" uuid="e556e88d-927e-4a2e-8020-001ee864a46d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{razon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="120" width="28" height="11" uuid="95cd376b-2229-43c4-ace7-8888348ed463"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd",new Locale("es", "ES"))).format($F{fechainicio})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="120" width="28" height="11" uuid="e2107187-280e-4fd3-9c1a-364bfba58b48"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("MM",new Locale("es", "ES"))).format($F{fechainicio})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="120" width="28" height="11" uuid="ba16c021-638f-42ee-a3aa-ce358b79d4fd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("yyyy",new Locale("es", "ES"))).format($F{fechainicio})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="298" y="120" width="30" height="11" uuid="52170198-0641-4362-bf83-bf87d80c9a1c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd",new Locale("es", "ES"))).format($F{fechafin})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="120" width="28" height="11" uuid="5e937d40-616b-49fd-bef2-c2080fe32d03"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("MM",new Locale("es", "ES"))).format($F{fechafin})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="358" y="120" width="28" height="11" uuid="def3e3fd-531c-4d06-847e-bb973a3d752f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("yyyy",new Locale("es", "ES"))).format($F{fechafin})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="212" y="526" width="28" height="11" uuid="d9e9951c-7237-4ff0-bac4-bfbb4cf5598c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd",new Locale("es", "ES"))).format($F{fechainicio})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="526" width="28" height="11" uuid="d09354a9-76d3-4170-be74-a18cf96838b1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("MM",new Locale("es", "ES"))).format($F{fechafin})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="358" y="526" width="28" height="11" uuid="bbf40885-8ff8-477a-a5af-3747f2b9655f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("yyyy",new Locale("es", "ES"))).format($F{fechafin})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="298" y="526" width="30" height="11" uuid="1372811a-18b1-40ae-a64e-43c1253500f3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd",new Locale("es", "ES"))).format($F{fechafin})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="526" width="28" height="11" uuid="4721b766-b05c-4f48-8413-06ae65fcda32"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("yyyy",new Locale("es", "ES"))).format($F{fechainicio})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="526" width="28" height="11" uuid="fb49e633-1375-4e5a-9f8d-550b1a4856e3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("MM",new Locale("es", "ES"))).format($F{fechainicio})+""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="598" width="96" height="11" uuid="dc83202c-715f-41f5-b6a7-9e178fde340d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="579" width="96" height="11" uuid="2e68c2ca-284b-4c8d-8ca4-12369e369ca4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="610" width="96" height="11" uuid="c549e798-2e89-406c-b5d8-ea4bb2ba132d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="589" width="96" height="11" uuid="50b5e68a-0357-433a-8389-7a0940ac379c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="620" width="123" height="11" uuid="07dece04-8a8a-40a6-b205-25194b2d7e43"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{saldo}-$P{diasSolicitados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="588" width="255" height="11" uuid="7eb87454-c0da-42c1-a743-9d19a4f10fbc"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{razon}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="388" y="559" width="86" height="11" uuid="008fdcd0-5157-4f97-a3a9-c08b9412fb83"/>
+			</rectangle>
+		</band>
+	</detail>
+</jasperReport>

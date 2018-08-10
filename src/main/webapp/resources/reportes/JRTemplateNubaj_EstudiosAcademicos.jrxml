@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="JRTemplateNubaj_EstudiosAcademicos" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c122e150-8be7-4a5d-aa01-e9b182fade34">
+	<property name="ireport.zoom" value="1.996500000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nombreinstitucion" class="java.lang.String"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="fechainicio" class="java.lang.String"/>
+	<field name="fechafin" class="java.lang.String"/>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="20" width="402" height="20" uuid="bc9d6b45-d90f-486b-860a-5a0630021bf6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreinstitucion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="0" y="0" width="537" height="20" backcolor="#CCCCCC" uuid="8f983e8f-7f06-4dde-b6c4-59c72f5817cd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="40" width="402" height="20" uuid="9353a70c-6db9-4e36-bcd8-0b53c4d0b4e8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{fechainicio}==null?"":$F{fechainicio})+
+" - "+($F{fechafin}==null?"":$F{fechafin})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
