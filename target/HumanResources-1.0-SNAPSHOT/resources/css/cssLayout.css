@@ -1,0 +1,148 @@
+.style_botones {
+    font-variant: small-caps;
+    font-stretch: ultra-expanded;
+    font-size: 1em;
+}
+.style_green_button { 
+
+    font-variant: small-caps;
+    font-stretch: ultra-expanded;
+    font-size: .8em;   
+}
+
+div.datableImagenes{
+    float: right;
+    width: 40px;
+}
+
+.ui-icon-myExcel{
+    background-image: url("#{resource['images/excel.png']}") !important;
+}
+.ui-icon-myDownload{
+    background-image: url("#{resource['images/downloads.png']}") !important;
+}
+
+.ui-icon-myAdd{
+    background-image: url("#{resource['images/add.png']}") !important;
+}
+
+.ui-tabs-left > .ui-tabs-panels {
+    height:100% !important;
+    float:right !important;
+    width:84% !important;
+}
+
+.ui-tabs-left > .ui-tabs-nav {
+    float:left !important;
+    width:10% !important;
+    height:100% !important;
+}
+
+#top {
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 0px 0px;
+    border-bottom: 1px solid rgba(113, 113, 113, 0.71);
+    background-image: url("#{resource['images/bannerNAPP.png']}") !important;
+    background-repeat: no-repeat;
+}
+
+#menu-top{
+    position: relative;
+    color: black;
+    padding: 1px;
+    margin: 0px 0px 0px 0px;
+    background: rgba(66, 138, 183, 0.82); 
+    border-bottom: 1px solid rgba(113, 113, 113, 0.71);
+}
+
+#bottom {
+    position: relative;
+    background-color: #c2dfef;
+    padding: 5px;
+    margin: 00px 0px 0px 0px;
+}
+
+#left {
+    float: left;
+    background-color: rgb(255,255,255);
+    padding: 5px;
+}
+
+#right {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+.center_content {
+    position: relative;
+    background-color: #dddddd;
+    padding: 5px;
+}
+
+.left_content {
+    background-color: rgb(255,255,255);
+    padding: 5px;
+    margin-left: 170px;
+}
+
+.right_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+}
+
+#top a:link, #top a:visited {
+    color: black;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+#top a:link:hover, #top a:visited:hover  {
+    color: black;
+    font-weight : bold;
+    text-decoration : underline;
+}
+
+
+#estado .ui-column-filter{
+    display:none;
+}
+
+#tabla .ui-column-filter{
+    display:none;
+}
+
+.empleados.ui-fielset{
+    background-image:url('resources/images/empleados.png');
+}
+
+.fechaNacimiento input {
+    width: 200px;
+}
+.radioGenero label {
+    margin-right: 30px;
+}
+.someClass {
+    word-wrap: break-word;
+}
+
+.inputPeso input 
+{ 
+    width: 200px !important; 
+}
+
+.pcsRetomado {
+    background-color: #eeeeee !important;
+    background-image: none !important;
+    color: #000000 !important;
+}
+
+.cmtCliente{
+    background-color: #488EB9 !important;
+    background-image: none !important;
+    color: #FFFFFF !important;
+    font-weight: bold !important;
+}

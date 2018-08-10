@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3a4ec9a7-cc3a-4737-84ac-6afa8adfcb14">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="informacion" class="java.lang.String"/>
+	<field name="candidato.nombre" class="java.lang.String"/>
+	<field name="candidato.apellidopaterno" class="java.lang.String"/>
+	<field name="candidato.apellidomaterno" class="java.lang.String"/>
+	<field name="cliente.nombrecomercial" class="java.lang.String"/>
+	<field name="contrato.fechainiciocontrato" class="java.util.Date"/>
+	<field name="contrato.fechafincontrato" class="java.util.Date"/>
+	<field name="puestonivel.puesto.descripcion" class="java.lang.String"/>
+	<field name="puestonivel.nivel.descripcion" class="java.lang.String"/>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="133" y="24" width="289" height="35" uuid="326be710-7b89-4212-95f4-6521f321142f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMPLEADOS PRÓXIMOS A CUMPLIR 3 MESES DE ANTIGÜEDAD EN LA EMPRESA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="3" width="100" height="20" uuid="d53cd0f8-1163-4d7a-86e8-7f803ca3066e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-HCMWORK]]></text>
+			</staticText>
+			<image>
+				<reportElement x="446" y="0" width="109" height="59" uuid="3dcd9f58-412f-459b-862a-de6e29abb9fe"/>
+				<imageExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateImage" + File.separator + "LOGONUBAJ.png"))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="188" y="59" width="100" height="20" uuid="97d44564-4d5c-4967-a1b4-dbfb4ee3780c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{informacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="294" y="59" width="100" height="20" uuid="f2c2d450-120c-4cae-b297-2f7a8aeaf628"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<text><![CDATA[Registro(s)]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="213" height="31" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="939e8f53-69d1-4356-ba6b-74794f90829b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="215" y="0" width="127" height="31" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="00fcd40e-0856-4e5c-92ba-54397552a0d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="344" y="0" width="67" height="31" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="77230f37-bf15-4356-8eae-5e3740c80cac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicio Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="413" y="0" width="65" height="31" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="6cb02450-995a-47ef-a1e1-a34b5f978825"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Fin Contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="481" y="0" width="74" height="31" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="5105a792-0828-41ee-b4b3-e12d7216f095"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Puesto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#D8D8D8" uuid="4fe1fe25-8171-4dda-afcc-3559e0b753d5">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="247" y="3" width="8" height="14" uuid="74cbee14-0787-4eb5-ad68-f39445be8064"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="507" y="3" width="9" height="14" uuid="f70d111a-85a0-479f-ac81-c9a820dda54e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="1" width="82" height="20" uuid="966ab0f5-9c61-4513-b351-a8b37509bcfe"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{candidato.nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="1" width="64" height="20" uuid="898603de-30c2-409d-b624-57e97d05f5c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{candidato.apellidopaterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="1" width="65" height="20" uuid="8909ae62-cae1-4452-bffe-6a15fa71b45c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{candidato.apellidomaterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="213" y="1" width="34" height="20" uuid="fa6cd0c6-d030-434e-9c34-73c66b46a5c8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente.nombrecomercial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="1" width="66" height="20" uuid="e7978532-3aaf-4439-a431-136ceb248308"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($F{contrato.fechainiciocontrato})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="1" width="67" height="20" uuid="6e9f4eea-1c3b-4f7a-848e-a82afd9f91ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contrato.fechafincontrato}!=null ? new SimpleDateFormat("yyyy-MM-dd").format($F{contrato.fechafincontrato}) : "Indeterminado"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="1" width="26" height="20" uuid="457ee909-1135-4466-9b11-66122e8c7869"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{puestonivel.puesto.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="516" y="1" width="39" height="20" uuid="fb5c1e0b-a283-4953-b4b2-cf1765ce0e38"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{puestonivel.nivel.descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="436" y="1" width="80" height="20" uuid="67509fbe-ecbb-47a9-8e33-27b7b91411e0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="516" y="1" width="40" height="20" uuid="2785b0b2-9e5b-4268-a3fe-29dd6d068282"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

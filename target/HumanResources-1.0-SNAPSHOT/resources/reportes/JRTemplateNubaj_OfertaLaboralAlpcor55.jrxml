@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="499" leftMargin="48" rightMargin="48" topMargin="48" bottomMargin="19" uuid="602d8860-539e-45cd-a88e-0273762cf14a">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1392"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="de29d52c-4dba-447c-9a41-ee81d024366f"/>
+	<subDataset name="Table Dataset 2" uuid="b171ac8a-eab1-4aeb-80fa-23e93bbddad1"/>
+	<field name="puestonivel.nivel.descripcion" class="java.lang.String"/>
+	<field name="puestonivel.puesto.descripcion" class="java.lang.String"/>
+	<field name="candidato.nombre" class="java.lang.String"/>
+	<field name="candidato.apellidopaterno" class="java.lang.String"/>
+	<field name="candidato.apellidomaterno" class="java.lang.String"/>
+	<field name="contrato.fechainiciocontrato" class="java.util.Date"/>
+	<field name="contrato.sueldomensual" class="java.lang.Double"/>
+	<title>
+		<band height="71" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="189" height="71" uuid="54f4a984-023b-4968-af96-a6e81f6362d3"/>
+				<imageExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateImage" + File.separator + "Alpcor55.jpg"))]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="607" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="175" y="0" width="324" height="20" uuid="eeaaf0be-0d1b-4df1-92ec-470343a1270e"/>
+				<textElement textAlignment="Right" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<br/>México, D.F. a "+(new java.text.SimpleDateFormat("EEEEE dd MMMMM yyyy",new Locale("es", "ES"))).format(new Date())+""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="20" width="499" height="20" uuid="acf8c82b-9d69-4eb8-bdf0-d3d6be6b0702"/>
+				<textElement markup="html">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<br/>Estimada(o) "+$F{candidato.nombre}+" "+$F{candidato.apellidopaterno}+" "+$F{candidato.apellidomaterno}+"<br/><br/>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" mode="Opaque" x="0" y="40" width="499" height="20" uuid="27e73788-08e1-4312-b667-f5ccdd8c75a7"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Es importante para nosotros hacer de tu conocimiento que, dado tus capacidades tanto profesionales como personales, has sido seleccionado para ocupar la posición de <b><u>"+$F{puestonivel.puesto.descripcion}+" "+$F{puestonivel.nivel.descripcion}+"</u></b> dentro del equipo de trabajo de <b>Alpcor 55 S.A. de C.V.</b>, por lo que queremos poner a tu consideración el siguiente paquete de compensación económica.<br/>"+
+"<br/>Fecha de ingreso: <u>"+(new java.text.SimpleDateFormat("EEEEE dd MMMMM yyyy",new Locale("es", "ES"))).format($F{contrato.fechainiciocontrato})+".</u>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" mode="Opaque" x="0" y="60" width="499" height="20" uuid="fc9d41d6-8317-4b30-80fa-f24d4d02e006"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<br/><br/><b>COMPENSACIÓN:</b><br/><br/>"+
+"Contratación en esquema denominado mixto, el cual consiste en:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" mode="Opaque" x="0" y="80" width="499" height="20" uuid="06b4e458-339a-42c0-85fe-64e0257a6748"/>
+				<textElement markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<ul><li>Alta en el Instituto Mexicano del Seguro Social bajo la nómina de <b>Alpcor 55</b> con dos salarios mínimos, con el cual tendrás derecho a los servicios de dicho organismo, así como a la cotización en el Infonavit.</li><li>El resto de tu salario será cubierto con ingresos que NO son acumulables para ISR. En total recibirás $"+$F{contrato.sueldomensual}+" MXN libres.</li></ul>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement positionType="Float" mode="Opaque" x="0" y="100" width="499" height="20" uuid="76e4381f-41c2-4cce-b593-f2c55717143a"/>
+				<textElement markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<br/><br/><b>PAQUETE DE PRESTACIONES:</b><br/>"+
+"<br/>&nbsp;&nbsp;	Aguinaldo: 15 días por año (proporcional a tiempo laborado)"+
+
+"<br/><br/>&nbsp;&nbsp;	Vacaciones: 6 días a partir del primer año cumplido e incrementa de acuerdo a antigüedad marcado por ley."+
+
+"<br/><br/>&nbsp;&nbsp;	Prima Vacacional: 25% de los días por disfrutar de vacaciones"+
+
+"<br/><br/>&nbsp;&nbsp;	Seguro de Gastos Médicos Mayores "+
+
+"<br/><br/>&nbsp;&nbsp;	Indemnización por muerte accidental por $110,000"+
+
+"<br/><br/>&nbsp;&nbsp;	Tarjeta MediAccess contando con descuentos en servicios médicos, laboratorios, etc."+
+
+"<br/><br/>&nbsp;&nbsp;	Bono anual en función a los resultados de la compañía y tu desempeño, que pueden ser hasta 2 meses de tu sueldo."]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="516" width="100" height="1" uuid="a1760aba-aaf5-4083-bfe8-b1de46696d0a"/>
+			</break>
+		</band>
+		<band height="565">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="43" width="499" height="20" forecolor="#000000" uuid="2ff48fec-7cc0-403f-8143-48c3828ea0e4"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Documentos indispensables para tu alta en Alpcor 55:"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-48" y="0" width="547" height="7" backcolor="#80C9E9" uuid="ee0fe147-92b7-414c-93f0-db0f7647d603"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="93" width="465" height="20" forecolor="#000000" uuid="d4637a72-67bf-4243-8235-9be646270188"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["*DOS FOTOGRAFÍAS INFANTILES A COLOR CON FONDO BLANCO"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="113" width="465" height="20" forecolor="#000000" uuid="85d0d278-4736-4273-acc0-8c6eee8317d0"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["*COPIA DE ACTA DE NACIMIENTO"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="133" width="465" height="20" forecolor="#000000" uuid="3d06fbeb-b28d-45f7-8c5d-269af790d08b"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["*No. AFILIACIÓN SOCIAL"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="153" width="465" height="20" forecolor="#000000" uuid="7a9a0a35-4027-4b8b-b6ea-91ac95ae25fb"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["*REGISTRO FEDERAL DE CONTRIBUYENTES "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="213" width="465" height="20" forecolor="#000000" uuid="30db636b-3d2b-45e5-bbb3-afbe39201fb5"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>*COPIA DE COMPROBANTE DE DOMICILIO</b> (Teléfono, agua, luz o  predial, no mayor a un mes)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="173" width="465" height="20" forecolor="#000000" uuid="defe73d6-869e-4f8a-ab6c-f68538181971"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["*CURP"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="233" width="465" height="20" forecolor="#000000" uuid="5cefc9d0-104b-47a0-adf2-b498fc3e4163"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>*COPIA DE ULTIMO COMPROBANTE DE ESTUDIOS</b> (Con sello y logo de la Institución)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="193" width="465" height="20" forecolor="#000000" uuid="77f8044a-3c6c-40b4-a68d-e8c267cc1a70"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["*COPIA DE CREDENCIAL DE ELECTOR O PASAPORTE VIGENTE"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="293" width="465" height="20" forecolor="#000000" uuid="600a7326-c4d2-4219-bf15-860867205fd6"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AVISO RETENCIÓN CRÉDITO INFONAVIT"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="253" width="465" height="20" forecolor="#000000" uuid="8be1255b-0175-48d5-a920-639aa87f1a57"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>*1 CARTA O MAS DE RECOMENDACIÓN ORIGINALES</b> (laborales o personal si no se tiene experiencia)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="313" width="465" height="20" forecolor="#000000" uuid="8879967f-55f5-49ad-bf2f-54f5d698ee60"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["COPIA DE UN ESTADO DE CUENTA BANCARIO QUE CONTENGA CLABE INTERBANCARIA"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="34" y="273" width="465" height="20" forecolor="#000000" uuid="d1697653-2f85-4b0d-9e64-3d10fb877295"/>
+				<box topPadding="4" leftPadding="4" bottomPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>CONTACTO DE EMERGENCIA</b> (Nombre, teléfono y parentesco) "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="349" width="499" height="20" forecolor="#000000" uuid="a1edf854-919b-4690-bd38-9905bcd25d0a"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Te damos la más cordial bienvenida a esta familia, esperando de ti lo mejor como profesionista y que crezcas junto con nosotros para alcanzar las metas que nos hemos planteado."+
+"<br/><br/><br/><br/>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="369" width="499" height="20" forecolor="#000000" uuid="b04dd794-ea7e-4462-aa96-8082780d1087"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Atentamente,<br/><br<br/><br/>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="389" width="499" height="20" forecolor="#000000" uuid="338f0e30-6686-42f4-b8e1-1f02ce930c9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["______________________________"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="409" width="499" height="20" forecolor="#000000" uuid="c059c393-d2d4-4cc0-b05a-663c46734456"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["XXXXXXX (nombre Gerente o Director del área)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="507" width="499" height="20" forecolor="#A7C0DE" uuid="595225ed-bfc0-4242-ae78-f7f053a1aa3a"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Av. Paseo de los Leones 1684 Col. Las Cumbres 1 Sector. Monterrey N.L.   C.P. 64610"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

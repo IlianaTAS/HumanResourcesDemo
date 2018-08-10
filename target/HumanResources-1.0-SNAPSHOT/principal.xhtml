@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Inicio</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/templates/templateMenu.xhtml">
+            <ui:define name="content">
+                <p:growl id="msgs" showDetail="false"/>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage library="images"  name="loader.gif" />
+                </p:dialog>
+                <h:form id="form">
+                    <div align="center">
+                        <p:layout style="margin-top: 20px;height: 450px">
+                            <p:layoutUnit position="west" resizable="true" size="350" minSize="40" maxSize="400">
+                                <div align="center">
+                                    <p:panelGrid columns="2" style="height: 200px; width: 330px">
+                                        <f:facet name="header">
+                                            <div align="center">
+                                                <h:panelGrid id="fotoIz" columns="1">
+                                                    <p:commandLink title="Subir foto"
+                                                                   styleClass="imageButton">
+                                                        <p:graphicImage 
+                                                            id="imagenPrincipal"
+                                                            value="resources/images/candidatoImage/defaultcandidato.png"
+                                                            cache="false"
+                                                            width="100"
+                                                            height="100"
+                                                            onclick="PF('widVarFoto').show();"
+                                                            style="border:none;overflow: no-display;alignment-adjust: central"/>
+                                                    </p:commandLink>
+                                                </h:panelGrid>
+                                            </div>
+                                        </f:facet>
+                                        <h:outputText value="Nombre:" />
+                                        <p:outputLabel value="Iliana Irais Pérez García"                                                      
+                                                       style="font-weight: bold;"/>
+                                        <h:outputText value="Usuario:" />
+                                        <p:outputLabel value="Iliana"
+                                                       style="font-weight: bold;"/>
+                                        <h:outputText value="Perfil:" />
+                                        <p:outputLabel value="Reclutador/Analista"
+                                                       style="font-weight: bold;"/>
+                                        <f:facet name="footer">
+                                            <div align="center">
+                                                <h:panelGrid columns="1">
+                                                    <p:commandLink id="Pwd2"
+                                                                   title="Cambiar Contraseña"
+                                                                   styleClass="imageButton">
+                                                        <p:graphicImage value="/resources/images/password2.png"
+                                                                        width="100"
+                                                                        height="100"
+                                                                        onclick="PF('widVarPass').show();"
+                                                                        style="border:none;overflow: no-display;alignment-adjust: central"/>
+                                                    </p:commandLink>
+                                                </h:panelGrid>
+                                            </div>
+                                        </f:facet>
+                                    </p:panelGrid>
+                                </div>
+                            </p:layoutUnit>
+
+                            <p:layoutUnit position="center">
+                                <p:panel id="bandejaEntrada" toggleable="false" toggleOrientation="horizontal" rendered="true"
+                                         style="width: 890px;height: 300px; border: none">
+                                    <p:dataTable value="#{principalBean.procesosPendientesAnalistas}" var="proceso" id="candidatoScroller"
+                                                 scrollable="true" scrollHeight="350"
+                                                 rowKey="#{proceso.cliente}">
+                                        <f:facet name="header">
+                                            <p:outputLabel value="Procesos pendientes" style="color: #0088cc;font-weight: bold"/>
+                                        </f:facet>
+                                        <p:column headerText="Cliente" sortBy="#{proceso.cliente}">
+                                            <p:outputLabel value="#{proceso.cliente}"
+                                                           style="font-size: .8em;"/>
+                                        </p:column>
+                                        <p:column headerText="Posición" sortBy="#{proceso.posicion}">
+                                            <p:outputLabel value="#{proceso.posicion}"
+                                                           style="font-size: .8em;"/>
+                                        </p:column>
+                                        <p:column headerText="Candidato" sortBy="#{proceso.candidato}">
+                                            <p:outputLabel value="#{proceso.candidato}"
+                                                           style="font-size: .8em;"/>
+                                        </p:column>
+                                        <p:column headerText="Proceso pendiente" sortBy="#{proceso.procesoPendiente}">
+                                            <p:outputLabel value="#{proceso.procesoPendiente}"
+                                                           style="font-size: .8em; color: #{procesoC.proceso.identificador};"/>
+                                        </p:column>
+                                        <p:column headerText="F. último proceso" sortBy="#{proceso.fechaUltimoProceso}">
+                                            <p:outputLabel value="#{proceso.fechaUltimoProceso}"
+                                                           style="font-size: .8em;">
+                                                <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                            </p:outputLabel>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+
+
+
+                            </p:layoutUnit>
+                        </p:layout>
+                    </div>
+                </h:form>
+                <h:form id="dialogFoto">
+                    <p:dialog header="Foto de perfil de usuario"
+                              widgetVar="widVarFoto" resizable="false" id="dlgFoto"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="false" closable="false"
+                              showEffect="fade" hideEffect="puff" modal="true" width="50%" >
+                        <h:panelGrid columns="2" id="camara">
+                            <p:photoCam widgetVar="pc" listener="#{principalBean.oncapture}" process="@this" update=":form:imagenPrincipal,camara,fotoDialog"/>
+                            <f:facet name="footer">
+                                <p:commandButton type="button" icon="ui-icon-disk" id="capturar" value="Capturar" onclick="PF('pc').capture()"/>
+
+                                <p:commandButton  value="Cerrar" 
+                                                  icon="ui-icon-closethick" type="reset"
+                                                  styleClass="style_botones"
+                                                  onclick="PF('widVarFoto').hide();">
+                                </p:commandButton> 
+                            </f:facet>
+                            <p:graphicImage value="#{imageLoaderBean.imagenPerfil}"
+                                            cache="false" id="fotoDialog"  />
+
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="dialogPassword">
+                    <p:dialog header="Cambio de contraseña:"
+                              widgetVar="widVarPass" resizable="false" id="dlgPass"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="false" closable="false"
+                              showEffect="fade" hideEffect="puff" modal="true" width="25%" >
+                        <div align="center">
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Instrucciones:" style="color: #0088cc;font-weight: bold;font-size: 1em"/>
+                                <p:outputLabel value="1. La longitud de la contraseña debe ser mayor a 8 caracteres." style="font-size: .9em"/>
+                                <p:outputLabel value="2. Debe contener por lo menos un número." style="font-size: .9em"/>
+                                <p:outputLabel value="3. Debe contener por lo menos una mayúscula." style="font-size: .9em"/>
+                                <p:outputLabel value="4. Favor de no ingresar caracteres especiales" style="font-size: .9em"/>
+                            </h:panelGrid>
+                            <br/>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Contraseña actual"/>
+                                <p:inputText   required="true" id="passAct"  
+                                               onchange="this.value = this.value.trim()"/>
+                                <p:outputLabel value="Nueva contraseña"/>
+                                <p:password  required="true" id="passNue"
+                                             onchange="this.value = this.value.trim()"/>
+                                <p:outputLabel value="Confirmar contraseña"/>
+                                <p:password  required="true" id="conPass"
+                                             onchange="this.value = this.value.trim()"/>
+                            </h:panelGrid>
+                            <br/>
+                        </div>
+                        <f:facet name="footer">
+                            <p:commandButton  value="Cambiar"
+                                              icon="ui-icon-disk"
+                                              styleClass="style_botones"
+                                              update=":msgs"/>
+                            <p:commandButton  value="Cancelar"
+                                              icon="ui-icon-closethick" type="reset"
+                                              styleClass="style_botones"
+                                              resetValues="true"
+                                              onclick="PF('widVarPass').hide();">
+                                <p:ajax resetValues="true" update="conPass,passNue,passAct"/>
+                            </p:commandButton>
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+            <script type="text/javascript" src="/js/JSbpms.js"/>
+            <script type="text/javascript">
+                                                  PrimeFaces.locales['es'] = {
+                                                      timeOnlyTitle: 'Hora',
+                                                      timeText: 'Tiempo',
+                                                      hourText: 'Hora',
+                                                      minuteText: 'Minuto',
+                                                      secondText: 'Segundo',
+                                                      currentText: 'Fecha actual',
+                                                      ampm: false,
+                                                  };
+            </script>
+        </ui:composition>
+    </h:body>
+</html>

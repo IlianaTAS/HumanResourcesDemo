@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="JRRequerimientosReclutamiento" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="836" leftMargin="3" rightMargin="3" topMargin="20" bottomMargin="20" uuid="72ad5720-f0ba-4c0d-93cc-aab73f859595">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="informacion" class="java.lang.String"/>
+	<field name="division.descripcion" class="java.lang.String"/>
+	<field name="vacantesAbiertas" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasSemana" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasEnero" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasFebrero" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasMarzo" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasAbril" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasMayo" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasJunio" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasJulio" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasAgosto" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasSeptiembre" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasOctubre" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasNoviembre" class="java.lang.Integer"/>
+	<field name="vacantesCubiertasDiciembre" class="java.lang.Integer"/>
+	<field name="granTotalCubiertas" class="java.lang.Integer"/>
+	<field name="usuario.nombre" class="java.lang.String"/>
+	<variable name="vacantesAbiertas" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesAbiertas}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasSemana" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasSemana}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasEnero" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasEnero}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasFebrero" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasFebrero}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasMarzo" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasMarzo}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasAbril" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasAbril}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasMayo" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasMayo}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasJunio" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasJunio}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasJulio" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasJulio}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasAgosto" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasAgosto}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasSeptiembre" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasSeptiembre}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasOctubre" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasOctubre}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasNoviembre" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasNoviembre}]]></variableExpression>
+	</variable>
+	<variable name="vacantesCubiertasDiciembre" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vacantesCubiertasDiciembre}]]></variableExpression>
+	</variable>
+	<variable name="granTotalCubiertas" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{granTotalCubiertas}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="355" y="13" width="100" height="20" uuid="afc1daa5-19ee-4d22-b471-44b8f593acc1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-HCMWORK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="33" width="487" height="20" uuid="d44491f5-c417-41b6-83de-330c488c71af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE REQUERIMIENTOS RECLUTAMIENTO SAP & OUTSOURCING ANUAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="288" y="61" width="240" height="20" uuid="b20eb188-d378-4984-a850-2d5b6b33f981"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{informacion}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="715" y="0" width="119" height="61" uuid="9f0f57ca-7410-432a-a87d-fa5899f6358a"/>
+				<imageExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateImage" + File.separator + "LOGONUBAJ.png"))]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="80" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="98ea1871-2623-473f-ad58-2c4d649acc44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[División]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="81" y="0" width="110" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="ac4e09b2-690a-4d5c-9e9a-c49a1446b516"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reclutamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="192" y="0" width="50" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="6b276228-ccd5-47ea-b24e-093cc6e3fe98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Abiertas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="244" y="0" width="57" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="9ae9bfde-0389-4a03-88dd-d2c571f94586"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Semana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="302" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="d9ed3a2c-2d5d-490f-989c-d6b2975bd9c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dic.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="343" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="651cafd2-bb11-41f4-8a9f-cf0620834543"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nov.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="384" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="877c4b4b-7380-4576-97ca-933c0f9a5ea7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oct.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="425" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="9213f52d-4feb-4295-8c83-e6cbb195b141"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sept.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="466" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="2d5fdcf4-2d9c-423c-b38e-9e5c39f182d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Agosto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="508" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="e9b849a9-5faf-4f5c-83fd-2699db7c7148"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Julio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="549" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="18b966aa-0e8c-470b-b5a6-8ab55732d700"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Junio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="590" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="b4a5d7dd-f4a6-4b51-bc0c-08fe7f678312"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mayo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="631" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="8a73ff16-81e0-4444-a997-86d08a86124b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Abril]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="672" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="160bc6d6-ebc1-4550-9dca-20822771dd61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marzo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="713" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="f2ddf20d-f218-44a3-a282-84d204d363d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Febrero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="754" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="8c1af34e-7473-4f67-9e2e-60c224d9d1fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Enero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="796" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="52e33bf6-377a-4ebe-b544-7272d8f05f0c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="835" height="20" backcolor="#D8D8D8" uuid="0701bcca-dc45-438f-a60f-2b01a6ebdfbf">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="80" height="20" uuid="6e72b263-5702-42f6-8529-354fcbd53170"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{division.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="81" y="0" width="110" height="20" uuid="d1671721-821f-4567-aca0-ee05f346bcbd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario.nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="192" y="0" width="50" height="20" uuid="d1f3bbfd-d643-4385-9fa1-aff7d8199395"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesAbiertas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="0" width="57" height="20" uuid="a335d6da-b48a-436a-a99f-947e61d3c843"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasSemana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="0" width="40" height="20" uuid="955d1f27-8ba3-4325-9d00-9e18a458faf7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasDiciembre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="0" width="40" height="20" uuid="9d4ecc0d-d550-4415-bb17-3ae99b1a4075"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasNoviembre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="0" width="40" height="20" uuid="3554e7f0-efd2-4d80-9d9c-4921c0ecc4c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasOctubre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="0" width="40" height="20" uuid="98c0f4f1-b330-416e-82af-c0e680fc8f9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasSeptiembre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="0" width="40" height="20" uuid="b3a00332-e750-4f54-b59b-8a57f6dd529f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasAgosto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="508" y="0" width="40" height="20" uuid="4700d4da-fdba-49fe-afd9-4251b034f82c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasJulio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="549" y="0" width="40" height="20" uuid="fab9d645-62b7-491f-9dd3-9c63f4ec4286"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasJunio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="0" width="40" height="20" uuid="ffc4ec6e-85f4-4b34-a68b-ee9331361251"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasMayo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="631" y="0" width="40" height="20" uuid="78152b9f-1df0-4705-9e05-487f551256d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasAbril}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="672" y="0" width="40" height="20" uuid="086eb5f7-3de2-449c-ba62-3e64df381a86"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasMarzo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="713" y="0" width="40" height="20" uuid="032efd35-3442-4005-8684-0e50231b1e38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasFebrero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="754" y="0" width="40" height="20" uuid="00f80c16-9b7e-40d2-bf4a-1ea030254d31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vacantesCubiertasEnero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="795" y="0" width="40" height="20" uuid="32b4b452-d7df-430d-a03b-f6c6987658d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{granTotalCubiertas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="715" y="1" width="80" height="20" uuid="d406daf2-cd50-43df-8f29-924182b91f08"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="795" y="1" width="40" height="20" uuid="bb4e3acd-c7fd-41c5-890b-1b42808dc808"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField pattern="###0">
+				<reportElement x="191" y="2" width="50" height="18" uuid="ff0eef91-2f39-4c85-a6c9-4f5a3541b0c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesAbiertas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="244" y="2" width="57" height="18" uuid="1e3d27a4-1dce-4cca-9898-7a1340fd6efc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasSemana}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="191" height="20" uuid="256ec378-8159-4dad-b29c-6becaf5cf451"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="192" y="0" width="643" height="2" uuid="3127b74b-2b2f-470b-a656-538fdaf4a57a"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<textField pattern="###0">
+				<reportElement x="302" y="2" width="40" height="18" uuid="838232c1-fdb3-42e7-8ae1-45ecd8558b63"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasDiciembre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="343" y="2" width="40" height="18" uuid="4bf63375-15b1-4258-aea3-c5d11fccaf05"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasNoviembre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="384" y="2" width="40" height="18" uuid="007d9115-aff1-481e-a9e3-785ab56c2e40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasOctubre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="425" y="2" width="40" height="18" uuid="89f8c294-03fa-4a27-99ea-cff3b0992d18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasSeptiembre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="466" y="2" width="40" height="18" uuid="daae1421-ac6a-43ea-a788-e4a6ca6cd0be"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasSeptiembre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="507" y="2" width="40" height="18" uuid="9a0b347b-063c-49af-9f97-81ff3c781553"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasJulio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="548" y="2" width="40" height="18" uuid="382e3dd0-56cc-40fc-aa0f-255d2b7ff186"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasJunio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="589" y="2" width="40" height="18" uuid="4e287e73-b221-477e-b057-0537efa865f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasMayo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="630" y="2" width="40" height="18" uuid="91c4aa5f-59ce-4066-8053-1936a4602443"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasAbril}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="671" y="2" width="40" height="18" uuid="87f914c5-b345-49e1-9f87-7c55f618827a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasMarzo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="712" y="2" width="40" height="18" uuid="e8e1230e-dd38-4933-9370-7494a7ec7e9c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasFebrero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="753" y="2" width="40" height="18" uuid="0a86fa01-23e5-4e87-bf51-cb071a42a035"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vacantesCubiertasEnero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="794" y="2" width="40" height="18" uuid="760bd529-e1f1-4b9d-ad7b-f4ea04729053"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{granTotalCubiertas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
