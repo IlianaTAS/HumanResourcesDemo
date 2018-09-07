@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Login user</title>
+</h:head>
+<h:body>
+	<p:growl id="growl" showDetail="true" life="5000" />
+	<h:form id="idForm" prependId="false">
+	<p:dialog showHeader="true" resizable="false" closable="false"
+			visible="true" position="center,center" modal="false" draggable="false"> 
+			
+			<p:panelGrid columns="1">
+			<f:facet name="header">
+				<div align="center">
+						<p:outputLabel value="Bienvenido" style="font-size: 2em;" />		
+				</div>
+			</f:facet>
+			<div align="center">
+				<p:panelGrid columns="2">
+					<p:outputLabel  for="j_username" value="Usuario" />
+				<p:inputText value="#{loginController.userName}" id="j_username" required="true"
+					requiredMessage="Usuario requerido" />
+	
+				<p:outputLabel for="j_password" value="Contraseña" />
+				<p:password value="#{loginController.password}" id="j_password" required="true"
+					requiredMessage="Contraseña requerida" />
+				</p:panelGrid>
+				
+			</div>
+			<f:facet name="footer">
+				<div align="center">
+					<p:commandButton id="btnLogin" value="Ingresar"
+						action="#{loginController.doLogin}" ajax="false"
+						styleClass="btnLoginPanel" update=":growl"
+						icon="ui-icon-circle-check"></p:commandButton>
+				</div>
+			</f:facet>
+		</p:panelGrid>
+	</p:dialog>
+				
+	</h:form>
+</h:body>
+</html>

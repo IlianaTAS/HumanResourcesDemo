@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.lam.recursoshumanoscenicco.model.Perfil" table="Perfil">
+		<id name="idPerfil" type="long">
+			<column name="idPerfil" precision="15" scale="0" />
+			<generator class="assigned" />
+		</id>
+
+		<property name="nombre" type="string">
+			<column length="100" name="NOMBRE" not-null="true" />
+		</property>
+		<property name="descripcion" type="string">
+			<column length="200" name="descripcion" not-null="true" />
+		</property>
+
+		<set name="rol" table="Perfil_Rol" inverse="true" lazy="true"
+			fetch="select">
+			<key>
+				<column name="idPerfil" not-null="true" />
+			</key>
+			<many-to-many column="idRol"
+				class="com.lam.recursoshumanoscenicco.model.Rol" />
+		</set>
+
+
+	</class>
+</hibernate-mapping>

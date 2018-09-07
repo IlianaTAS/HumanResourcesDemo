@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	
+	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource">
+		<property name="dataSourceName" value="RH" />
+		<property name="URL" value="jdbc:oracle:thin:@localhost:1522:ORCL" />
+		<property name="user" value="RECURSOS_HUMANOS" />
+		<property name="password" value="oracle1234admin" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="packagesToScan" value="com.lam.recursoshumanoscenicco" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+		 		<value>hbm/Perfil.hbm.xml</value>
+		 		<value>hbm/Rol.hbm.xml</value>
+		 		<value>hbm/Usuario.hbm.xml</value>		 		
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+<!-- 				<prop key="hibernate.connection.datasource">dataSource</prop>  se implementa para JDNI-->
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>
+				<prop key="connection.useUnicode">true</prop>
+				<prop key="connection.characterEncoding">UTF-8</prop>
+				<prop key="hibernate.connection.charSet">UTF-8</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- ENABLE THE CONFIGURATION OF TRANSACTIONAL BEHAVIOR BASED ON ANNOTATIONS -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- TRANSACTION MANAGER -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+</beans>

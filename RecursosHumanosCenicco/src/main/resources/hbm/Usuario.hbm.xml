@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.lam.recursoshumanoscenicco.model.Usuario" table="Usuario">
+		<id name="idUsuario" type="long">
+			<column name="idUsuario" precision="15" scale="0" />
+			<generator class="identity" />
+		</id>
+		<many-to-one class="com.lam.recursoshumanoscenicco.model.Perfil"
+			name="perfil">
+			<column name="idPerfil" not-null="true" precision="15" scale="0" />
+		</many-to-one>
+
+		<property name="nombre" type="string">
+			<column length="100" name="nombre" not-null="true" />
+		</property>
+		<property name="apellidoPaterno" type="string">
+			<column length="100" name="apellidoPaterno" not-null="true" />
+		</property>
+		<property name="apellidoMaterno" type="string">
+			<column length="100" name="apellidoMaterno" />
+		</property>
+		<property name="nombreUsuario" type="string">
+			<column length="100" name="nombreUsuario" not-null="true" />
+		</property>
+		<property name="contrasena" type="string">
+			<column length="15" name="contrasena" not-null="true" />
+		</property>
+		<property name="estatus" type="string">
+			<column length="50" name="estatus" not-null="true" />
+		</property>
+		<property name="eliminado" type="integer">
+			<column length="1" name="eliminado" not-null="true" />
+		</property>
+		<property name="fechaRegistro" type="date">
+			<column length="7" name="fechaRegistro" not-null="true" />
+		</property>
+	</class>
+</hibernate-mapping>
