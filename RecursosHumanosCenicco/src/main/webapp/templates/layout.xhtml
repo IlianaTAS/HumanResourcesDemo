@@ -10,9 +10,6 @@
 </h:head>
 
 <h:body>
-	<ui:debug hotkey="x"
-		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
-
 	<div id="header">
 		<ui:include src="header.xhtml">
     	Header area.  See comments below this line in the source.
@@ -23,12 +20,14 @@
 
 
 	<div id="content">
-		<p:megaMenu orientation="Vertical" style="margin-top:20px">
+	
+		<h:form id="idFormMenu">
+			<p:megaMenu orientation="Horizontal" style="margin-top:20px">
 			<p:submenu label="Seleccion de Personal" icon="ui-icon-document">
 
 			</p:submenu>
 
-			<p:submenu label="Gestion de reclutamiento y seleccion"
+			<p:submenu label="Gestion de reclutamientoa y seleccion"
 				icon="ui-icon-document">
 
 			</p:submenu>
@@ -44,10 +43,12 @@
 			<p:submenu label="Contratacion">
 			</p:submenu>
 
-			<p:menuitem value="Quit" action="#{loginCntrolle.logOut}" ajax="false"
+			<p:menuitem value="Quit" action="#{loginController.logOut}" ajax="false"
 				icon="ui-icon-close" />
 
 		</p:megaMenu>
+		</h:form>
+		
 		<ui:insert name="content">
     	Content area.  See comments below this line in the source.
     	<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->

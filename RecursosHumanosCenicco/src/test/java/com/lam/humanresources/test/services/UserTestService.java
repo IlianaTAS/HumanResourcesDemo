@@ -23,7 +23,7 @@ public class UserTestService {
 	private UsuarioService usuarioService;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void createTest() {
 		Usuario usuario=new Usuario();
 		usuario.setFechaRegistro(new Date());
@@ -42,7 +42,7 @@ public class UserTestService {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void findUserTest() {
 		Usuario usuario=usuarioService.findUsuarioBy("angelraulgs");
 		
