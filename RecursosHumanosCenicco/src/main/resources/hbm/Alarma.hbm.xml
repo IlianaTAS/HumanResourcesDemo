@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 16/09/2018 08:26:45 PM by Hibernate Tools 5.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class dynamic-insert="true" dynamic-update="true" name="com.lam.recursoshumanoscenicco.model.Alarma" optimistic-lock="version"  table="ALARMA">
+        <id name="idAlarma" type="long">
+            <column name="IDALARMA" precision="15" scale="0"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="descripcion" optimistic-lock="true" type="string" >
+            <column length="500" name="DESCRIPCION" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="tiempoEjecucion" optimistic-lock="true" type="string" >
+            <column length="100" name="TIEMPOEJECUCION" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="estatus" optimistic-lock="true" type="string" >
+            <column length="10" name="ESTATUS" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
