@@ -14,18 +14,18 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring.framework.version>5.0.9.RELEASE</spring.framework.version>
 		<spring.security.version>5.0.8.RELEASE</spring.security.version>
-		<hibernate.version>5.3.4.Final</hibernate.version>
+		<hibernate.version>5.3.6.Final</hibernate.version>
 		<jsf.version>2.2.17</jsf.version>
 		<org.slf4j-version>1.6.1</org.slf4j-version>
 		<log4j-version>1.2.16</log4j-version>
 	</properties>
 
 	<dependencies>
-		<dependency>
+		<!-- <dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.2</version>
-		</dependency>
+		</dependency> -->
 		<!-- JSF -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
@@ -77,11 +77,11 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring.security.version}</version>
-		</dependency>
+		</dependency> -->
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>

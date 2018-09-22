@@ -4,9 +4,14 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.lam.recursoshumanoscenicco.dao.GenericDao;
+import com.lam.recursoshumanoscenicco.exception.CodigoErrorEnum;
+import com.lam.recursoshumanoscenicco.exception.DaoException;
+import com.lam.recursoshumanoscenicco.exception.ICodigoError;
 
 public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> extends HibernateDaoSupport implements GenericDao<TYPE, PK> {
 
@@ -15,6 +20,11 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
 	 * 
 	 */
 	private static final long serialVersionUID = 4231518077126152616L; 
+	
+	@Autowired
+	public void setSessionFactoryGenericDao(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
 	
 	/*
      * Clase concreta que se esta utilizando en el generic.
@@ -49,11 +59,18 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
      * @return Llave Primaria del registro a dar de alta.
      */    
     @SuppressWarnings("unchecked")
-	public PK save(TYPE toCreate) {
-        PK id = null;
-        id = (PK) this.getHibernateTemplate().save(toCreate);
-        this.getHibernateTemplate().flush();
-        return id;
+	public PK save(TYPE toCreate) throws DaoException {
+    	try {
+    		PK id = null;
+    		id = (PK) this.getHibernateTemplate().save(toCreate);
+    		this.getHibernateTemplate().flush();
+    		this.getHibernateTemplate().clear();
+    		return id;
+			
+		} catch (Exception e) {
+			ICodigoError codigo=CodigoErrorEnum.ERROR_CREAR_BD;
+			throw new DaoException(codigo, codigo.getMensaje(), e);
+		}
     };
 
     /*
@@ -62,8 +79,15 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
      * primary key}. Si se desea cambiar el {@code primary key} se deber&aacute;
      * ocupar un {@code namedQuery}.
      */
-    public void update(TYPE transientObject) {
-        this.getHibernateTemplate().update(transientObject);
+    public void update(TYPE transientObject) throws DaoException {
+    	try {
+    		this.getHibernateTemplate().update(transientObject);
+    		this.getHibernateTemplate().flush();
+    		this.getHibernateTemplate().clear();
+		} catch (Exception e) {
+			ICodigoError codigo=CodigoErrorEnum.ERROR_ACTUALIZAR_BD;
+			throw new DaoException(codigo, codigo.getMensaje(), e);
+		}
     }
 
     /*
@@ -72,8 +96,13 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
      * primary key}. Si se desea cambiar el {@code primary key} se deber&aacute;
      * ocupar un {@code namedQuery}.
      */
-    public void merge(TYPE transientObject) {
-        this.getHibernateTemplate().merge(transientObject);
+    public void merge(TYPE transientObject) throws DaoException {
+    	try {
+    		this.getHibernateTemplate().merge(transientObject);			
+		} catch (Exception e) {
+			ICodigoError codigo=CodigoErrorEnum.ERROR_ACTUALIZAR_BD;
+			throw new DaoException(codigo, codigo.getMensaje(), e);
+		}
     }
 
     /*
@@ -81,9 +110,15 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
      * 
      * @param toDelete Entity con la llave primaria que se va a eliminar.
      */
-    public void delete(TYPE toDelete) {
-        this.getHibernateTemplate().delete(toDelete);
-        this.getHibernateTemplate().flush();
+    public void delete(TYPE toDelete) throws DaoException {
+    	try {
+    		this.getHibernateTemplate().delete(toDelete);
+    		this.getHibernateTemplate().flush();
+    		this.getHibernateTemplate().clear();			
+		} catch (Exception e) {
+			ICodigoError codigo=CodigoErrorEnum.ERROR_ELIMINAR_BD;
+			throw new DaoException(codigo, codigo.getMensaje(), e);
+		}
     }
 
     /*
@@ -92,8 +127,13 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
      * 
      * @return Lista de datos con los {@code entities} encontrados.
      */
-    public List<TYPE> findAll() {
-        return this.getHibernateTemplate().loadAll(getPersistenceClass());
+    public List<TYPE> findAll() throws DaoException {
+    	try {
+    		return this.getHibernateTemplate().loadAll(getPersistenceClass());			
+		} catch (Exception e) {
+			ICodigoError codigo=CodigoErrorEnum.ERROR_CONSULTAR_BD;
+			throw new DaoException(codigo, codigo.getMensaje(), e);
+		}
     }
 
     /*
@@ -106,8 +146,13 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
      * @return Entity con los datos del registro en la tabla, {@code null} en
      * otro caso.
      */
-    public TYPE find(PK primaryKey) {
-        return (TYPE) this.getHibernateTemplate().get(getPersistenceClass(), primaryKey);
+    public TYPE find(PK primaryKey) throws DaoException {
+    	try {
+    		return (TYPE) this.getHibernateTemplate().get(getPersistenceClass(), primaryKey);			
+		} catch (Exception e) {
+			ICodigoError codigo=CodigoErrorEnum.ERROR_CONSULTAR_BD;
+			throw new DaoException(codigo, codigo.getMensaje(), e);
+		}
     }
 
     /*
@@ -122,8 +167,13 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
      * otro caso.
      */
     
-    public List<TYPE> findByExample(TYPE example) {
-        return (List<TYPE>) this.getHibernateTemplate().findByExample(example);
+    public List<TYPE> findByExample(TYPE example) throws DaoException {
+    	try {
+    		return (List<TYPE>) this.getHibernateTemplate().findByExample(example);			
+		} catch (Exception e) {
+			ICodigoError codigo=CodigoErrorEnum.ERROR_CONSULTAR_BD;
+			throw new DaoException(codigo, codigo.getMensaje(), e);
+		}
     }
     
     /*
@@ -131,7 +181,12 @@ public class GenericDaoImpl<TYPE extends Serializable, PK extends Serializable> 
      * 
      * @param toSaveOrUpdateType Entity que se va a crear o actualizar.
      */
-    public void saveOrUpdate(TYPE toSaveOrUpdateType){
-    	this.getHibernateTemplate().saveOrUpdate(toSaveOrUpdateType);
+    public void saveOrUpdate(TYPE toSaveOrUpdateType) throws DaoException{
+    	try {
+    		this.getHibernateTemplate().saveOrUpdate(toSaveOrUpdateType);			
+		} catch (Exception e) {
+			ICodigoError codigo=CodigoErrorEnum.ERROR_CREAR_BD;
+			throw new DaoException(codigo, codigo.getMensaje(), e);
+		}
     }
 }

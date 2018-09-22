@@ -25,6 +25,5 @@
 				class="com.lam.recursoshumanoscenicco.model.Rol" />
 		</set>
 
-
 	</class>
 </hibernate-mapping>

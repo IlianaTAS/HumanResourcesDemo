@@ -14,7 +14,7 @@
 	<sec:http>
 		<sec:csrf disabled="true"/>
 		<sec:intercept-url pattern="/init.xhtml"
-			access="hasRole('ROLE_USER')" />
+			access="hasAnyRole('ROLE_USER')" />
 
 		<sec:form-login login-page="/login.xhtml"
 			default-target-url="/init.xhtml"/>
