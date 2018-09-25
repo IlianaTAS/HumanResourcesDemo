@@ -1,11 +1,12 @@
 package com.lam.recursoshumanoscenicco.service;
 
+import com.lam.recursoshumanoscenicco.exception.ServiceException;
 import com.lam.recursoshumanoscenicco.model.Usuario;
 
-public interface UsuarioService {
+public interface UsuarioService extends GenericService<Usuario>{
 
-	public Long saveUsuario(Usuario usuario);
+	public Long saveUsuario(Usuario usuario) throws ServiceException;
 	
-	public Usuario findUsuarioBy(String nombreUsuario);
+	public Usuario findUsuarioBy(String nombreUsuario) throws ServiceException;
 	
 }

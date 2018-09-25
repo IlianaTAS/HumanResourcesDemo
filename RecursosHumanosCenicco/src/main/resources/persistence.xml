@@ -22,9 +22,22 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mappingResources">
 			<list>
+		 		<value>hbm/Alarma.hbm.xml</value>	
+		 		<value>hbm/CatalogoParametro.hbm.xml</value>
+		 		<value>hbm/Ciudad.hbm.xml</value>
+		 		<value>hbm/Cliente.hbm.xml</value>
+		 		<value>hbm/CriterioRechazo.hbm.xml</value>
+		 		<value>hbm/Estado.hbm.xml</value>		
+		 		<value>hbm/Examen.hbm.xml</value>
+		 		<value>hbm/Idioma.hbm.xml</value>
+		 		<value>hbm/Mensaje.hbm.xml</value>
+		 		<value>hbm/Pais.hbm.xml</value>
 		 		<value>hbm/Perfil.hbm.xml</value>
+		 		<value>hbm/Pregunta.hbm.xml</value>
+		 		<value>hbm/Puesto.hbm.xml</value>
+		 		<value>hbm/Respuesta.hbm.xml</value> 		
 		 		<value>hbm/Rol.hbm.xml</value>
-		 		<value>hbm/Usuario.hbm.xml</value>		 		
+		 		<value>hbm/Usuario.hbm.xml</value>	
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -36,6 +49,7 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
 				<prop key="connection.characterEncoding">UTF-8</prop>
 				<prop key="hibernate.connection.charSet">UTF-8</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hql.bulk_id_strategy">org.hibernate.hql.spi.id.inline.InlineIdsOrClauseBulkIdStrategy</prop>
 			</props>
 		</property>
 	</bean>

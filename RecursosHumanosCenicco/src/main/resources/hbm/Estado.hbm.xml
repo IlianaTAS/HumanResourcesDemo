@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 16/09/2018 08:26:45 PM by Hibernate Tools 5.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class dynamic-insert="true" dynamic-update="true" name="com.lam.recursoshumanoscenicco.model.Estado" table="ESTADO">
+        <id name="idEstado" type="long">
+            <column name="IDESTADO" precision="15" scale="0"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="com.lam.recursoshumanoscenicco.model.Pais" fetch="select" insert="true" name="pais" not-found="exception"  unique="false" update="true">
+            <column name="IDPAIS" not-null="true" precision="15" scale="0"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="descripcion" type="string" unique="false">
+            <column length="100" name="DESCRIPCION" not-null="true"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="ciudades"  sort="unsorted" table="CIUDAD">
+            <key on-delete="noaction">
+                <column name="IDESTADO" not-null="true" precision="15" scale="0"/>
+            </key>
+            <one-to-many class="com.lam.recursoshumanoscenicco.model.Ciudad"  not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

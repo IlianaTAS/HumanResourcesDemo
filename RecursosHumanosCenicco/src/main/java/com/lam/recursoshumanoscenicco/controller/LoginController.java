@@ -21,8 +21,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Component;
 
-@Component
-@Scope("request")
+//@Component
+//@Scope("session")
 public class LoginController implements PhaseListener, Serializable{
 
 	/**
@@ -37,9 +37,10 @@ public class LoginController implements PhaseListener, Serializable{
 
 	
 	public String doLogin() throws IOException, ServletException {		
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", userName);
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-				.getRequestDispatcher("/j_spring_security_check");
+				.getRequestDispatcher("/login");
 		
 		dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
 		FacesContext.getCurrentInstance().responseComplete();
@@ -52,7 +53,7 @@ public class LoginController implements PhaseListener, Serializable{
 		try {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 			RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-					.getRequestDispatcher("/j_spring_security_logout");
+					.getRequestDispatcher("/logout");
 			dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
 			FacesContext.getCurrentInstance().responseComplete();
 		} catch (ServletException | IOException e) {

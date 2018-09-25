@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 16/09/2018 08:26:45 PM by Hibernate Tools 5.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class dynamic-insert="true" dynamic-update="true" name="com.lam.recursoshumanoscenicco.model.Pregunta" table="PREGUNTA">
+        <id name="idPregunta" type="long">
+            <column name="IDPREGUNTA" precision="15" scale="0"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="com.lam.recursoshumanoscenicco.model.CatalogoParametro" fetch="select" insert="true" name="catalogoParametro" not-found="exception" unique="false" update="true">
+            <column name="IDCATPARTIPOPREGUNTA" not-null="true" precision="15" scale="0"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="descripcion"  type="string" unique="false">
+            <column length="500" name="DESCRIPCION" not-null="true"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="respuestas" sort="unsorted" table="RESPUESTA">
+            <key on-delete="noaction">
+                <column name="IDPREGUNTA" not-null="true" precision="15" scale="0"/>
+            </key>
+            <one-to-many class="com.lam.recursoshumanoscenicco.model.Respuesta" not-found="exception"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="examenes" sort="unsorted" table="EXAMEN_PREGUNTA">
+            <key on-delete="noaction">
+                <column name="IDPREGUNTA" not-null="true" precision="15" scale="0"/>
+            </key>
+            <many-to-many class="com.lam.recursoshumanoscenicco.model.Examen" column="IDEXAMEN" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>
