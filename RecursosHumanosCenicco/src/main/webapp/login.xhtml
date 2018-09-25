@@ -1,49 +1,98 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="windows-1252"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Login user</title>
-</h:head>
-<h:body>
-	<p:growl id="growl" showDetail="true" life="5000" />
-	<h:form id="idForm" prependId="false">
-	<p:dialog showHeader="true" resizable="false" closable="false"
-			visible="true" position="center,center" modal="false" draggable="false"> 
-			
-			<p:panelGrid columns="1">
-			<f:facet name="header">
-				<div align="center">
-						<p:outputLabel value="Bienvenido" style="font-size: 2em;" />		
-				</div>
-			</f:facet>
-			<div align="center">
-				<p:panelGrid columns="2">
-					<p:outputLabel  for="j_username" value="Usuario" />
-				<p:inputText value="#{loginController.userName}" id="j_username" required="true"
-					requiredMessage="Usuario requerido" />
-	
-				<p:outputLabel for="j_password" value="Contraseña" />
-				<p:password value="#{loginController.password}" id="j_password" required="true"
-					requiredMessage="Contraseña requerida" />
-				</p:panelGrid>
-				
-			</div>
-			<f:facet name="footer">
-				<div align="center">
-					<p:commandButton id="btnLogin" value="Ingresar"
-						action="#{loginController.doLogin}" ajax="false"
-						styleClass="btnLoginPanel" update=":growl"
-						icon="ui-icon-circle-check"></p:commandButton>
-				</div>
-			</f:facet>
-		</p:panelGrid>
-	</p:dialog>
-				
-	</h:form>
-</h:body>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./templates/template.xhtml">
+            <ui:define name="content">
+                <p:growl id="growl" showDetail="false" life="3000"/>
+                <p:layout style="min-height:100%">
+                    <p:layoutUnit position="west" resizable="false" size="22%">
+                        <div align="center">
+                            <p:panel>
+                                <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resources/images/logos/logoCenicco.png"/>
+                                <br/><br/><br/><br/>
+                                <p:inputText placeholder="Usuario" styleClass="style_placeHolder"/>
+                                <p:inputText placeholder="Contraseña" styleClass="style_placeHolder"/>
+                                <br/><br/>
+                                <p:commandButton value="Ingresar" styleClass="style_botones" icon="ui-icon-locked"/>
+                                <br/><br/><br/><br/>
+                                <p:commandLink value="¿Olvidaste tu contraseña?" style="color: blue"/>
+                            </p:panel> 
+                        </div> 
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+                        <div class="contenedor1" id="azul" style="
+                             background-image: url(#{request.contextPath}/resources/images/fondos/hexAzul.png)" title="Prueba">
+                            <p class="texto" style="font-variant: small-caps;
+                               font-stretch: ultra-expanded;
+                               font-size: .8em; font-weight: bold; text-align: center;">Organización</p>
+                        </div>
+
+                        <div class="contenedor1" id="morado" style="
+                             background-image: url(#{request.contextPath}/resources/images/fondos/hexMorado.png);">
+                            <p class="texto" style="font-variant: small-caps;
+                               font-stretch: ultra-expanded;
+                               font-size: .8em; font-weight: bold; text-align: center;">Reclutamiento</p>
+                            <p class="texto" style="font-variant: small-caps;
+                               font-stretch: ultra-expanded;
+                               font-size: .8em; font-weight: bold; text-align: center;">y</p>
+                            <p class="texto" style="font-variant: small-caps;
+                               font-stretch: ultra-expanded;
+                               font-size: .8em; font-weight: bold; text-align: center;">Selección</p>
+                        </div>
+
+                        <div class="contenedor1" id="amarillo" style="
+                             background-image: url(#{request.contextPath}/resources/images/fondos/hexAmarillo.png) !important;">
+                            <p class="texto" style="font-variant: small-caps;
+                               font-stretch: ultra-expanded;
+                               font-size: .8em; font-weight: bold; text-align: center;">Desarrollo Personal</p>
+                        </div>
+                        <div class="perfil">
+                            <h:form>
+                                <h:panelGrid columns="2">
+                                    <p:row>
+                                        <p:column>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value=""/>
+                                            </h:panelGrid>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                        </p:column>
+                                    </p:row>
+                                </h:panelGrid>
+                            </h:form>
+                        </div>
+                        <div class="contenedor2" id="rosa" style="
+                             background-image: url(#{request.contextPath}/resources/images/fondos/hexRosa.png);">
+                            <p class="texto" style="font-variant: small-caps;
+                               font-stretch: ultra-expanded;
+                               font-size: .8em; font-weight: bold; text-align: center;">Inventario</p>
+                            <p class="texto" style="font-variant: small-caps;
+                               font-stretch: ultra-expanded;
+                               font-size: .8em; font-weight: bold; text-align: center;">Recursos Humanos</p>
+                        </div>
+                        <div class="contenedor2" id="verde" style="
+                             background-image: url(#{request.contextPath}/resources/images/fondos/hexVerde.png);">
+                            <p class="texto" style="font-variant: small-caps;
+                               font-stretch: ultra-expanded;
+                               font-size: .8em; font-weight: bold; text-align: center;">Configuración</p>
+                        </div>
+                    </p:layoutUnit>
+                </p:layout>
+            </ui:define>
+        </ui:composition>
+    </body>
 </html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="../../../templates/templateMenu.xhtml">
+            <ui:define name="content">
+                <p:growl id="growl" showDetail="false" life="3000"/>
+                <p:layout style="min-height:92%">
+                    <p:layoutUnit position="west" resizable="false" size="22%">
+                        <p:accordionPanel >
+                            <p:tab title="Puesto - ">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Brand:" style="font-weight: bold" />
+
+                                    <h:outputText value="Year:" style="font-weight: bold" />
+
+                                    <h:outputText value="Color:" style="font-weight: bold" />
+                                </h:panelGrid>
+                            </p:tab>
+                        </p:accordionPanel>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+                        <h:form style="margin-top:5%; font-size: .8em;">
+                            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                            <p:wizard>
+                                <p:tab id="configuracion" title="Configuración">
+                                    <p:panel header="Ingrese la estructura del exámen técnico">
+                                        <p:messages />
+                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                            <h:outputText value="Puesto: *" />
+                                            <p:selectOneMenu id="puesto" style="width:150px" required="true" filter="true" filterMatchMode="contains">
+                                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                            </p:selectOneMenu>
+
+                                            <h:outputText value="Duración: *" />
+                                            <p:inputText required="true" label="Ingrese la duración del examen"/>
+
+                                            <h:outputText value="Cantidad de preguntas abiertas: *" />
+                                            <p:inputText required="true" label="Ingrese la cantidad de preguntas abiertas que contendrá el examen"/>
+
+                                            <h:outputText value="Cantidad de preguntas cerradas: *" />
+                                            <p:inputText required="true" label="Ingrese la cantidad de preguntas cerradas que contendrá el examen"/>
+
+                                            <h:outputText value="Cantidad de preguntas de opción multiple: *" />
+                                            <p:inputText required="true" label="Ingrese la cantida de preguntas de opción múltiple que contendrá el examen"/>
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="pregunta" title="Preguntas">
+                                    <p:panel header="Address Details">
+                                        <p:messages />
+                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                            <h:outputText value="Street: " />
+                                            <p:inputText />
+
+                                            <h:outputText value="Postal Code: " />
+                                            <p:inputText/>
+
+                                            <h:outputText value="City: " />
+                                            <p:inputText />
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="confirmacion" title="Confirmación">
+                                    <p:panel header="Contact Information">
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:commandButton value="Guardar" icon="ui-icon-save"/>
+                            </p:wizard>
+                        </h:form>
+
+                    </p:layoutUnit>
+                </p:layout>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
