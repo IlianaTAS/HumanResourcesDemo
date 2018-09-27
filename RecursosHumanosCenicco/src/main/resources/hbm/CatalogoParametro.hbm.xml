@@ -4,7 +4,7 @@
     <class dynamic-insert="true" dynamic-update="true" name="com.lam.recursoshumanoscenicco.model.CatalogoParametro"  table="CATALOGO_PARAMETRO">
         <id name="idCatalogoParametro" type="long">
             <column name="IDCATALOGOPARAMETRO" precision="15" scale="0"/>
-            <generator class="assigned"/>
+            <generator class="identity" />
         </id>
         <property generated="never" lazy="false" name="parametro"  type="string" unique="false">
             <column length="500" name="PARAMETRO" not-null="true"/>

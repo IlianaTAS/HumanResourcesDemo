@@ -4,7 +4,7 @@
     <class dynamic-insert="true" dynamic-update="true" name="com.lam.recursoshumanoscenicco.model.CriterioRechazo" table="CRITERIO_RECHAZO">
         <id name="idCriterioRechazo" type="long">
             <column name="IDCRITERIORECHAZO" precision="15" scale="0"/>
-            <generator class="assigned"/>
+            <generator class="identity" />
         </id>
         <property generated="never" lazy="false" name="descripcion" type="string" unique="false">
             <column length="100" name="DESCRIPCION" not-null="true"/>

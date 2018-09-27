@@ -4,7 +4,7 @@
     <class dynamic-insert="true" dynamic-update="true" name="com.lam.recursoshumanoscenicco.model.Alarma" optimistic-lock="version"  table="ALARMA">
         <id name="idAlarma" type="long">
             <column name="IDALARMA" precision="15" scale="0"/>
-            <generator class="assigned"/>
+            <generator class="identity" />
         </id>
         <property generated="never" lazy="false" name="descripcion" optimistic-lock="true" type="string" >
             <column length="500" name="DESCRIPCION" not-null="true"/>
