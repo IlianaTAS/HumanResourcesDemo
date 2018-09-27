@@ -1,0 +1,11 @@
+La siguiente plantilla muestra el estatus de los casos de prueba descritos en el archivo "Test Scripts_Entregable1".
+
+Los posibles estatus son los siguientes:
+- NO RUN - Sin ejecutar
+- FAILED - Prueba fallada
+- PASSED - Prueba exitosa
+- RE TEST - Defecto corregido para ser probado
+
+Nombre de la prueba: 01- Iniciar sesión - Usuario y contraseña
+Responsable: Iliana Pérez
+Estatus:NO EJECUTADO
