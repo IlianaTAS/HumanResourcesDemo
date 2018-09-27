@@ -17,4 +17,5 @@ public interface PuestoService extends GenericService<Puesto, Long>{
     
     public List<Puesto> findPuestos() throws ServiceException;
     
+    
 }

@@ -16,20 +16,23 @@ and open the template in the editor.
             <ui:define name="content">
                 <p:growl id="growl" showDetail="false" life="3000"/>
                 <p:layout style="min-height:100%">
+                <h:form id="idForm" prependId="false"> 
                     <p:layoutUnit position="west" resizable="false" size="22%">
                         <div align="center">
                             <p:panel>
                                 <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resources/images/logos/logoCenicco.png"/>
                                 <br/><br/><br/><br/>
-                                <p:inputText placeholder="Usuario" styleClass="style_placeHolder"/>
-                                <p:inputText placeholder="Contraseña" styleClass="style_placeHolder"/>
+                                
+                                <p:inputText id="username" value="#{loginController.userName}" placeholder="Usuario" styleClass="style_placeHolder"/>
+                                <p:password id="password" value="#{loginController.password}" placeholder="Contraseña" styleClass="style_placeHolder"/>
                                 <br/><br/>
-                                <p:commandButton value="Ingresar" styleClass="style_botones" icon="ui-icon-locked"/>
+                                <p:commandButton action="#{loginController.doLogin}" value="Ingresar" styleClass="style_botones" icon="ui-icon-locked" ajax="false"/>
                                 <br/><br/><br/><br/>
                                 <p:commandLink value="¿Olvidaste tu contraseña?" style="color: blue"/>
                             </p:panel> 
                         </div> 
                     </p:layoutUnit>
+                </h:form>
 
                     <p:layoutUnit position="center">
                         <div class="contenedor1" id="azul" style="

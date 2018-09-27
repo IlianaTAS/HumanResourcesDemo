@@ -43,11 +43,7 @@ public class UserTestService {
 		Perfil perfil=new Perfil();
 		perfil.setIdPerfil(1l);
 		usuario.setPerfil(perfil);
-		try {
-			usuarioService.guardar(usuario);
-		} catch (ServiceException e) {
-			logger.error("Error CrearUsuario",e);
-		}
+//                usuarioService.guardar(usuario);
 		fail("Not yet implemented");
 	}
 
