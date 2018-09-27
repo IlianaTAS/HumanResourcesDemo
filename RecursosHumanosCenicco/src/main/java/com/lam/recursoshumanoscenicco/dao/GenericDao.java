@@ -6,7 +6,14 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lam.recursoshumanoscenicco.exception.DaoException;
-
+/**
+ * Interfaces Generica que contiene la declaracion de los metodos basicos para operaciones 
+ * a la base de datos
+ * @author Raul Garcia
+ *
+ * @param <TYPE>
+ * @param <PK>
+ */
 @Transactional
 public interface GenericDao<TYPE extends Serializable, PK extends Serializable> extends Serializable {
 

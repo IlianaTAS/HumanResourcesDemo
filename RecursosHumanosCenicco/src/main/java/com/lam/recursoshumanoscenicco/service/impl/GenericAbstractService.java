@@ -33,4 +33,45 @@ public abstract class GenericAbstractService<TYPE extends Serializable, PK exten
 		}
 	}
 	
+	
+	public TYPE buscarPorId(PK id) throws ServiceException{
+		try {
+			return dao.find(id);
+		} catch (DaoException e) {
+			throw new ServiceException(e.getErrorCodigo(), "Error al buscar registro por id ".concat(id.toString()), e);
+		}
+	}
+	
+	public void eliminar(TYPE objecto) throws ServiceException{
+		try {
+			dao.delete(objecto);
+		} catch (DaoException e) {
+			throw new ServiceException(e.getErrorCodigo(), 
+					"Error al eliminar ".concat(objecto.getClass().getSimpleName()), e);
+		}
+	}
+	
+	public void actualizar(TYPE objecto) throws ServiceException{
+		try {
+			dao.update(objecto);
+		} catch (DaoException e) {
+			throw new ServiceException(e.getErrorCodigo(), e.getMensaje(), e);
+		}
+	}
+	
+	public void guardarOActualizar(TYPE objecto) throws ServiceException{
+		try {
+			dao.saveOrUpdate(objecto);
+		} catch (DaoException e) {
+			throw new ServiceException(e.getErrorCodigo(), e.getMensaje(), e);
+		}
+	}
+	
+	public void buscarPorObjecto(TYPE objecto) throws ServiceException{
+		try {
+			dao.findByExample(objecto);
+		} catch (DaoException e) {
+			throw new ServiceException(e.getErrorCodigo(), e.getMensaje(), e);
+		}
+	}
 }
