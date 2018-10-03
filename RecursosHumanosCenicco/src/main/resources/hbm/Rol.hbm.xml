@@ -6,7 +6,7 @@
 	<class name="com.lam.recursoshumanoscenicco.model.Rol" table="Rol">
 		<id name="idRol" type="long">
 			<column name="idRol" precision="15" scale="0" />
-			<generator class="assigned" />
+			<generator class="identity" />
 		</id>
 
 		<property name="nombre" type="string">

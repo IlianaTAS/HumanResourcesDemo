@@ -4,7 +4,7 @@
     <class dynamic-insert="true" dynamic-update="true" name="com.lam.recursoshumanoscenicco.model.Examen" table="EXAMEN">
         <id name="idExamen" type="long">
             <column name="IDEXAMEN" precision="15" scale="0"/>
-            <generator class="assigned"/>
+            <generator class="identity" />
         </id>
         <many-to-one class="com.lam.recursoshumanoscenicco.model.Puesto"  fetch="select" insert="true" name="puesto" not-found="exception"  update="true">
             <column name="IDPUESTO" not-null="true" precision="15" scale="0"/>
