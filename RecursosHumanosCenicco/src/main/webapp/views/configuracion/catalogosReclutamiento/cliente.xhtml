@@ -28,11 +28,22 @@ and open the template in the editor.
                                 </h:panelGrid>
                             </div>
 
-                            <p:dataTable var="cliente" value="#{clienteController.listaClientes}" style="width: 100%; font-size: .8em; margin-top: 10px;"
+                            <p:dataTable id="dataTable" var="cliente" value="#{clienteController.listaClientes}" style="width: 100%; font-size: .8em; margin-top: 10px;"
                                          emptyMessage="No se encontraron registros"
                                          paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                         scrollable="true" scrollHeight="340" rows="20">
+                                         scrollable="true" scrollHeight="305" rows="15">
+
+                                <f:facet name="header">
+                                    <div align="right">
+                                        <h:commandLink>
+                                            <h:graphicImage id="exporter" width="30" height="30"
+                                                            url="/resources/images/iconos/xls_table.png" />
+                                            <p:dataExporter type="csv" target="dataTable"
+                                                            fileName="catalogo_clientes" />
+                                        </h:commandLink>
+                                    </div>
+                                </f:facet>
                                 <p:column headerText="Nombre comercial">
                                     <h:outputText value="#{cliente.nombreComercial}"/>
                                 </p:column>
@@ -101,7 +112,7 @@ and open the template in the editor.
                                                  update=":formCrear:crearDialog, :growl, :form:display"
                                                  validateClient="true" />
                                 <p:commandButton value="Cancelar" icon="ui-icon-close"
-                                                 styleClass="style_botones_red" immediate="true" ajax="false">
+                                                 styleClass="style_botones" immediate="true" ajax="false">
                                     <p:resetInput target="display" />
                                 </p:commandButton>
                             </h:panelGrid>
