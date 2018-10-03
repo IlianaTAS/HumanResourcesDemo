@@ -28,5 +28,14 @@ public class Mensajes {
     public static final String ERROR_CREAR_CLIENTE = "Error al crear el cliente";
     public static final String ERROR_MODIFICAR_CLIENTE = "Error al modificar el cliente";
     public static final String ERROR_ELIMINAR_CLIENTE = "Error al eliminar el cliente";
+    //
+    public static final String EXITO_CREAR_CRITERIO_RECHAZO = "Se creó correctamente el criterio de rechazo";
+    public static final String EXITO_MODIFICAR_CRITERIO_RECHAZO = "Se modificó correctamente el criterio de rechazo";
+    public static final String EXITO_ELIMINAR_CRITERIO_RECHAZO = "Se eliminó correctamente el criterio de rechazo";
+    
+    public static final String ERROR_CONSULTAR_CRITERIO_RECHAZO = "Error al consultar el criterio de rechazo";
+    public static final String ERROR_CREAR_CRITERIO_RECHAZO = "Error al crear el criterio de rechazo";
+    public static final String ERROR_MODIFICAR_CRITERIO_RECHAZO = "Error al modificar el criterio de rechazo";
+    public static final String ERROR_ELIMINAR_CRITERIO_RECHAZO = "Error al eliminar el criterio de rechazo";
     
 }
