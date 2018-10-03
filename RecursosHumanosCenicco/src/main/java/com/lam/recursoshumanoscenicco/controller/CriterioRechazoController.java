@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lam.recursoshumanoscenicco.service;
-
-import com.lam.recursoshumanoscenicco.model.Puesto;
+package com.lam.recursoshumanoscenicco.controller;
 
 /**
  *
  * @author iperez
  */
-public interface PuestoService extends GenericService<Puesto, Long>{
+public class CriterioRechazoController {
     
 }

@@ -13,6 +13,26 @@
 		<managed-bean-class>com.lam.recursoshumanoscenicco.controller.LoginController</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+        
+	<managed-bean>
+		<managed-bean-name>puestoController</managed-bean-name>
+		<managed-bean-class>com.lam.recursoshumanoscenicco.controller.PuestoController</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+                <managed-property>
+			<property-name>puestoService</property-name>
+			<value>#{puestoService}</value>
+		</managed-property>
+	</managed-bean>
+        
+        <managed-bean>
+		<managed-bean-name>clienteController</managed-bean-name>
+		<managed-bean-class>com.lam.recursoshumanoscenicco.controller.ClienteController</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+                <managed-property>
+			<property-name>clienteService</property-name>
+			<value>#{clienteService}</value>
+		</managed-property>
+	</managed-bean>
 
 
 	<lifecycle>
