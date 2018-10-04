@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.PaisDao;
 import com.lam.recursoshumanoscenicco.model.Pais;
 import com.lam.recursoshumanoscenicco.service.PaisService;
 
-@Service
+@Service("paisService")
 public class PaisServiceImpl extends GenericAbstractService<Pais, Long> implements PaisService {
 	
 	private PaisDao paisDao;

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  *
  * @author iperez
  */
-@Service
+@Service("puestoService")
 public class PuestoServiceImpl extends GenericAbstractService<Puesto, Long> implements PuestoService {
 
     private PuestoDao puestoDao;

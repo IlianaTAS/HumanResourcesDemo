@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.ExamenDao;
 import com.lam.recursoshumanoscenicco.model.Examen;
 import com.lam.recursoshumanoscenicco.service.ExamenService;
 
-@Service
+@Service("examenService")
 public class ExamenServiceImpl extends GenericAbstractService<Examen, Long> implements ExamenService{
 	
 	private ExamenDao examenDao;

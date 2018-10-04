@@ -8,7 +8,7 @@ import com.lam.recursoshumanoscenicco.dao.ClienteDao;
 import com.lam.recursoshumanoscenicco.model.Cliente;
 import com.lam.recursoshumanoscenicco.service.ClienteService;
 
-@Service
+@Service("clienteService")
 public class ClienteServiceImpl extends GenericAbstractService<Cliente, Long> implements ClienteService{
 
 	private ClienteDao clienteDao;
