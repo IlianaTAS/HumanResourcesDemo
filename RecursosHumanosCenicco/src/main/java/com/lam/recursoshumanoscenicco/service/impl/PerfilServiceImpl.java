@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.PerfilDao;
 import com.lam.recursoshumanoscenicco.model.Perfil;
 import com.lam.recursoshumanoscenicco.service.PerfilService;
 
-@Service
+@Service("perfilService")
 public class PerfilServiceImpl extends GenericAbstractService<Perfil, Long> implements PerfilService{
 	
 	private PerfilDao perfilDao;

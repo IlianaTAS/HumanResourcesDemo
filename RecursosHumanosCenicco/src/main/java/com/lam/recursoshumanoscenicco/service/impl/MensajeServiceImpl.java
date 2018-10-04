@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.MensajeDao;
 import com.lam.recursoshumanoscenicco.model.Mensaje;
 import com.lam.recursoshumanoscenicco.service.MensajeService;
 
-@Service
+@Service("mensajeService")
 public class MensajeServiceImpl extends GenericAbstractService<Mensaje, Long> implements MensajeService{
 
 	private MensajeDao mensajeDao;

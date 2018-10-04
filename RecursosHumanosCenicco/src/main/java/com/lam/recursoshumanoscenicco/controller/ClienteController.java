@@ -25,7 +25,12 @@ import org.slf4j.LoggerFactory;
  */
 public class ClienteController implements Serializable {
 
-    private final static Logger logger = LoggerFactory.getLogger(ClienteController.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 43628633074094061L;
+
+	private final static Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
     private ClienteService clienteService;
 
@@ -37,7 +42,7 @@ public class ClienteController implements Serializable {
         this.listaClientes = new ArrayList<>();
         this.cliente = new Cliente();
 
-//        this.consultarClientes();
+        this.consultarClientes();
     }
 
     /**

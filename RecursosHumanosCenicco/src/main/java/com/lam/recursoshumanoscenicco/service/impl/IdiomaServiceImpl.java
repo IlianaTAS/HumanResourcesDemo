@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.IdiomaDao;
 import com.lam.recursoshumanoscenicco.model.Idioma;
 import com.lam.recursoshumanoscenicco.service.IdiomaService;
 
-@Service
+@Service("idiomaService")
 public class IdiomaServiceImpl extends GenericAbstractService<Idioma, Long> implements IdiomaService{
 
 	private IdiomaDao idiomaDao;

@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.CatalogoParametroDao;
 import com.lam.recursoshumanoscenicco.model.CatalogoParametro;
 import com.lam.recursoshumanoscenicco.service.CatalogoParametroService;
 
-@Service
+@Service("catalogoParametroService")
 public class CatalogoParametroServiceImpl extends GenericAbstractService<CatalogoParametro, Long> implements CatalogoParametroService {
 
 	private CatalogoParametroDao catalogoParametroDao;

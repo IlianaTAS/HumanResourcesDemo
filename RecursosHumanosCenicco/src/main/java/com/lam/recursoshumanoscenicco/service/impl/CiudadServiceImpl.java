@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.CiudadDao;
 import com.lam.recursoshumanoscenicco.model.Ciudad;
 import com.lam.recursoshumanoscenicco.service.CiudadService;
 
-@Service
+@Service("ciudadService")
 public class CiudadServiceImpl extends GenericAbstractService<Ciudad, Long> implements CiudadService{
 
 	private CiudadDao ciudadDao;

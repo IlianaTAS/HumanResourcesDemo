@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.CriterioRechazoDao;
 import com.lam.recursoshumanoscenicco.model.CriterioRechazo;
 import com.lam.recursoshumanoscenicco.service.CriterioRechazoService;
 
-@Service
+@Service("criterioRechazoService")
 public class CriterioRechazoServiceImpl extends GenericAbstractService<CriterioRechazo, Long> implements CriterioRechazoService{
 	
 	private CriterioRechazoDao criterioRechazoDao;

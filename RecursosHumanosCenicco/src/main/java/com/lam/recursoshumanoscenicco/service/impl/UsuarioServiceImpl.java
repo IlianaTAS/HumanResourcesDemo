@@ -9,7 +9,7 @@ import com.lam.recursoshumanoscenicco.exception.ServiceException;
 import com.lam.recursoshumanoscenicco.model.Usuario;
 import com.lam.recursoshumanoscenicco.service.UsuarioService;
 
-@Service
+@Service("usuarioService")
 public class UsuarioServiceImpl extends GenericAbstractService<Usuario, Long> implements UsuarioService{
 
 	private UsuarioDao  usuarioDao;

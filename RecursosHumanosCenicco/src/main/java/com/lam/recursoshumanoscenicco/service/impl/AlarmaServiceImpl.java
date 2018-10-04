@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.AlarmaDao;
 import com.lam.recursoshumanoscenicco.model.Alarma;
 import com.lam.recursoshumanoscenicco.service.AlarmaService;
 
-@Service
+@Service("alarmaService")
 public class AlarmaServiceImpl extends GenericAbstractService<Alarma, Long> implements AlarmaService {
 	
 	private AlarmaDao alarmaDao;

@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.EstadoDao;
 import com.lam.recursoshumanoscenicco.model.Estado;
 import com.lam.recursoshumanoscenicco.service.EstadoService;
 
-@Service
+@Service("estadoService")
 public class EstadoServiceImpl extends GenericAbstractService<Estado, Long> implements EstadoService{
 
 	private EstadoDao estadoDao;

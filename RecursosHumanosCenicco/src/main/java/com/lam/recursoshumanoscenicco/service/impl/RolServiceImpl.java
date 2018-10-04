@@ -7,7 +7,7 @@ import com.lam.recursoshumanoscenicco.dao.RolDao;
 import com.lam.recursoshumanoscenicco.model.Rol;
 import com.lam.recursoshumanoscenicco.service.RolService;
 
-@Service
+@Service("rolService")
 public class RolServiceImpl extends GenericAbstractService<Rol, Long> implements RolService{
 	
 	private RolDao rolDao;
