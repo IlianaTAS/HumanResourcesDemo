@@ -23,16 +23,22 @@ and open the template in the editor.
                             <div align="right">
                                 <h:panelGrid>
                                     <p:commandButton value="Nuevo Registro"
+                                                     actionListener="#{clienteController.init}"
                                                      styleClass="style_botones" icon="ui-icon-plus"
-                                                     onclick="PF('crearCliente').show();"/>
+                                                     update=":formCrear:display"
+                                                     oncomplete="PF('crearCliente').show();"/>
                                 </h:panelGrid>
                             </div>
 
                             <p:dataTable id="dataTable" var="cliente" value="#{clienteController.listaClientes}" style="width: 100%; font-size: .8em; margin-top: 10px;"
                                          emptyMessage="No se encontraron registros"
+                                         rowKey="#{cliente.idCliente}" selection="#{clienteController.cliente}" selectionMode="single"
                                          paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          scrollable="true" scrollHeight="305" rows="15">
+
+                                <p:ajax event="rowSelect" update=":formActualizar:display"
+                                        oncomplete="PF('actualizarClienteDlg').show()" />
 
                                 <f:facet name="header">
                                     <div align="right">
@@ -64,8 +70,12 @@ and open the template in the editor.
                                     <h:outputText value="#{cliente.telefono}"/>
                                 </p:column>
 
-                                <p:column headerText="Eliminar">
-
+                                <p:column headerText="Eliminar" style="width:50px; text-align:center;">
+                                    <p:commandButton icon="ui-icon-trash"
+                                                     oncomplete="PF('eliminarClienteDlg').show()"
+                                                     actionListener="#{clienteController.objectoElimar}">
+                                        <f:attribute name="clienteEliminar" value="#{cliente}" />
+                                    </p:commandButton>
                                 </p:column>
                             </p:dataTable>
                         </p:panel>
@@ -90,7 +100,7 @@ and open the template in the editor.
                             <h:outputLabel value="RFC:*" />
                             <p:inputText id="idRFC" value="#{clienteController.cliente.rfc}"
                                          style="color:black; width: 400px;" required="true"
-                                         requiredMessage="Favor de ingresar el RFC" />
+                                         requiredMessage="Favor de ingresar el RFC" maxlength="13"/>
                             <p:message for="idRFC" />
                             <h:outputLabel value="Dirección:*" />
                             <p:inputText id="idDireccion" value="#{clienteController.cliente.direccion}"
@@ -98,15 +108,15 @@ and open the template in the editor.
                                          requiredMessage="Favor de ingresar la dirección" />
                             <p:message for="idDireccion" />
                             <h:outputLabel value="Teléfono:*" />
-                            <p:inputText id="idTelefono" value="#{clienteController.cliente.direccion}"
+                            <p:inputText id="idTelefono" value="#{clienteController.cliente.telefono}"
                                          style="color:black; width: 400px;" required="true"
-                                         requiredMessage="Favor de ingresar el teléfono" />
+                                         requiredMessage="Favor de ingresar el teléfono" maxlength="50"/>
                             <p:message for="idTelefono" />
                         </h:panelGrid>
 
                         <f:facet name="footer">
                             <h:panelGrid columns="2">
-                                <p:commandButton value="Guardar" icon="ui-icon-disk"
+                                <p:commandButton value="Guardar" actionListener="#{clienteController.crearCliente}" icon="ui-icon-disk"
                                                  styleClass="style_botones"
                                                  ajax="false"
                                                  update=":formCrear:crearDialog, :growl, :form:display"
@@ -118,6 +128,78 @@ and open the template in the editor.
                             </h:panelGrid>
                         </f:facet>
                     </p:dialog> 
+                </h:form>
+
+                <h:form id="formActualizar">
+                    <p:dialog widgetVar="actualizarClienteDlg" header="Modificar Cliente"
+                              resizable="false" position="center,center" showEffect="fade"
+                              hideEffect="explode" closable="false" modal="true">
+
+                        <h:panelGrid id="display" columns="3" cellpadding="5">
+                            <h:outputLabel value="Nombre comercial:*" />
+                            <p:inputText id="idNombre" value="#{clienteController.cliente.nombreComercial}"
+                                         style="color:black; width: 400px;" required="true"
+                                         requiredMessage="Favor de ingresar el nombre comercial" />
+                            <p:message for="idNombre" />
+                            <h:outputLabel value="Razón social:*" />
+                            <p:inputText id="idRazonS" value="#{clienteController.cliente.razonSocial}"
+                                         style="color:black; width: 400px;" required="true"
+                                         requiredMessage="Favor de ingresar la razón social" />
+                            <p:message for="idRazonS" />
+                            <h:outputLabel value="RFC:*" />
+                            <p:inputText id="idRFC" value="#{clienteController.cliente.rfc}"
+                                         style="color:black; width: 400px;" required="true"
+                                         requiredMessage="Favor de ingresar el RFC" maxlength="13"/>
+                            <p:message for="idRFC" />
+                            <h:outputLabel value="Dirección:*" />
+                            <p:inputText id="idDireccion" value="#{clienteController.cliente.direccion}"
+                                         style="color:black; width: 400px;" required="true"
+                                         requiredMessage="Favor de ingresar la dirección" />
+                            <p:message for="idDireccion" />
+                            <h:outputLabel value="Teléfono:*" />
+                            <p:inputText id="idTelefono" value="#{clienteController.cliente.telefono}"
+                                         style="color:black; width: 400px;" required="true"
+                                         requiredMessage="Favor de ingresar el teléfono" maxlength="50"/>
+                            <p:message for="idTelefono" />
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Modificar"
+                                                 actionListener="#{clienteController.modificarCliente}" icon="ui-icon-pencil"
+                                                 styleClass="style_botones" ajax="false"
+                                                 update=":formActualizar:display, :growl, :form:display"
+                                                 validateClient="true" />
+                                <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                                 styleClass="style_botones" immediate="true" ajax="false">
+                                    <p:resetInput target="display" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formEliminar">
+                    <p:dialog id="display" widgetVar="eliminarClienteDlg"
+                              header="Confirmación" resizable="false" position="center,center"
+                              showEffect="fade" hideEffect="explode" closable="false"
+                              modal="true">
+
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <h:outputLabel value="¿Desea eliminar el registro?" />
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Si" icon="ui-icon-check"
+                                                 actionListener="#{clienteController.eliminarCliente}"
+                                                 styleClass="style_botones" ajax="false" process="@this"
+                                                 update="formEliminar:display, :growl, :form:display" />
+                                <p:commandButton value="No" icon="ui-icon-close" ajax="false"
+                                                 onsuccess="PF('eliminarClienteDlg').hide();"
+                                                 styleClass="style_botones">
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog>
                 </h:form>
 
             </ui:define>

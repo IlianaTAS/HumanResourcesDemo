@@ -26,11 +26,11 @@ import org.slf4j.LoggerFactory;
 public class ClienteController implements Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 43628633074094061L;
+     *
+     */
+    private static final long serialVersionUID = 43628633074094061L;
 
-	private final static Logger logger = LoggerFactory.getLogger(ClienteController.class);
+    private final static Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
     private ClienteService clienteService;
 
@@ -86,6 +86,7 @@ public class ClienteController implements Serializable {
         try {
             this.clienteService.actualizar(cliente);
             this.addMessage(Mensajes.EXITO_MODIFICAR_CLIENTE, true);
+            this.init();
         } catch (ServiceException e) {
             logger.error("Error Servicio [clienteService.actualizar]", e);
             this.addMessage(Mensajes.ERROR_MODIFICAR_CLIENTE, false);
@@ -101,10 +102,21 @@ public class ClienteController implements Serializable {
         try {
             this.clienteService.eliminar(cliente);
             this.addMessage(Mensajes.EXITO_MODIFICAR_CLIENTE, true);
+            this.init();
         } catch (ServiceException e) {
             logger.error("Error Servicio [clienteService.eliminar]", e);
             this.addMessage(Mensajes.ERROR_MODIFICAR_CLIENTE, false);
         }
+    }
+
+    /**
+     * Método para instanciar el objeto cliente que se va a eliminar del
+     * catálogo.
+     *
+     * @param event JSF parametro.
+     */
+    public void objectoElimar(ActionEvent event) {
+        this.cliente = (Cliente) event.getComponent().getAttributes().get("clienteEliminar");
     }
 
     /**
