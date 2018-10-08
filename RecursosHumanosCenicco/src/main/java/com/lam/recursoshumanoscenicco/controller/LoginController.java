@@ -14,6 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.MenuModel;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -92,6 +95,29 @@ public class LoginController implements PhaseListener, Serializable{
 		
 	}
 
+	public MenuModel getMenuModel() {
+		MenuModel menuModel=new DefaultMenuModel();
+		
+		DefaultMenuItem item=new DefaultMenuItem("Exámenes Psicométricos");
+		item.setUrl("../../configuracion/catalogosReclutamiento/examenPsicometrico.xhtml");
+		item.setIcon("ui-icon-clipboard");
+		menuModel.addElement(item);
+		DefaultMenuItem item2=new DefaultMenuItem("Exámenes Técnicos");
+		item.setUrl("../../configuracion/catalogosReclutamiento/examenTecnico.xhtml");
+		item.setIcon("ui-icon-document");
+		menuModel.addElement(item2);
+		
+		DefaultMenuItem item3=new DefaultMenuItem("Exámenes Técnicos");
+		item.setUrl("../../configuracion/catalogosReclutamiento/examenTecnico.xhtml");
+		item.setIcon("ui-icon-document");
+		menuModel.addElement(item3);
+		
+		DefaultMenuItem item4=new DefaultMenuItem("Exámenes Técnicos");
+		item.setUrl("../../configuracion/catalogosReclutamiento/examenTecnico.xhtml");
+		item.setIcon("ui-icon-document");
+		menuModel.addElement(item4);
+		return menuModel;
+	}
 	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;

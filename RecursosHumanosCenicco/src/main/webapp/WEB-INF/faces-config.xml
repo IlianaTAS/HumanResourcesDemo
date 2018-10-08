@@ -37,6 +37,31 @@
 			<value>#{clienteService}</value>
 		</managed-property>
 	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>initMenuController</managed-bean-name>
+		<managed-bean-class>com.lam.recursoshumanoscenicco.controller.InitMenuController</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>menuService</property-name>
+			<value>#{menuService}</value>
+		</managed-property>
+	</managed-bean>
+        
+    <managed-bean>
+		<managed-bean-name>examenController</managed-bean-name>
+		<managed-bean-class>com.lam.recursoshumanoscenicco.controller.ExamenTecnicoController</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+			<property-name>examenService</property-name>
+			<value>#{examenService}</value>
+		</managed-property>
+        <managed-property>
+			<property-name>puestoService</property-name>
+			<value>#{puestoService}</value>
+		</managed-property>
+	</managed-bean>
+
 
 	<lifecycle>
 		<phase-listener>com.lam.recursoshumanoscenicco.controller.LoginController</phase-listener>

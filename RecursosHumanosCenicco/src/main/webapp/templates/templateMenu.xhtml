@@ -28,12 +28,7 @@
 
         <div id="content" class="center_content">
             <h:form>
-                <p:tabMenu style="height: 20px; font-size: .8em;">
-                    <p:menuitem value="Exámenes Psicométricos" icon="ui-icon-clipboard" url="../../configuracion/catalogosReclutamiento/examenPsicometrico.xhtml"/>
-                    <p:menuitem value="Exámenes Técnicos" icon="ui-icon-document" url="../../configuracion/catalogosReclutamiento/examenTecnico.xhtml"/>
-                    <p:menuitem value="Clientes" icon="ui-icon-person" url="../../configuracion/catalogosReclutamiento/cliente.xhtml"/>
-                    <p:menuitem value="Criterios de Rechazo" icon="ui-icon-close"/>
-                </p:tabMenu>
+                <p:tabMenu style="height: 20px; font-size: .8em;" model="#{initMenuController.menuModel}"/>
             </h:form>
             <ui:insert name="content">Content</ui:insert>
         </div>

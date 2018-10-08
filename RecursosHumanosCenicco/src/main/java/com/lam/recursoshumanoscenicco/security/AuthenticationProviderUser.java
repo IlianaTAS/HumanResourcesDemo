@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.lam.recursoshumanoscenicco.dto.UsuarioDTO;
 import com.lam.recursoshumanoscenicco.model.Rol;
 import com.lam.recursoshumanoscenicco.service.UsuarioService;
 
@@ -40,7 +41,7 @@ public class AuthenticationProviderUser implements UserDetailsService{
 					authList.add(new SimpleGrantedAuthority(rol.getNombre()));
 				}
 
-				return new User(username, usuario.getContrasena(), true, true, true, true, authList);
+				return new UsuarioDTO(username, usuario.getContrasena(), true, true, true, true, authList, usuario);
 
 			} else {
 	            throw new DataRetrievalFailureException("Error en el authentication provider, no se pudo encontrar al usuario[" + username + "]");

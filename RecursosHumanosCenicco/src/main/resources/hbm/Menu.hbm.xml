@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 16/09/2018 08:26:45 PM by Hibernate Tools 5.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class dynamic-insert="true" dynamic-update="true" name="com.lam.recursoshumanoscenicco.model.Menu" table="MENU_APP">
+        <id name="idMenu" type="long">
+            <column name="ID_MENU" precision="15" scale="0"/>
+            <generator class="identity" />
+        </id>
+        <property generated="never" lazy="false" name="nombre"  type="string" unique="false">
+            <column length="500" name="NOMBRE" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="url"  type="string" unique="false">
+            <column length="500" name="URL" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="icono"  type="string" unique="false">
+            <column length="500" name="ICONO" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="modulo"  type="string" unique="false">
+            <column length="500" name="MODULO" not-null="true"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="menus" sort="unsorted" table="MENU_APP">
+            <key on-delete="noaction">
+                <column name="ID_MENU" not-null="true" precision="15" scale="0"/>
+            </key>
+            <one-to-many class="com.lam.recursoshumanoscenicco.model.Menu" not-found="exception"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="perfiles" sort="unsorted" table="PERFIL_MENU">
+            <key on-delete="noaction">
+                <column name="ID_MENU" not-null="true" precision="15" scale="0"/>
+            </key>
+            <many-to-many class="com.lam.recursoshumanoscenicco.model.Perfil" column="IDPERFIL" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>
