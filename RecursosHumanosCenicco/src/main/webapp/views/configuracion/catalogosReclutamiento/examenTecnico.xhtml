@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -34,57 +34,188 @@ and open the template in the editor.
                     <p:layoutUnit position="center">
                         <h:form style="margin-top:5%; font-size: .8em;">
                             <p:growl id="growl" sticky="true" showDetail="true"/>
+                            <div align="center">
+                                <p:wizard style="width: 85%; height: 90%; font-size: .9em;" nextLabel="Siguiente" backLabel="AtrÃ¡s" 
+                                          flowListener="#{examenController.wizardExamen}">
+                                    <p:tab id="configuracion" title="ConfiguraciÃ³n" titleStyleClass="style_tab">
+                                        <p:panel header="Ingrese la estructura del exÃ¡men tÃ©cnico">
+                                            <h:panelGrid columns="3">
+                                                <h:outputText value="Nombre: *" />
+                                                <p:inputText id="idNombre" style="color: black;width: 250px;" value="#{examenController.examen.descripcion}"
+                                                             required="true" requiredMessage="Favor de ingresar el nombre del exÃ¡men"/>
+                                                <p:message for="idNombre" />
+                                                <h:outputText value="Puesto: *" />
+                                                <p:selectOneMenu id="idPuesto" style="color:black; width:130px"
+                                                                 required="true"  requiredMessage="Favor de seleccionar el puesto" 
+                                                                 filter="true" filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                                    <f:selectItems value="#{examenController.listaPuestos}" var="puesto"
+                                                                   itemValue="#{puesto.idPuesto}" itemLabel="#{puesto.descripcion}"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="idPuesto" />
 
-                            <p:wizard>
-                                <p:tab id="configuracion" title="Configuración">
-                                    <p:panel header="Ingrese la estructura del exámen técnico">
-                                        <p:messages />
-                                        <h:panelGrid columns="2" columnClasses="label, value">
-                                            <h:outputText value="Puesto: *" />
-                                            <p:selectOneMenu id="puesto" style="width:150px" required="true" filter="true" filterMatchMode="contains">
-                                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
-                                            </p:selectOneMenu>
+                                                <h:outputText value="DuraciÃ³n(horas): *" />
+                                                <p:inputText id="idDuracion" style="color: black;" value="#{examenController.examen.duracion}"
+                                                             required="true" requiredMessage="Favor de ingresar la duraciÃ³n del exÃ¡men"/>
+                                                <p:message for="idDuracion" />
 
-                                            <h:outputText value="Duración: *" />
-                                            <p:inputText required="true" label="Ingrese la duración del examen"/>
+                                                <h:outputText value="Cantidad de preguntas abiertas: *" />
+                                                <p:inputText id="idPreguntasA" style="color: black;" value="#{examenController.examen.peguntasAbiertas}"
+                                                             required="true" requiredMessage="Favor de ingresar la cantidad de preguntas abiertas"/>
+                                                <p:message for="idPreguntasA" />
 
-                                            <h:outputText value="Cantidad de preguntas abiertas: *" />
-                                            <p:inputText required="true" label="Ingrese la cantidad de preguntas abiertas que contendrá el examen"/>
+                                                <h:outputText value="Cantidad de preguntas cerradas: *" />
+                                                <p:inputText id="idPreguntasC" style="color: black;" value="#{examenController.examen.preguntasCerradas}"
+                                                             required="true" requiredMessage="Favor de ingresar la cantidad de preguntas cerradas"/>
+                                                <p:message for="idPreguntasC" />
 
-                                            <h:outputText value="Cantidad de preguntas cerradas: *" />
-                                            <p:inputText required="true" label="Ingrese la cantidad de preguntas cerradas que contendrá el examen"/>
+                                                <h:outputText value="Cantidad de preguntas de opciÃ³n multiple: *" />
+                                                <p:inputText id="idPreguntaM" style="color: black;" value="#{examenController.examen.preguntasMultiples}"
+                                                             required="true" requiredMessage="Favor de ingresar la cantida de preguntas de opciÃ³n mÃºltiple"/>
+                                                <p:message for="idPreguntaM" />
 
-                                            <h:outputText value="Cantidad de preguntas de opción multiple: *" />
-                                            <p:inputText required="true" label="Ingrese la cantida de preguntas de opción múltiple que contendrá el examen"/>
+                                            </h:panelGrid>
+                                        </p:panel>
+                                    </p:tab>
 
-                                        </h:panelGrid>
-                                    </p:panel>
-                                </p:tab>
+                                    <p:tab id="pregunta" title="Preguntas" titleStyleClass="style_tab">
+                                        <div align="left">
+                                            <p:panel header="Ingresar las preguntas y posibles respuestas del examen">
 
-                                <p:tab id="pregunta" title="Preguntas">
-                                    <p:panel header="Address Details">
-                                        <p:messages />
-                                        <h:panelGrid columns="2" columnClasses="label, value">
-                                            <h:outputText value="Street: " />
-                                            <p:inputText />
+                                                <p:accordionPanel>
+                                                    <p:tab title="Preguntas abiertas" titleStyleClass="style_tab_color">
+                                                        <p:dataTable value="#{examenController.preguntasAbiertas}" var="preguntaA" editable="true" editMode="cell"
+                                                                     scrollable="true" scrollHeight="150">
+                                                            <p:column headerText="No." style="width: 10%;">
+                                                                <h:outputLabel value="#{preguntaA.numero}"/>
+                                                            </p:column>
+                                                            <p:column headerText="Pregunta" style="width: 90%;">
+                                                                <p:cellEditor>
+                                                                    <f:facet name="output"><h:outputText value="#{preguntaA.pregunta}"/></f:facet>
+                                                                    <f:facet name="input"><p:inputText value="#{preguntaA.pregunta}" style="width:97%"/></f:facet>
+                                                                </p:cellEditor>
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:tab>
+                                                    <p:tab title="Preguntas cerradas" titleStyleClass="style_tab_color">
+                                                        <p:dataTable value="#{examenController.preguntasCerradas}" var="preguntaC" editable="true" editMode="cell"
+                                                                     scrollable="true" scrollHeight="150">
+                                                            <p:column headerText="No." style="width: 10%;">
+                                                                <h:outputLabel value="#{preguntaC.numero}"/>
+                                                            </p:column>
+                                                            <p:column headerText="Pregunta" style="width: 90%;">
+                                                                <p:cellEditor>
+                                                                    <f:facet name="output"><h:outputText value="#{preguntaC.pregunta}"/></f:facet>
+                                                                    <f:facet name="input"><p:inputText value="#{preguntaC.pregunta}" style="width:97%"/></f:facet>
+                                                                </p:cellEditor>
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:tab>
+                                                    <p:tab title="Preguntas opciÃ³n mÃºltiple" titleStyleClass="style_tab_color">
+                                                        <p:dataTable value="#{examenController.preguntasMultiples}" var="preguntaM" editable="true" editMode="cell"
+                                                                     scrollable="true" scrollHeight="150">
+                                                            <p:column headerText="No." style="width: 5%;">
+                                                                <h:outputLabel value="#{preguntaM.numero}"/>
+                                                            </p:column>
+                                                            <p:column headerText="Pregunta" style="width: 32%;">
+                                                                <p:cellEditor>
+                                                                    <f:facet name="output"><h:outputText value="#{preguntaM.pregunta}"/></f:facet>
+                                                                    <f:facet name="input"><p:inputText value="#{preguntaM.pregunta}" style="width:90%"/></f:facet>
+                                                                </p:cellEditor>
+                                                            </p:column>
+                                                            <p:column headerText="Respuesta Correcta" style="width: 16%;">
+                                                                <p:cellEditor>
+                                                                    <f:facet name="output"><h:outputText value="#{preguntaM.respuestaC}"/></f:facet>
+                                                                    <f:facet name="input"><p:inputText value="#{preguntaM.respuestaC}" style="width:90%"/></f:facet>
+                                                                </p:cellEditor>
+                                                            </p:column>
+                                                            <p:column headerText="Respuesta Incorrecta" style="width: 16%;">
+                                                                <p:cellEditor>
+                                                                    <f:facet name="output"><h:outputText value="#{preguntaM.respuestaE1}"/></f:facet>
+                                                                    <f:facet name="input"><p:inputText value="#{preguntaM.respuestaE1}" style="width:90%"/></f:facet>
+                                                                </p:cellEditor>
+                                                            </p:column>
+                                                            <p:column headerText="Respuesta Incorrecta" style="width: 16%;">
+                                                                <p:cellEditor>
+                                                                    <f:facet name="output"><h:outputText value="#{preguntaM.respuestaE2}"/></f:facet>
+                                                                    <f:facet name="input"><p:inputText value="#{preguntaM.respuestaE2}" style="width:97%"/></f:facet>
+                                                                </p:cellEditor>
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:tab>
+                                                </p:accordionPanel>
+                                            </p:panel>
+                                        </div>
+                                    </p:tab>
 
-                                            <h:outputText value="Postal Code: " />
-                                            <p:inputText/>
+                                    <p:tab id="confirmacion" title="ConfirmaciÃ³n" titleStyleClass="style_tab">
+                                        <div align="center">
+                                            <h3 style="margin-top:0">El examen que se crearÃ¡ es el siguiente:</h3>
+                                            <p:panel>
+                                                <h:panelGrid style="font-size: .9em" columns="4" cellspacing="7">
+                                                    <h:outputLabel value="Nombre:"/>
+                                                    <h:outputLabel value="#{examenController.examen.descripcion}" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="Puesto"/>
+                                                    <h:outputLabel value="#{examenController.examen.puesto.descripcion}" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="DuraciÃ³n"/>
+                                                    <h:outputLabel value="#{examenController.examen.duracion} hora(s)" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="Cantidad preguntas abiertas"/>
+                                                    <h:outputLabel value="#{examenController.examen.peguntasAbiertas}" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="Cantidad preguntas cerradas"/>
+                                                    <h:outputLabel value="#{examenController.examen.preguntasCerradas}" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="DuraciÃ³n preguntas mÃºltiples"/>
+                                                    <h:outputLabel value="#{examenController.examen.preguntasMultiples}" style="color: green; font-weight: bold"/>
+                                                </h:panelGrid>
+                                            </p:panel>
+                                        </div>
+                                        <div align="left">
+                                            <p:scrollPanel style="height: 200px;">
+                                                <h:panelGrid style="font-size: .9em" columns="1">
+                                                    <h3 style="margin-top:0;color: green">Preguntas abiertas:</h3>
+                                                    <p:repeat value="#{examenController.preguntasAbiertas}" var="pregA">
+                                                        <p:outputPanel rendered="#{not empty pregA.pregunta}">
+                                                            <h:panelGrid columns="2">
+                                                                <h:outputText value="#{pregA.numero}.- #{pregA.pregunta}" style="font-weight: bold"/>
+                                                            </h:panelGrid>
+                                                        </p:outputPanel>
+                                                    </p:repeat>
+                                                    <br/><br/>
+                                                    <h3 style="margin-top:0;color: green">Preguntas cerradas:</h3>
+                                                    <p:repeat value="#{examenController.preguntasCerradas}" var="pregC">
+                                                        <p:outputPanel rendered="#{not empty pregC.pregunta}">
+                                                            <h:panelGrid columns="1">
+                                                                <h:outputText value="#{pregC.numero}.- #{pregC.pregunta}" style="font-weight: bold"/>
+                                                                <p:selectOneRadio>
+                                                                    <f:selectItem itemValue="si" itemLabel="si"/>
+                                                                    <f:selectItem itemValue="no" itemLabel="no"/>
+                                                                </p:selectOneRadio>
+                                                            </h:panelGrid>
+                                                        </p:outputPanel>
+                                                    </p:repeat>
+                                                    <br/><br/>
+                                                    <h3 style="margin-top:0;color: green">Preguntas mÃºltiples:</h3>
+                                                    <p:repeat value="#{examenController.preguntasMultiples}" var="pregM">
+                                                        <p:outputPanel rendered="#{not empty pregM.pregunta}">
+                                                            <h:panelGrid columns="1">
+                                                                <h:outputText value="#{pregM.numero}.- #{pregM.pregunta}" style="font-weight: bold"/>
+                                                                <p:selectOneRadio>
+                                                                    <f:selectItem itemValue="#{pregM.respuestaC}" itemLabel="#{pregM.respuestaC}"/>
+                                                                    <f:selectItem itemValue="#{pregM.respuestaE1}" itemLabel="#{pregM.respuestaE1 }"/>
+                                                                    <f:selectItem itemValue="#{pregM.respuestaE2}" itemLabel="#{pregM.respuestaE2}"/>
+                                                                </p:selectOneRadio>
+                                                            </h:panelGrid>
+                                                        </p:outputPanel>
+                                                    </p:repeat>
+                                                </h:panelGrid>
+                                                <div align="right">
+                                                    <p:commandButton value="Guardar" icon="ui-icon-disk" styleClass="style_botones"/>
+                                                </div>
+                                            </p:scrollPanel>
+                                        </div>
+                                    </p:tab>
+                                </p:wizard>
+                            </div>
 
-                                            <h:outputText value="City: " />
-                                            <p:inputText />
-
-                                        </h:panelGrid>
-                                    </p:panel>
-                                </p:tab>
-
-                                <p:tab id="confirmacion" title="Confirmación">
-                                    <p:panel header="Contact Information">
-                                    </p:panel>
-                                </p:tab>
-
-                                <p:commandButton value="Guardar" icon="ui-icon-save"/>
-                            </p:wizard>
                         </h:form>
 
                     </p:layoutUnit>
