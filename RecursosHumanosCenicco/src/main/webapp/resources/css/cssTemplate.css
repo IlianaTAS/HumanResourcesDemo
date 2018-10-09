@@ -57,4 +57,18 @@
     font-size: 1em;
 }
 
+.style_tab{
+    font-variant: small-caps;
+    font-stretch: ultra-expanded;
+    font-size: .8em;
+}
+
+.style_tab_color{
+    font-variant: small-caps;
+    font-stretch: ultra-expanded;
+    font-size: .8em;
+    background-color: #0081c2 !important;
+    color: white !important;
+}
+
 

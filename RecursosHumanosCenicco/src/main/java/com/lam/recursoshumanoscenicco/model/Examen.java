@@ -9,85 +9,113 @@ import java.util.Set;
  */
 public class Examen implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5133228928952125282L;
-	private long idExamen;
-	private Puesto puesto;
-	private CatalogoParametro catalogoParametro;
-	private String descripcion;
-	private String duracion;
-	private Set<Pregunta> preguntas = new HashSet<Pregunta>();
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5133228928952125282L;
+    private long idExamen;
+    private Puesto puesto;
+    private CatalogoParametro catalogoParametro;
+    private String descripcion;
+    private String duracion;
+    private Set<Pregunta> preguntas = new HashSet<Pregunta>();
 
-	public Examen() {
-	}
+    private int peguntasAbiertas;
+    private int preguntasCerradas;
+    private int preguntasMultiples;
 
-	public Examen(long idExamen, Puesto puesto, CatalogoParametro catalogoParametro, String descripcion,
-			String duracion) {
-		this.idExamen = idExamen;
-		this.puesto = puesto;
-		this.catalogoParametro = catalogoParametro;
-		this.descripcion = descripcion;
-		this.duracion = duracion;
-	}
+    public Examen() {
+    }
 
-	public Examen(long idExamen, Puesto puesto, CatalogoParametro catalogoParametro, String descripcion,
-			String duracion, Set<Pregunta> preguntas) {
-		this.idExamen = idExamen;
-		this.puesto = puesto;
-		this.catalogoParametro = catalogoParametro;
-		this.descripcion = descripcion;
-		this.duracion = duracion;
-		this.preguntas = preguntas;
-	}
+    public Examen(long idExamen, Puesto puesto, CatalogoParametro catalogoParametro, String descripcion,
+            String duracion) {
+        this.idExamen = idExamen;
+        this.puesto = puesto;
+        this.catalogoParametro = catalogoParametro;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+    }
 
-	public long getIdExamen() {
-		return this.idExamen;
-	}
+    public Examen(long idExamen, Puesto puesto, CatalogoParametro catalogoParametro, String descripcion,
+            String duracion, Set<Pregunta> preguntas) {
+        this.idExamen = idExamen;
+        this.puesto = puesto;
+        this.catalogoParametro = catalogoParametro;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.preguntas = preguntas;
+    }
 
-	public void setIdExamen(long idExamen) {
-		this.idExamen = idExamen;
-	}
+    public long getIdExamen() {
+        return this.idExamen;
+    }
 
-	public Puesto getPuesto() {
-		return this.puesto;
-	}
+    public void setIdExamen(long idExamen) {
+        this.idExamen = idExamen;
+    }
 
-	public void setPuesto(Puesto puesto) {
-		this.puesto = puesto;
-	}
+    public Puesto getPuesto() {
+        return this.puesto;
+    }
 
-	public CatalogoParametro getCatalogoParametro() {
-		return this.catalogoParametro;
-	}
+    public void setPuesto(Puesto puesto) {
+        this.puesto = puesto;
+    }
 
-	public void setCatalogoParametro(CatalogoParametro catalogoParametro) {
-		this.catalogoParametro = catalogoParametro;
-	}
+    public CatalogoParametro getCatalogoParametro() {
+        return this.catalogoParametro;
+    }
 
-	public String getDescripcion() {
-		return this.descripcion;
-	}
+    public void setCatalogoParametro(CatalogoParametro catalogoParametro) {
+        this.catalogoParametro = catalogoParametro;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return this.descripcion;
+    }
 
-	public String getDuracion() {
-		return this.duracion;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public void setDuracion(String duracion) {
-		this.duracion = duracion;
-	}
+    public String getDuracion() {
+        return this.duracion;
+    }
 
-	public Set<Pregunta> getPreguntas() {
-		return this.preguntas;
-	}
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
+    }
 
-	public void setPreguntas(Set<Pregunta> preguntas) {
-		this.preguntas = preguntas;
-	}
+    public Set<Pregunta> getPreguntas() {
+        return this.preguntas;
+    }
+
+    public void setPreguntas(Set<Pregunta> preguntas) {
+        this.preguntas = preguntas;
+    }
+
+    public int getPeguntasAbiertas() {
+        return peguntasAbiertas;
+    }
+
+    public void setPeguntasAbiertas(int peguntasAbiertas) {
+        this.peguntasAbiertas = peguntasAbiertas;
+    }
+
+    public int getPreguntasCerradas() {
+        return preguntasCerradas;
+    }
+
+    public void setPreguntasCerradas(int preguntasCerradas) {
+        this.preguntasCerradas = preguntasCerradas;
+    }
+
+    public int getPreguntasMultiples() {
+        return preguntasMultiples;
+    }
+
+    public void setPreguntasMultiples(int preguntasMultiples) {
+        this.preguntasMultiples = preguntasMultiples;
+    }
 
 }
