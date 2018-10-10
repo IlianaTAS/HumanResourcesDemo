@@ -11,10 +11,11 @@ package com.lam.recursoshumanoscenicco.utils;
  */
 public class Constantes {
     
+    public static final String CATALOGO_PARAMETRO_TIPOPREGUNTA = "TIPO_PREGUNTA";
+    public static final String CATALOGO_PARAMETRO_TIPOEXAMEN = "TIPO_EXAMEN";
     public static final String CATALOGO_PARAMETRO_PREGUNTA_ABIERTA = "PREGUNTA_ABIERTA";
     public static final String CATALOGO_PARAMETRO_PREGUNTA_CERRADA = "PREGUNTA_CERRADA";
     public static final String CATALOGO_PARAMETRO_PREGUNTA_MULTIPLE = "PREGUNTA_MULTIPLE";
-    //
     public static final String CATALOGO_PARAMETRO_EXAMEN_TECNICO = "EXAMEN_TECNICO";
     //
     public static final String EXAMEN_RESPUESTA_CORRECTA = "correcta";

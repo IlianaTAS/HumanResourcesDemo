@@ -61,17 +61,17 @@ and open the template in the editor.
                                                 <p:message for="idDuracion" />
 
                                                 <h:outputText value="Cantidad de preguntas abiertas: *" />
-                                                <p:inputText id="idPreguntasA" style="color: black;" value="#{examenController.examen.peguntasAbiertas}"
+                                                <p:inputText id="idPreguntasA" style="color: black;" value="#{examenController.examenDTO.peguntasAbiertas}"
                                                              required="true" requiredMessage="Favor de ingresar la cantidad de preguntas abiertas"/>
                                                 <p:message for="idPreguntasA" />
 
                                                 <h:outputText value="Cantidad de preguntas cerradas: *" />
-                                                <p:inputText id="idPreguntasC" style="color: black;" value="#{examenController.examen.preguntasCerradas}"
+                                                <p:inputText id="idPreguntasC" style="color: black;" value="#{examenController.examenDTO.preguntasCerradas}"
                                                              required="true" requiredMessage="Favor de ingresar la cantidad de preguntas cerradas"/>
                                                 <p:message for="idPreguntasC" />
 
                                                 <h:outputText value="Cantidad de preguntas de opción multiple: *" />
-                                                <p:inputText id="idPreguntaM" style="color: black;" value="#{examenController.examen.preguntasMultiples}"
+                                                <p:inputText id="idPreguntaM" style="color: black;" value="#{examenController.examenDTO.preguntasMultiples}"
                                                              required="true" requiredMessage="Favor de ingresar la cantida de preguntas de opción múltiple"/>
                                                 <p:message for="idPreguntaM" />
 
@@ -157,15 +157,15 @@ and open the template in the editor.
                                                     <h:outputLabel value="Nombre:"/>
                                                     <h:outputLabel value="#{examenController.examen.descripcion}" style="color: green; font-weight: bold"/>
                                                     <h:outputLabel value="Puesto"/>
-                                                    <h:outputLabel value="#{examenController.examen.puesto.descripcion}" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="#{examenController.puestoE.descripcion}" style="color: green; font-weight: bold"/>
                                                     <h:outputLabel value="Duración"/>
                                                     <h:outputLabel value="#{examenController.examen.duracion} hora(s)" style="color: green; font-weight: bold"/>
                                                     <h:outputLabel value="Cantidad preguntas abiertas"/>
-                                                    <h:outputLabel value="#{examenController.examen.peguntasAbiertas}" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="#{examenController.examenDTO.peguntasAbiertas}" style="color: green; font-weight: bold"/>
                                                     <h:outputLabel value="Cantidad preguntas cerradas"/>
-                                                    <h:outputLabel value="#{examenController.examen.preguntasCerradas}" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="#{examenController.examenDTO.preguntasCerradas}" style="color: green; font-weight: bold"/>
                                                     <h:outputLabel value="Duración preguntas múltiples"/>
-                                                    <h:outputLabel value="#{examenController.examen.preguntasMultiples}" style="color: green; font-weight: bold"/>
+                                                    <h:outputLabel value="#{examenController.examenDTO.preguntasMultiples}" style="color: green; font-weight: bold"/>
                                                 </h:panelGrid>
                                             </p:panel>
                                         </div>

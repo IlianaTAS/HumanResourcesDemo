@@ -1,9 +1,7 @@
 package com.lam.recursoshumanoscenicco.model;
 // Generated 16/09/2018 08:26:45 PM by Hibernate Tools 5.3.1.Final
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,73 +9,73 @@ import java.util.Set;
  */
 public class Pregunta implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7893723884000916252L;
-	
-	private long idPregunta;
-	private CatalogoParametro catalogoParametro;
-	private String descripcion;
-	private List<Respuesta> respuestas = new ArrayList<>();
-	private Set<Examen> examenes = new HashSet<Examen>();
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7893723884000916252L;
 
-	public Pregunta() {
-	}
+    private long idPregunta;
+    private CatalogoParametro catalogoParametro;
+    private String descripcion;
+    private Set<Respuesta> respuestas = new HashSet<>();
+    private Set<Examen> examenes = new HashSet<>();
 
-	public Pregunta(long idPregunta, CatalogoParametro catalogoParametro, String descripcion) {
-		this.idPregunta = idPregunta;
-		this.catalogoParametro = catalogoParametro;
-		this.descripcion = descripcion;
-	}
+    public Pregunta() {
+    }
 
-	public Pregunta(long idPregunta, CatalogoParametro catalogoParametro, String descripcion, List<Respuesta> respuestas,
-			Set<Examen> examenes) {
-		this.idPregunta = idPregunta;
-		this.catalogoParametro = catalogoParametro;
-		this.descripcion = descripcion;
-		this.respuestas = respuestas;
-		this.examenes = examenes;
-	}
+    public Pregunta(long idPregunta, CatalogoParametro catalogoParametro, String descripcion) {
+        this.idPregunta = idPregunta;
+        this.catalogoParametro = catalogoParametro;
+        this.descripcion = descripcion;
+    }
 
-	public long getIdPregunta() {
-		return this.idPregunta;
-	}
+    public Pregunta(long idPregunta, CatalogoParametro catalogoParametro, String descripcion, Set<Respuesta> respuestas,
+            Set<Examen> examenes) {
+        this.idPregunta = idPregunta;
+        this.catalogoParametro = catalogoParametro;
+        this.descripcion = descripcion;
+        this.respuestas = respuestas;
+        this.examenes = examenes;
+    }
 
-	public void setIdPregunta(long idpregunta) {
-		this.idPregunta = idpregunta;
-	}
+    public long getIdPregunta() {
+        return this.idPregunta;
+    }
 
-	public CatalogoParametro getCatalogoParametro() {
-		return this.catalogoParametro;
-	}
+    public void setIdPregunta(long idpregunta) {
+        this.idPregunta = idpregunta;
+    }
 
-	public void setCatalogoParametro(CatalogoParametro catalogoParametro) {
-		this.catalogoParametro = catalogoParametro;
-	}
+    public CatalogoParametro getCatalogoParametro() {
+        return this.catalogoParametro;
+    }
 
-	public String getDescripcion() {
-		return this.descripcion;
-	}
+    public void setCatalogoParametro(CatalogoParametro catalogoParametro) {
+        this.catalogoParametro = catalogoParametro;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return this.descripcion;
+    }
 
-    public List<Respuesta> getRespuestas() {
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Set<Respuesta> getRespuestas() {
         return respuestas;
     }
 
-    public void setRespuestas(List<Respuesta> respuestas) {
+    public void setRespuestas(Set<Respuesta> respuestas) {
         this.respuestas = respuestas;
     }
 
-	public Set<Examen> getExamenes() {
-		return this.examenes;
-	}
+    public Set<Examen> getExamenes() {
+        return this.examenes;
+    }
 
-	public void setExamenes(Set<Examen> examenes) {
-		this.examenes = examenes;
-	}
+    public void setExamenes(Set<Examen> examenes) {
+        this.examenes = examenes;
+    }
 
 }
