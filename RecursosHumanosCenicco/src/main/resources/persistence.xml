@@ -10,10 +10,10 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	
 	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource">
-		<property name="dataSourceName" value="CENICCO" />
-		<property name="URL" value="jdbc:oracle:thin:@localhost:1522/PDBORCL" />
+		<property name="dataSourceName" value="RH" />
+		<property name="URL" value="jdbc:oracle:thin:@localhost:1522:ORCL" />
 		<property name="user" value="RECURSOS_HUMANOS" />
-		<property name="password" value="cenicco" />
+		<property name="password" value="oracle1234admin" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -38,6 +38,7 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
 		 		<value>hbm/Respuesta.hbm.xml</value> 		
 		 		<value>hbm/Rol.hbm.xml</value>
 		 		<value>hbm/Usuario.hbm.xml</value>	
+		 		<value>hbm/Menu.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

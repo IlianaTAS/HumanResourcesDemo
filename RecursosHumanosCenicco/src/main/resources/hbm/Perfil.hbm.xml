@@ -25,5 +25,11 @@
 				class="com.lam.recursoshumanoscenicco.model.Rol" />
 		</set>
 
+        <set fetch="select" inverse="true" lazy="true" name="menus" sort="unsorted" table="PERFIL_MENU">
+            <key on-delete="noaction">
+                <column name="idPerfil" not-null="true" precision="15" scale="0"/>
+            </key>
+            <many-to-many class="com.lam.recursoshumanoscenicco.model.Menu" column="ID_MENU" not-found="exception"/>
+        </set>
 	</class>
 </hibernate-mapping>

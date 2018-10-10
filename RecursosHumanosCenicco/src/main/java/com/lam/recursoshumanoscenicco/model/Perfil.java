@@ -17,6 +17,8 @@ public class Perfil implements Serializable{
 	
 	private Set<Rol> rol = new HashSet<>();
 	
+	private Set<Menu> menus=new HashSet<>();
+	
 	public  Perfil() {
 		
 	}
@@ -54,6 +56,16 @@ public class Perfil implements Serializable{
 
 	public void setIdPerfil(Long idPerfil) {
 		this.idPerfil = idPerfil;
+	}
+
+
+	public Set<Menu> getMenus() {
+		return menus;
+	}
+
+
+	public void setMenus(Set<Menu> menus) {
+		this.menus = menus;
 	}
 
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -8,7 +8,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -17,83 +18,24 @@ and open the template in the editor.
                 <p:growl id="growl" showDetail="false" life="3000"/>
                 <p:layout style="min-height:100%">
                 <h:form id="idForm" prependId="false"> 
-                    <p:layoutUnit position="west" resizable="false" size="22%">
+                    <p:layoutUnit position="west" resizable="false" size="22%" rendered="#{!initMenuController.habilitarModulo}">
                         <div align="center">
                             <p:panel>
                                 <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resources/images/logos/logoCenicco.png"/>
                                 <br/><br/><br/><br/>
                                 <p:inputText id="username" value="#{loginController.userName}" placeholder="Usuario" styleClass="style_placeHolder"/>
-                                <p:password id="password" value="#{loginController.password}" placeholder="Contraseña" styleClass="style_placeHolder"/>
+                                <p:password id="password" value="#{loginController.password}" placeholder="Contraseï¿½a" styleClass="style_placeHolder"/>
                                 <br/><br/>
                                 <p:commandButton action="#{loginController.doLogin}" value="Ingresar" styleClass="style_botones" icon="ui-icon-locked" ajax="false"/>
                                 <br/><br/><br/><br/>
-                                <p:commandLink value="¿Olvidaste tu contraseña?" style="color: blue"/>
+                                <p:commandLink value="ï¿½Olvidaste tu contraseï¿½a?" style="color: blue"/>
                             </p:panel> 
                         </div> 
                     </p:layoutUnit>
                 </h:form>
-
-                    <p:layoutUnit position="center">
-                        <div class="contenedor1" id="azul" style="
-                             background-image: url(#{request.contextPath}/resources/images/fondos/hexAzul.png)" title="Prueba">
-                            <p class="texto" style="font-variant: small-caps;
-                               font-stretch: ultra-expanded;
-                               font-size: .8em; font-weight: bold; text-align: center;">Organización</p>
-                        </div>
-
-                        <div class="contenedor1" id="morado" style="
-                             background-image: url(#{request.contextPath}/resources/images/fondos/hexMorado.png);">
-                            <p class="texto" style="font-variant: small-caps;
-                               font-stretch: ultra-expanded;
-                               font-size: .8em; font-weight: bold; text-align: center;">Reclutamiento</p>
-                            <p class="texto" style="font-variant: small-caps;
-                               font-stretch: ultra-expanded;
-                               font-size: .8em; font-weight: bold; text-align: center;">y</p>
-                            <p class="texto" style="font-variant: small-caps;
-                               font-stretch: ultra-expanded;
-                               font-size: .8em; font-weight: bold; text-align: center;">Selección</p>
-                        </div>
-
-                        <div class="contenedor1" id="amarillo" style="
-                             background-image: url(#{request.contextPath}/resources/images/fondos/hexAmarillo.png) !important;">
-                            <p class="texto" style="font-variant: small-caps;
-                               font-stretch: ultra-expanded;
-                               font-size: .8em; font-weight: bold; text-align: center;">Desarrollo Personal</p>
-                        </div>
-                        <div class="perfil">
-                            <h:form>
-                                <h:panelGrid columns="2">
-                                    <p:row>
-                                        <p:column>
-                                            <h:panelGrid columns="1">
-                                                <p:outputLabel value=""/>
-                                            </h:panelGrid>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                        </p:column>
-                                    </p:row>
-                                </h:panelGrid>
-                            </h:form>
-                        </div>
-                        <div class="contenedor2" id="rosa" style="
-                             background-image: url(#{request.contextPath}/resources/images/fondos/hexRosa.png);">
-                            <p class="texto" style="font-variant: small-caps;
-                               font-stretch: ultra-expanded;
-                               font-size: .8em; font-weight: bold; text-align: center;">Inventario</p>
-                            <p class="texto" style="font-variant: small-caps;
-                               font-stretch: ultra-expanded;
-                               font-size: .8em; font-weight: bold; text-align: center;">Recursos Humanos</p>
-                        </div>
-                        <div class="contenedor2" id="verde" style="
-                             background-image: url(#{request.contextPath}/resources/images/fondos/hexVerde.png);">
-                            <p class="texto" style="font-variant: small-caps;
-                               font-stretch: ultra-expanded;
-                               font-size: .8em; font-weight: bold; text-align: center;">Configuración</p>
-                        </div>
-                        
-                    </p:layoutUnit>
+                <p:layoutUnit position="center">
+	  				<ui:include src="menuModulo.xhtml"/>                  
+                </p:layoutUnit>
                 </p:layout>
             </ui:define>
         </ui:composition>

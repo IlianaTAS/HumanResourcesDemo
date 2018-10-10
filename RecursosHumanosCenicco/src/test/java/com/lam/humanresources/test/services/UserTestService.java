@@ -3,6 +3,7 @@ package com.lam.humanresources.test.services;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lam.recursoshumanoscenicco.exception.ServiceException;
+import com.lam.recursoshumanoscenicco.model.Menu;
 import com.lam.recursoshumanoscenicco.model.Perfil;
 import com.lam.recursoshumanoscenicco.model.Usuario;
 import com.lam.recursoshumanoscenicco.service.UsuarioService;
@@ -28,7 +30,7 @@ public class UserTestService {
 	private UsuarioService usuarioService;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void createTest() {
 
 		Usuario usuario=new Usuario();
@@ -48,11 +50,14 @@ public class UserTestService {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void findUserTest() {
 		Usuario usuario;
 		try {
 			usuario = usuarioService.findUsuarioBy("angelraulgs");
+			Perfil perfil=usuario.getPerfil();
+			Set<Menu>menus=perfil.getMenus();
+			
 			System.out.println(usuario.getPerfil().getRol().size());
 		} catch (ServiceException e) {
 			logger.error("Error consultar Usuario",e);
