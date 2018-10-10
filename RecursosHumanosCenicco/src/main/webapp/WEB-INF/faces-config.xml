@@ -46,6 +46,10 @@
 			<property-name>puestoService</property-name>
 			<value>#{puestoService}</value>
 		</managed-property>
+                <managed-property>
+			<property-name>catalogoParametroService</property-name>
+			<value>#{catalogoParametroService}</value>
+		</managed-property>
 	</managed-bean>
 
 
