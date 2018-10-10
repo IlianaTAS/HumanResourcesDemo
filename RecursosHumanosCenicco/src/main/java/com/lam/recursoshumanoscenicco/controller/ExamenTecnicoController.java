@@ -6,11 +6,16 @@
 package com.lam.recursoshumanoscenicco.controller;
 
 import com.lam.recursoshumanoscenicco.exception.ServiceException;
+import com.lam.recursoshumanoscenicco.model.CatalogoParametro;
 import com.lam.recursoshumanoscenicco.model.Examen;
+import com.lam.recursoshumanoscenicco.model.Pregunta;
 import com.lam.recursoshumanoscenicco.model.Puesto;
+import com.lam.recursoshumanoscenicco.model.Respuesta;
+import com.lam.recursoshumanoscenicco.service.CatalogoParametroService;
 import com.lam.recursoshumanoscenicco.service.ExamenService;
 import com.lam.recursoshumanoscenicco.service.PuestoService;
 import com.lam.recursoshumanoscenicco.to.ConfiguracionPregunta;
+import com.lam.recursoshumanoscenicco.utils.Constantes;
 import com.lam.recursoshumanoscenicco.utils.Mensajes;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,6 +38,7 @@ public class ExamenTecnicoController implements Serializable {
 
     private ExamenService examenService;
     private PuestoService puestoService;
+    private CatalogoParametroService catalogoParametroService;
 
     private List<Puesto> listaPuestos;
     private List<ConfiguracionPregunta> preguntasAbiertas;
@@ -50,6 +56,23 @@ public class ExamenTecnicoController implements Serializable {
         this.examen = new Examen();
 
         this.consultarEntidades();
+    }
+
+    /**
+     * Método que se expone al front para la creación de exámenes.
+     *
+     * @param event
+     */
+    public void crearExamen(ActionEvent event) {
+        System.out.println("DEBUG IIPG --> Estoy en el guardado:::::::");
+        try {
+            this.examen.setCatalogoParametro(this.catalogoParametroService.findParametroBy(Constantes.CATALOGO_PARAMETRO_EXAMEN_TECNICO));
+            this.examen.setPreguntas(this.crearObjetoPreguntas());
+            this.examenService.guardar(this.examen);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String wizardExamen(FlowEvent event) {
@@ -108,6 +131,74 @@ public class ExamenTecnicoController implements Serializable {
         }
     }
 
+    private List<Pregunta> crearObjetoPreguntas() {
+        System.out.println("DEBUG IIPG --> Voy a armar las preguntas:::::::");
+        try {
+            List<Pregunta> preguntasExamen = new ArrayList<>();
+            CatalogoParametro preguntaAbierta = this.catalogoParametroService.findParametroBy(Constantes.CATALOGO_PARAMETRO_PREGUNTA_ABIERTA);
+            CatalogoParametro preguntaCerrada = this.catalogoParametroService.findParametroBy(Constantes.CATALOGO_PARAMETRO_PREGUNTA_CERRADA);
+            CatalogoParametro preguntaMultiple = this.catalogoParametroService.findParametroBy(Constantes.CATALOGO_PARAMETRO_PREGUNTA_MULTIPLE);
+
+            this.preguntasAbiertas.stream().map((configPregunta) -> {
+                Pregunta pregunta = new Pregunta();
+                pregunta.setCatalogoParametro(preguntaAbierta);
+                pregunta.setDescripcion(configPregunta.getPregunta());
+                return pregunta;
+            }).forEachOrdered((pregunta) -> {
+                preguntasExamen.add(pregunta);
+            });
+
+            this.preguntasCerradas.stream().map((configPregunta) -> {
+                Pregunta pregunta = new Pregunta();
+                pregunta.setCatalogoParametro(preguntaCerrada);
+                pregunta.setDescripcion(configPregunta.getPregunta());
+                return pregunta;
+            }).forEachOrdered((pregunta) -> {
+                preguntasExamen.add(pregunta);
+            });
+
+            this.preguntasAbiertas.stream().map((configPregunta) -> {
+                Pregunta pregunta = new Pregunta();
+                pregunta.setCatalogoParametro(preguntaMultiple);
+                pregunta.setDescripcion(configPregunta.getPregunta());
+                pregunta.setRespuestas(this.crearObjetoRespuesta(configPregunta ,pregunta));
+                return pregunta;
+            }).forEachOrdered((pregunta) -> {
+                preguntasExamen.add(pregunta);
+            });
+
+            return preguntasExamen;
+        } catch (ServiceException e) {
+            logger.error("Error en el servicio [catalogoParametroService.buscarPorValor]", e);
+            this.addMessage(Mensajes.ERROR_CONSULTAR_PARAMETRO, false);
+            return null;
+        }
+    }
+    
+    private List<Respuesta> crearObjetoRespuesta(ConfiguracionPregunta configPregunta, Pregunta pregunta) {
+        System.out.println("DEBUG IIPG --> Entro a crear respuestas de la pregunta: " + pregunta.getDescripcion());
+        List<Respuesta> respuestas = new ArrayList<>();
+        Respuesta respuestaUno = new Respuesta();
+        Respuesta respuestaDos = new Respuesta();
+        Respuesta respuestaTres = new Respuesta();
+        //
+        respuestaUno.setDescripcion(configPregunta.getRespuestaC());
+        respuestaUno.setEstado(Constantes.EXAMEN_RESPUESTA_CORRECTA);
+        respuestaUno.setPregunta(pregunta);
+        respuestas.add(respuestaUno);
+        
+        respuestaDos.setDescripcion(configPregunta.getRespuestaE1());
+        respuestaDos.setEstado(Constantes.EXAMEN_RESPUESTA_INCORRECTA);
+        respuestaDos.setPregunta(pregunta);
+        respuestas.add(respuestaDos);
+        
+        respuestaTres.setDescripcion(configPregunta.getRespuestaE2());
+        respuestaTres.setEstado(Constantes.EXAMEN_RESPUESTA_INCORRECTA);
+        respuestaTres.setPregunta(pregunta);
+        respuestas.add(respuestaTres);
+        return respuestas;
+    }
+
     public List<Puesto> getListaPuestos() {
         return listaPuestos;
     }
@@ -126,6 +217,14 @@ public class ExamenTecnicoController implements Serializable {
 
     public void setPuestoService(PuestoService puestoService) {
         this.puestoService = puestoService;
+    }
+
+    public CatalogoParametroService getCatalogoParametroService() {
+        return catalogoParametroService;
+    }
+
+    public void setCatalogoParametroService(CatalogoParametroService catalogoParametroService) {
+        this.catalogoParametroService = catalogoParametroService;
     }
 
     public Examen getExamen() {
