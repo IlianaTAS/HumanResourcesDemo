@@ -46,6 +46,7 @@ and open the template in the editor.
                                                 <p:message for="idNombre" />
                                                 <h:outputText value="Puesto: *" />
                                                 <p:selectOneMenu id="idPuesto" style="color:black; width:130px"
+                                                                 value="#{examenController.examen.puesto.idPuesto}"
                                                                  required="true"  requiredMessage="Favor de seleccionar el puesto" 
                                                                  filter="true" filterMatchMode="contains">
                                                     <f:selectItem itemLabel="Seleccione" itemValue=""/>
@@ -208,7 +209,8 @@ and open the template in the editor.
                                                     </p:repeat>
                                                 </h:panelGrid>
                                                 <div align="right">
-                                                    <p:commandButton value="Guardar" icon="ui-icon-disk" styleClass="style_botones"/>
+                                                    <p:commandButton value="Guardar" icon="ui-icon-disk" styleClass="style_botones"
+                                                                     actionListener="#{examenController.crearExamen}"/>
                                                 </div>
                                             </p:scrollPanel>
                                         </div>
