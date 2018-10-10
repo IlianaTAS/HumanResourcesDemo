@@ -1,7 +1,9 @@
 package com.lam.recursoshumanoscenicco.model;
 // Generated 16/09/2018 08:26:45 PM by Hibernate Tools 5.3.1.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,7 +19,7 @@ public class Pregunta implements java.io.Serializable {
 	private long idPregunta;
 	private CatalogoParametro catalogoParametro;
 	private String descripcion;
-	private Set<Respuesta> respuestas = new HashSet<Respuesta>();
+	private List<Respuesta> respuestas = new ArrayList<>();
 	private Set<Examen> examenes = new HashSet<Examen>();
 
 	public Pregunta() {
@@ -29,7 +31,7 @@ public class Pregunta implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Pregunta(long idPregunta, CatalogoParametro catalogoParametro, String descripcion, Set<Respuesta> respuestas,
+	public Pregunta(long idPregunta, CatalogoParametro catalogoParametro, String descripcion, List<Respuesta> respuestas,
 			Set<Examen> examenes) {
 		this.idPregunta = idPregunta;
 		this.catalogoParametro = catalogoParametro;
@@ -62,13 +64,13 @@ public class Pregunta implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Set<Respuesta> getRespuestas() {
-		return this.respuestas;
-	}
+    public List<Respuesta> getRespuestas() {
+        return respuestas;
+    }
 
-	public void setRespuestas(Set<Respuesta> respuestas) {
-		this.respuestas = respuestas;
-	}
+    public void setRespuestas(List<Respuesta> respuestas) {
+        this.respuestas = respuestas;
+    }
 
 	public Set<Examen> getExamenes() {
 		return this.examenes;

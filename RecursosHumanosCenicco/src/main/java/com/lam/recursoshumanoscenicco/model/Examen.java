@@ -1,7 +1,8 @@
 package com.lam.recursoshumanoscenicco.model;
 // Generated 16/09/2018 08:26:45 PM by Hibernate Tools 5.3.1.Final
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,13 +19,14 @@ public class Examen implements java.io.Serializable {
     private CatalogoParametro catalogoParametro;
     private String descripcion;
     private String duracion;
-    private Set<Pregunta> preguntas = new HashSet<Pregunta>();
+    private List<Pregunta> preguntas = new ArrayList<>();
 
     private int peguntasAbiertas;
     private int preguntasCerradas;
     private int preguntasMultiples;
 
     public Examen() {
+        this.puesto = new Puesto();
     }
 
     public Examen(long idExamen, Puesto puesto, CatalogoParametro catalogoParametro, String descripcion,
@@ -37,7 +39,7 @@ public class Examen implements java.io.Serializable {
     }
 
     public Examen(long idExamen, Puesto puesto, CatalogoParametro catalogoParametro, String descripcion,
-            String duracion, Set<Pregunta> preguntas) {
+            String duracion, List<Pregunta> preguntas) {
         this.idExamen = idExamen;
         this.puesto = puesto;
         this.catalogoParametro = catalogoParametro;
@@ -86,11 +88,11 @@ public class Examen implements java.io.Serializable {
         this.duracion = duracion;
     }
 
-    public Set<Pregunta> getPreguntas() {
-        return this.preguntas;
+    public List<Pregunta> getPreguntas() {
+        return preguntas;
     }
 
-    public void setPreguntas(Set<Pregunta> preguntas) {
+    public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas = preguntas;
     }
 
