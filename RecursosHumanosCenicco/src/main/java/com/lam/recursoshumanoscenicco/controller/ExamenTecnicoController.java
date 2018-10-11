@@ -77,7 +77,6 @@ public class ExamenTecnicoController implements Serializable {
      * @param event
      */
     public void crearExamen(ActionEvent event) {
-        System.out.println("DEBUG IIPG --> Estoy en el guardado:::::::");
         try {
             this.examen.setPuesto(puestoE);
             this.examen.setCatalogoParametro(mapParametrosExamenes.get(Constantes.CATALOGO_PARAMETRO_EXAMEN_TECNICO));
@@ -90,7 +89,6 @@ public class ExamenTecnicoController implements Serializable {
     }
 
     public String wizardExamen(FlowEvent event) {
-        System.out.println("DEBUG IIPG --> Entre al listener del wizard....." + event.getNewStep() + "|" + event.getOldStep());
         try {
             this.puestoE = this.puestoService.buscarPorId(this.examen.getPuesto().getIdPuesto());
         } catch (ServiceException ex) {
@@ -153,42 +151,42 @@ public class ExamenTecnicoController implements Serializable {
     }
 
     private Set<Pregunta> crearObjetoPreguntas() {
-        System.out.println("DEBUG IIPG --> Voy a armar las preguntas:::::::");
         Set<Pregunta> preguntasExamen = new HashSet<>();
 
         this.preguntasAbiertas.stream().map((configPregunta) -> {
-            Pregunta pregunta = new Pregunta();
-            pregunta.setCatalogoParametro(mapParametrosPreguntas.get(Constantes.CATALOGO_PARAMETRO_PREGUNTA_ABIERTA));
-            pregunta.setDescripcion(configPregunta.getPregunta());
-            return pregunta;
-        }).forEachOrdered((pregunta) -> {
-            preguntasExamen.add(pregunta);
+            Pregunta preguntaA = new Pregunta();
+            preguntaA.setCatalogoParametro(mapParametrosPreguntas.get(Constantes.CATALOGO_PARAMETRO_PREGUNTA_ABIERTA));
+            preguntaA.setDescripcion(configPregunta.getPregunta());
+            preguntaA.setRespuestas(null);
+            return preguntaA;
+        }).forEachOrdered((preguntaA) -> {
+            preguntasExamen.add(preguntaA);
         });
 
         this.preguntasCerradas.stream().map((configPregunta) -> {
-            Pregunta pregunta = new Pregunta();
-            pregunta.setCatalogoParametro(mapParametrosPreguntas.get(Constantes.CATALOGO_PARAMETRO_PREGUNTA_CERRADA));
-            pregunta.setDescripcion(configPregunta.getPregunta());
-            return pregunta;
-        }).forEachOrdered((pregunta) -> {
-            preguntasExamen.add(pregunta);
+            Pregunta preguntaC = new Pregunta();
+            preguntaC.setCatalogoParametro(mapParametrosPreguntas.get(Constantes.CATALOGO_PARAMETRO_PREGUNTA_CERRADA));
+            preguntaC.setDescripcion(configPregunta.getPregunta());
+            preguntaC.setRespuestas(null);
+            return preguntaC;
+        }).forEachOrdered((preguntaC) -> {
+            preguntasExamen.add(preguntaC);
         });
 
-        this.preguntasAbiertas.stream().map((configPregunta) -> {
-            Pregunta pregunta = new Pregunta();
-            pregunta.setCatalogoParametro(mapParametrosPreguntas.get(Constantes.CATALOGO_PARAMETRO_PREGUNTA_MULTIPLE));
-            pregunta.setDescripcion(configPregunta.getPregunta());
-            pregunta.setRespuestas(this.crearObjetoRespuesta(configPregunta, pregunta));
-            return pregunta;
-        }).forEachOrdered((pregunta) -> {
-            preguntasExamen.add(pregunta);
+        this.preguntasMultiples.stream().map((configPregunta) -> {
+            Pregunta preguntaM = new Pregunta();
+            preguntaM.setCatalogoParametro(mapParametrosPreguntas.get(Constantes.CATALOGO_PARAMETRO_PREGUNTA_MULTIPLE));
+            preguntaM.setDescripcion(configPregunta.getPregunta());
+            preguntaM.setRespuestas(this.crearObjetoRespuesta(configPregunta, preguntaM));
+            return preguntaM;
+        }).forEachOrdered((preguntaM) -> {
+            preguntasExamen.add(preguntaM);
         });
 
         return preguntasExamen;
     }
 
     private Set<Respuesta> crearObjetoRespuesta(ConfiguracionPregunta configPregunta, Pregunta pregunta) {
-        System.out.println("DEBUG IIPG --> Entro a crear respuestas de la pregunta: " + pregunta.getDescripcion());
         Set<Respuesta> respuestas = new HashSet<>();
         Respuesta respuestaUno = new Respuesta();
         Respuesta respuestaDos = new Respuesta();
