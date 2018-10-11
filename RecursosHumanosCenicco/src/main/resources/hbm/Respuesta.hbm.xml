@@ -9,10 +9,10 @@
         <many-to-one class="com.lam.recursoshumanoscenicco.model.Pregunta"  fetch="select" insert="true" name="pregunta" not-found="exception" unique="false" update="true">
             <column name="IDPREGUNTA" not-null="true" precision="15" scale="0"/>
         </many-to-one>
-        <property generated="never" lazy="false" name="descripcion" type="string" unique="false">
+        <property generated="never" lazy="true" name="descripcion" type="string" unique="false">
             <column length="500" name="DESCRIPCION" not-null="true"/>
         </property>
-        <property generated="never" lazy="false" name="estado" type="string" unique="false">
+        <property generated="never" lazy="true" name="estado" type="string" unique="false">
             <column length="500" name="ESTADO" not-null="true"/>
         </property>
     </class>
