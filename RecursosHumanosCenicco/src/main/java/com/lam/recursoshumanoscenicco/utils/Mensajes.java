@@ -39,4 +39,6 @@ public class Mensajes {
     public static final String ERROR_ELIMINAR_CRITERIO_RECHAZO = "Error al eliminar el criterio de rechazo";
     //
     public static final String ERROR_CONSULTAR_PARAMETRO = "Error al consultar el parámetro";
+    //
+    public static final String ERROR_CREAR_EXAMEN = "Error al crear el examen";
 }

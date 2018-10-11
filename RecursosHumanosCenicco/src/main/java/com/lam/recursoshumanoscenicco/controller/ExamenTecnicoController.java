@@ -18,6 +18,7 @@ import com.lam.recursoshumanoscenicco.service.PuestoService;
 import com.lam.recursoshumanoscenicco.to.ConfiguracionPregunta;
 import com.lam.recursoshumanoscenicco.utils.Constantes;
 import com.lam.recursoshumanoscenicco.utils.Mensajes;
+import com.lam.recursoshumanoscenicco.utils.Util;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,17 +83,27 @@ public class ExamenTecnicoController implements Serializable {
             this.examen.setCatalogoParametro(mapParametrosExamenes.get(Constantes.CATALOGO_PARAMETRO_EXAMEN_TECNICO));
             this.examen.setPreguntas(this.crearObjetoPreguntas());
             this.examenService.guardar(this.examen);
+            logger.info("El examen que se va a crear: " + Util.debugImprimirContenidoObjecto(this.examen));
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error("Error en el servicio [examenService.guardar]", e);
+            this.addMessage(Mensajes.ERROR_CREAR_EXAMEN, false);
         }
-
     }
 
+    /**
+     * Método que da funcionalidad a las diferentes pestañas cuando se configura
+     * el examen.
+     *
+     * @param event Parámetro de los eventos para las vistas.
+     * @return el nombre de la pestaña en la que se encuentra el usuario que
+     * configura el examen.
+     */
     public String wizardExamen(FlowEvent event) {
         try {
             this.puestoE = this.puestoService.buscarPorId(this.examen.getPuesto().getIdPuesto());
-        } catch (ServiceException ex) {
-            ex.printStackTrace();
+        } catch (ServiceException e) {
+            logger.error("Error en el servicio [ServiceException.buscarPorId]", e);
+            this.addMessage(Mensajes.ERROR_CONSULTAR_PUESTO, false);
         }
         if (event.getNewStep().equals("pregunta")) {
             if (examenDTO.getPeguntasAbiertas() != preguntasAbiertas.size()) {
@@ -139,6 +150,10 @@ public class ExamenTecnicoController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    /**
+     * Método privado que consulta las entidades que la pantalla requiere al
+     * inicio de la carga.
+     */
     private void consultarEntidades() {
         try {
             this.listaPuestos = this.puestoService.buscarTodo();
@@ -150,8 +165,18 @@ public class ExamenTecnicoController implements Serializable {
         }
     }
 
+    /**
+     * Método privado que crea la relación entre el examen y las preguntas que
+     * el usuario configura para la creación del objeto.
+     *
+     * @return la lista de preguntas armadas que se asignan al examen.
+     */
     private Set<Pregunta> crearObjetoPreguntas() {
         Set<Pregunta> preguntasExamen = new HashSet<>();
+        
+        logger.info("Las preguntas abiertas del examen: " + Util.debugImprimirContenidoListaObjeto(this.preguntasAbiertas));
+        logger.info("Las preguntas cerradas del examen: " + Util.debugImprimirContenidoListaObjeto(this.preguntasCerradas));
+        logger.info("Las preguntas múltiples del examen: " + Util.debugImprimirContenidoListaObjeto(this.preguntasMultiples));
 
         this.preguntasAbiertas.stream().map((configPregunta) -> {
             Pregunta preguntaA = new Pregunta();
@@ -186,6 +211,17 @@ public class ExamenTecnicoController implements Serializable {
         return preguntasExamen;
     }
 
+    /**
+     * Método privado que crea la relación entre las preguntas y sus respuestas
+     * que el usuario configura para la creación del examen.
+     *
+     * @param configPregunta Objeto que contiene la información de la pregunta
+     * que se llena en la vista.
+     * @param pregunta Objeto que contiene la información de la entidad de la
+     * base de datos.
+     * @return la lista de respuestas creadas para las diferentes preguntas que
+     * se asignan al examen.
+     */
     private Set<Respuesta> crearObjetoRespuesta(ConfiguracionPregunta configPregunta, Pregunta pregunta) {
         Set<Respuesta> respuestas = new HashSet<>();
         Respuesta respuestaUno = new Respuesta();
