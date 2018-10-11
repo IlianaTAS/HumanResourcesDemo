@@ -12,11 +12,12 @@
         <property name="descripcion"  type="string">
             <column length="500" name="DESCRIPCION" not-null="true"/>
         </property>
-        <set fetch="select" inverse="true" lazy="true" name="respuestas" sort="unsorted" table="RESPUESTA">
-            <key on-delete="noaction">
-                <column name="IDPREGUNTA" not-null="true" precision="15" scale="0"/>
+        <set name="respuestas" table="RESPUESTA"
+             inverse="true" lazy="true" fetch="select" cascade="all">
+            <key>
+                <column name="IDPREGUNTA" not-null="true"/>
             </key>
-            <one-to-many class="com.lam.recursoshumanoscenicco.model.Respuesta" not-found="exception"/>
+            <one-to-many class="com.lam.recursoshumanoscenicco.model.Respuesta"/>
         </set>
         <set name="examenes" table="EXAMEN_PREGUNTA" inverse="true" lazy="true" fetch="select">
             <key>
