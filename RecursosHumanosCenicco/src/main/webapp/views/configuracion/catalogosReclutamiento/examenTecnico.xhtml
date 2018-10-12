@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -18,17 +19,40 @@ and open the template in the editor.
                 <p:growl id="growl" showDetail="false" life="3000"/>
                 <p:layout style="min-height:92%">
                     <p:layoutUnit position="west" resizable="false" size="22%">
-                        <p:accordionPanel >
-                            <p:tab title="Puesto - ">
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="Brand:" style="font-weight: bold" />
-
-                                    <h:outputText value="Year:" style="font-weight: bold" />
-
-                                    <h:outputText value="Color:" style="font-weight: bold" />
+                        <h:form>
+                            <div align ="center">
+                                <h:panelGrid columns="1" style="font-size: .8em;">
+                                    <h:outputText value="Tipo Examen: " />
+                                    <p:selectOneMenu style="color:black; width:230px"
+                                                     value="#{examenController.tipoExamen}"
+                                                     required="true"  requiredMessage="Favor de seleccionar el tipo de examen" 
+                                                     filter="true" filterMatchMode="contains">
+                                        <p:ajax listener="#{examenController.onChangeExamen}" update="panelPuestos"/>
+                                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                        <f:selectItem itemLabel="Examen Técnico" itemValue="EXAMEN_TECNICO"/>
+                                        <f:selectItem itemLabel="Examen Psicométrico" itemValue="EXAMEN_PSICOMETRICO"/>
+                                    </p:selectOneMenu>
                                 </h:panelGrid>
-                            </p:tab>
-                        </p:accordionPanel>
+                            </div>
+
+                            <br/>    
+                            <p:accordionPanel id="panelPuestos" value="#{examenController.listaPuestos}" var="puesto" styleClass="style_tab_color">
+                                <p:tab title="#{puesto.descripcion}">
+                                    <h:panelGrid>
+                                        <p:dataTable value="#{puesto.listExamenes}" var="examenPuesto" style="font-size: .8em;width: 100%;"
+                                                     emptyMessage="Sin exámenes">
+                                            <p:column width="85">
+                                                <h:outputLabel value="#{examenPuesto.descripcion}"/> 
+                                            </p:column>
+                                            <p:column width="15" style="align-content: center;">
+                                                <p:commandButton icon="ui-icon-arrowthickstop-1-s" styleClass="style_botones" title="Descargar PDF"/>
+                                            </p:column>
+                                        </p:dataTable> 
+                                    </h:panelGrid>
+                                    
+                                </p:tab>
+                            </p:accordionPanel>
+                        </h:form>
                     </p:layoutUnit>
 
                     <p:layoutUnit position="center">
@@ -38,14 +62,24 @@ and open the template in the editor.
                                 <p:wizard style="width: 85%; height: 90%; font-size: .9em;" nextLabel="Siguiente" backLabel="Atrás" 
                                           flowListener="#{examenController.wizardExamen}">
                                     <p:tab id="configuracion" title="Configuración" titleStyleClass="style_tab">
-                                        <p:panel header="Ingrese la estructura del exámen técnico">
+                                        <p:panel header="Ingrese la estructura del exámen">
                                             <h:panelGrid columns="3">
+                                                <h:outputText value="Tipo Examen: *" />
+                                                <p:selectOneMenu id="idTipoE" style="color:black; width:230px"
+                                                                 value="#{examenController.examen.catalogoParametro.valor}"
+                                                                 required="true"  requiredMessage="Favor de seleccionar el tipo de examen" 
+                                                                 filter="true" filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                                    <f:selectItem itemLabel="Examen Técnico" itemValue="EXAMEN_TECNICO"/>
+                                                    <f:selectItem itemLabel="Examen Psicométrico" itemValue="EXAMEN_PSICOMETRICO"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="idTipoE"/>
                                                 <h:outputText value="Nombre: *" />
                                                 <p:inputText id="idNombre" style="color: black;width: 250px;" value="#{examenController.examen.descripcion}"
                                                              required="true" requiredMessage="Favor de ingresar el nombre del exámen"/>
                                                 <p:message for="idNombre" />
                                                 <h:outputText value="Puesto: *" />
-                                                <p:selectOneMenu id="idPuesto" style="color:black; width:130px"
+                                                <p:selectOneMenu id="idPuesto" style="color:black; width:230px"
                                                                  value="#{examenController.examen.puesto.idPuesto}"
                                                                  required="true"  requiredMessage="Favor de seleccionar el puesto" 
                                                                  filter="true" filterMatchMode="contains">

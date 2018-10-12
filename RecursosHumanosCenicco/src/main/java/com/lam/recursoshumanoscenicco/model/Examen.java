@@ -19,9 +19,10 @@ public class Examen implements java.io.Serializable {
     private String descripcion;
     private String duracion;
     private Set<Pregunta> preguntas = new HashSet<>();
-
+    
     public Examen() {
         this.puesto = new Puesto();
+        this.catalogoParametro = new CatalogoParametro();
     }
 
     public Examen(long idExamen, Puesto puesto, CatalogoParametro catalogoParametro, String descripcion,

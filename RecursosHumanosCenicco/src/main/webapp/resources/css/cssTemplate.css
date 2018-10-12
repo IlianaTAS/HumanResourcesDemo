@@ -71,4 +71,8 @@
     color: white !important;
 }
 
+.ui-icon-pdf { 
+    background-image: url("/resources/imagenes/iconos/pdf.png") !important; 
+}
+
 

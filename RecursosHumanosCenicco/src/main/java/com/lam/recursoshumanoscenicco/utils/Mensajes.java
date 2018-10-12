@@ -11,6 +11,8 @@ package com.lam.recursoshumanoscenicco.utils;
  */
 public class Mensajes {
     
+    public static final String ERROR_CONSULTAR_ENTIDADES = "Error al consultar las entidades de inicio";
+    
     public static final String EXITO_CREAR_PUESTO = "Se creó correctamente el puesto";
     public static final String EXITO_MODIFICAR_PUESTO = "Se modificó correctamente el puesto";
     public static final String EXITO_ELIMINAR_PUESTO = "Se eliminó correctamente el peusto";

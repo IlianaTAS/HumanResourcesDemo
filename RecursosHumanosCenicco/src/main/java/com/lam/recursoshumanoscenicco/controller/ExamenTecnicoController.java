@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -48,6 +49,7 @@ public class ExamenTecnicoController implements Serializable {
 
     private Map<String, CatalogoParametro> mapParametrosPreguntas;
     private Map<String, CatalogoParametro> mapParametrosExamenes;
+    private List<Examen> listaExamenes;
     private List<Puesto> listaPuestos;
     private List<ConfiguracionPregunta> preguntasAbiertas;
     private List<ConfiguracionPregunta> preguntasCerradas;
@@ -55,11 +57,13 @@ public class ExamenTecnicoController implements Serializable {
     private Examen examen;
     private ExamenDTO examenDTO;
     private Puesto puestoE;
+    private String tipoExamen;
 
     @PostConstruct
     public void init() {
         this.mapParametrosPreguntas = new HashMap<>();
         this.mapParametrosExamenes = new HashMap<>();
+        this.listaExamenes = new ArrayList<>();
         this.listaPuestos = new ArrayList<>();
         this.preguntasAbiertas = new ArrayList<>();
         this.preguntasCerradas = new ArrayList<>();
@@ -80,7 +84,7 @@ public class ExamenTecnicoController implements Serializable {
     public void crearExamen(ActionEvent event) {
         try {
             this.examen.setPuesto(puestoE);
-            this.examen.setCatalogoParametro(mapParametrosExamenes.get(Constantes.CATALOGO_PARAMETRO_EXAMEN_TECNICO));
+            this.examen.setCatalogoParametro(mapParametrosExamenes.get(this.examen.getCatalogoParametro().getValor()));
             this.examen.setPreguntas(this.crearObjetoPreguntas());
             this.examenService.guardar(this.examen);
             logger.info("El examen que se va a crear: " + Util.debugImprimirContenidoObjecto(this.examen));
@@ -133,6 +137,30 @@ public class ExamenTecnicoController implements Serializable {
         return event.getNewStep();
     }
 
+    public void onChangeExamen() {
+        try {
+            this.listaPuestos.forEach((p) -> {
+                p.getListExamenes().clear();
+            });
+            this.listaExamenes = this.examenService.buscarExamenesPor(mapParametrosExamenes.get(this.tipoExamen));
+
+            this.listaPuestos.forEach((p) -> {
+                this.listaExamenes.stream().filter((e) -> (p.getIdPuesto() == e.getPuesto().getIdPuesto())).forEachOrdered((e) -> {
+                    p.getListExamenes().add(e);
+                });
+            });
+
+            for (Puesto p : this.listaPuestos) {
+                System.out.println("El examen: " + p.getDescripcion() + " tiene estos examenes: " + p.getListExamenes().size());
+            }
+
+            System.out.println("DEBUG IIPG --> La cantidad de examenes: " + this.listaExamenes.size());
+        } catch (ServiceException ex) {
+            java.util.logging.Logger.getLogger(ExamenTecnicoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     /**
      * Método para devolver el mensaje a la vista para el usuario.
      *
@@ -157,11 +185,12 @@ public class ExamenTecnicoController implements Serializable {
     private void consultarEntidades() {
         try {
             this.listaPuestos = this.puestoService.buscarTodo();
+
             this.mapParametrosPreguntas = this.catalogoParametroService.findParametroBy(Constantes.CATALOGO_PARAMETRO_TIPOPREGUNTA);
             this.mapParametrosExamenes = this.catalogoParametroService.findParametroBy(Constantes.CATALOGO_PARAMETRO_TIPOEXAMEN);
         } catch (ServiceException e) {
             logger.error("Error en el servicio [puestoService.buscarTodo]", e);
-            this.addMessage(Mensajes.ERROR_CONSULTAR_PUESTO, false);
+            this.addMessage(Mensajes.ERROR_CONSULTAR_ENTIDADES, false);
         }
     }
 
@@ -173,7 +202,7 @@ public class ExamenTecnicoController implements Serializable {
      */
     private Set<Pregunta> crearObjetoPreguntas() {
         Set<Pregunta> preguntasExamen = new HashSet<>();
-        
+
         logger.info("Las preguntas abiertas del examen: " + Util.debugImprimirContenidoListaObjeto(this.preguntasAbiertas));
         logger.info("Las preguntas cerradas del examen: " + Util.debugImprimirContenidoListaObjeto(this.preguntasCerradas));
         logger.info("Las preguntas múltiples del examen: " + Util.debugImprimirContenidoListaObjeto(this.preguntasMultiples));
@@ -327,6 +356,18 @@ public class ExamenTecnicoController implements Serializable {
 
     public Map<String, CatalogoParametro> getMapParametrosExamenes() {
         return mapParametrosExamenes;
+    }
+
+    public List<Examen> getListaExamenes() {
+        return listaExamenes;
+    }
+
+    public String getTipoExamen() {
+        return tipoExamen;
+    }
+
+    public void setTipoExamen(String tipoExamen) {
+        this.tipoExamen = tipoExamen;
     }
 
 }
