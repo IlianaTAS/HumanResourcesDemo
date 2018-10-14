@@ -9,21 +9,20 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="../../../templates/templateMenu.xhtml">
             <ui:define name="content">
                 <p:growl id="growl" showDetail="false" life="3000"/>
-                <p:layout style="min-height:92%">
-                    <p:layoutUnit position="west" resizable="false" size="22%">
+                <p:layout id="idLayOutExamen" style="min-height:92%">
+                    <p:layoutUnit position="west" resizable="false" size="27%">
                         <h:form>
                             <div align ="center">
-                                <h:panelGrid columns="1" style="font-size: .8em;">
+                                <h:panelGrid columns="2" style="font-size: .8em;">
                                     <h:outputText value="Tipo Examen: " />
-                                    <p:selectOneMenu style="color:black; width:230px"
+                                    <p:selectOneMenu style="color:black; width:200px"
                                                      value="#{examenController.tipoExamen}"
                                                      required="true"  requiredMessage="Favor de seleccionar el tipo de examen" 
                                                      filter="true" filterMatchMode="contains">
@@ -34,7 +33,6 @@ and open the template in the editor.
                                     </p:selectOneMenu>
                                 </h:panelGrid>
                             </div>
-
                             <br/>    
                             <p:accordionPanel id="panelPuestos" value="#{examenController.listaPuestos}" var="puesto" styleClass="style_tab_color">
                                 <p:tab title="#{puesto.descripcion}">
@@ -44,12 +42,18 @@ and open the template in the editor.
                                             <p:column width="85">
                                                 <h:outputLabel value="#{examenPuesto.descripcion}"/> 
                                             </p:column>
-                                            <p:column width="15" style="align-content: center;">
+                                            <p:column width="10" style="align-content: center;">
                                                 <p:commandButton icon="ui-icon-arrowthickstop-1-s" styleClass="style_botones" title="Descargar PDF"/>
+                                            </p:column>
+                                            <p:column width="10" style="align-content: center;">
+                                                <p:commandButton icon="ui-icon-trash" styleClass="style_botones" title="Eliminar examen"
+                                                                 actionListener="#{examenController.parametroExamenEliminar}"
+                                                                 oncomplete="PF('eliminarExamenDlg').show()">
+                                                    <f:attribute name="examenEliminar" value="#{examenPuesto}"/>
+                                                </p:commandButton>
                                             </p:column>
                                         </p:dataTable> 
                                     </h:panelGrid>
-                                    
                                 </p:tab>
                             </p:accordionPanel>
                         </h:form>
@@ -59,7 +63,7 @@ and open the template in the editor.
                         <h:form style="margin-top:5%; font-size: .8em;">
                             <p:growl id="growl" sticky="true" showDetail="true"/>
                             <div align="center">
-                                <p:wizard style="width: 85%; height: 90%; font-size: .9em;" nextLabel="Siguiente" backLabel="Atrás" 
+                                <p:wizard id="wizExamen" style="width: 85%; height: 90%; font-size: .9em;" nextLabel="Siguiente" backLabel="Atrás" 
                                           flowListener="#{examenController.wizardExamen}">
                                     <p:tab id="configuracion" title="Configuración" titleStyleClass="style_tab">
                                         <p:panel header="Ingrese la estructura del exámen">
@@ -244,7 +248,8 @@ and open the template in the editor.
                                                 </h:panelGrid>
                                                 <div align="right">
                                                     <p:commandButton value="Guardar" icon="ui-icon-disk" styleClass="style_botones"
-                                                                     actionListener="#{examenController.crearExamen}"/>
+                                                                     actionListener="#{examenController.crearExamen}"
+                                                                     update="idLayOutExamen, :growl"/>
                                                 </div>
                                             </p:scrollPanel>
                                         </div>
@@ -256,6 +261,30 @@ and open the template in the editor.
 
                     </p:layoutUnit>
                 </p:layout>
+
+                <h:form id="formEliminar">
+                    <p:dialog id="display" widgetVar="eliminarExamenDlg"
+                              header="Confirmación" resizable="false" position="center,center"
+                              showEffect="fade" hideEffect="explode" closable="false"
+                              modal="true">
+
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <h:outputLabel value="¿Esta seguro de eliminar el registro?" />
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Si" icon="ui-icon-check"
+                                                 actionListener="#{examenController.eliminarExamen}"
+                                                 styleClass="style_botones"
+                                                 update="formEliminar:display, :growl, idLayOutExamen" />
+                                <p:commandButton value="No" icon="ui-icon-close"
+                                                 onclick="PF('eliminarExamenDlg').hide();"
+                                                 styleClass="style_botones">
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
             </ui:define>
         </ui:composition>
     </body>

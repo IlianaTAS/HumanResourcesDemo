@@ -31,6 +31,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,6 +73,8 @@ public class ExamenTecnicoController implements Serializable {
         this.examen = new Examen();
         this.examenDTO = new ExamenDTO();
         this.puestoE = new Puesto();
+        
+        this.tipoExamen = "";
 
         this.consultarEntidades();
     }
@@ -86,12 +89,45 @@ public class ExamenTecnicoController implements Serializable {
             this.examen.setPuesto(puestoE);
             this.examen.setCatalogoParametro(mapParametrosExamenes.get(this.examen.getCatalogoParametro().getValor()));
             this.examen.setPreguntas(this.crearObjetoPreguntas());
-            this.examenService.guardar(this.examen);
+            Long idExamen = this.examenService.guardar(this.examen);
             logger.info("El examen que se va a crear: " + Util.debugImprimirContenidoObjecto(this.examen));
+            if (idExamen != null) {
+                this.addMessage(Mensajes.EXITO_CREAR_EXAMEN, true);
+                this.init();
+            } else {
+                this.addMessage(Mensajes.ERROR_CREAR_EXAMEN, false);
+            }
         } catch (ServiceException e) {
             logger.error("Error en el servicio [examenService.guardar]", e);
             this.addMessage(Mensajes.ERROR_CREAR_EXAMEN, false);
         }
+    }
+
+    /**
+     * Método que se expone al front para la eliminación del examen.
+     *
+     * @param event Parámetro de la vista.
+     */
+    public void eliminarExamen(ActionEvent event) {
+        try {
+            this.examenService.eliminar(this.examen);
+            logger.info("El examen que se eliminó " + Util.debugImprimirContenidoObjecto(this.examen));
+            this.init();
+            this.addMessage(Mensajes.EXITO_ELIMINAR_EXAMEN, true);
+        } catch (ServiceException e) {
+            logger.error("Error en el servicio [examenService.eliminar]", e);
+            this.addMessage(Mensajes.ERROR_ELIMINAR_EXAMEN, false);
+        }
+    }
+
+    /**
+     * Método que se expone a la vista para pasar por parámetro el examen que se
+     * va a eliminar.
+     *
+     * @param event Parámetro que se recibe de la vista.
+     */
+    public void parametroExamenEliminar(ActionEvent event) {
+        this.examen = (Examen) event.getComponent().getAttributes().get("examenEliminar");
     }
 
     /**
@@ -149,12 +185,6 @@ public class ExamenTecnicoController implements Serializable {
                     p.getListExamenes().add(e);
                 });
             });
-
-            for (Puesto p : this.listaPuestos) {
-                System.out.println("El examen: " + p.getDescripcion() + " tiene estos examenes: " + p.getListExamenes().size());
-            }
-
-            System.out.println("DEBUG IIPG --> La cantidad de examenes: " + this.listaExamenes.size());
         } catch (ServiceException ex) {
             java.util.logging.Logger.getLogger(ExamenTecnicoController.class.getName()).log(Level.SEVERE, null, ex);
         }

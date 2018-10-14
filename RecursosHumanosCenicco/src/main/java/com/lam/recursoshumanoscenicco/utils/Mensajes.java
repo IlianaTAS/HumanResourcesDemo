@@ -43,4 +43,8 @@ public class Mensajes {
     public static final String ERROR_CONSULTAR_PARAMETRO = "Error al consultar el parámetro";
     //
     public static final String ERROR_CREAR_EXAMEN = "Error al crear el examen";
+    public static final String ERROR_ELIMINAR_EXAMEN = "Error al eliminar el examen";
+    
+    public static final String EXITO_CREAR_EXAMEN = "Se creó correctamente el examen";
+    public static final String EXITO_ELIMINAR_EXAMEN = "Se eliminó correctamente el examen";
 }
