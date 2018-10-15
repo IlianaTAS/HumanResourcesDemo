@@ -17,6 +17,16 @@
         <managed-bean-class>com.lam.recursoshumanoscenicco.controller.LoginController</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>paisController</managed-bean-name>
+        <managed-bean-class>com.lam.recursoshumanoscenicco.controller.PaisController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>paisService</property-name>
+            <value>#{paisService}</value>
+        </managed-property>
+    </managed-bean>
         
     <managed-bean>
         <managed-bean-name>puestoController</managed-bean-name>
