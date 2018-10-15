@@ -39,6 +39,16 @@
     </managed-bean>
         
     <managed-bean>
+        <managed-bean-name>criterioRechazoController</managed-bean-name>
+        <managed-bean-class>com.lam.recursoshumanoscenicco.controller.CriterioRechazoController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>criterioRechazoService</property-name>
+            <value>#{criterioRechazoService}</value>
+        </managed-property>
+    </managed-bean>
+        
+    <managed-bean>
         <managed-bean-name>examenController</managed-bean-name>
         <managed-bean-class>com.lam.recursoshumanoscenicco.controller.ExamenTecnicoController</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>

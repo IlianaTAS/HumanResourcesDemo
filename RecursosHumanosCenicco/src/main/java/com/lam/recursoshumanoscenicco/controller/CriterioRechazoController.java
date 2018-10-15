@@ -24,22 +24,28 @@ import org.slf4j.LoggerFactory;
  * @author iperez
  */
 public class CriterioRechazoController implements Serializable {
-    
+
     private final static Logger logger = LoggerFactory.getLogger(CriterioRechazoController.class);
-    
+
     private CriterioRechazoService criterioRechazoService;
-    
+
     private List<CriterioRechazo> listaCriteriosRechazo;
     private CriterioRechazo criterioRechazo;
     
+    private boolean nivelRechazo;
+    
     @PostConstruct
-    public void init(){
+    public void init() {
         this.listaCriteriosRechazo = new ArrayList<>();
         this.criterioRechazo = new CriterioRechazo();
+        
+        this.nivelRechazo = false;
+        this.consultarCriterioRechazo();
     }
-    
+
     /**
-     * Método para consultar todos los criterios de rechazo registrados por el usuario.
+     * Método para consultar todos los criterios de rechazo registrados por el
+     * usuario.
      */
     public void consultarCriterioRechazo() {
         try {
@@ -57,6 +63,9 @@ public class CriterioRechazoController implements Serializable {
      */
     public void crearCriterioRechazo(ActionEvent event) {
         try {
+            System.out.println("DEBUG IIPG --> Lo que regresa en nivel de rechazo: " + this.nivelRechazo);
+            
+            this.criterioRechazo.setNivel(this.nivelRechazo ? "Grave" : "Moderado");
             Long idCriterio = this.criterioRechazoService.guardar(criterioRechazo);
             if (idCriterio != null) {
                 this.addMessage(Mensajes.EXITO_CREAR_CRITERIO_RECHAZO, true);
@@ -71,13 +80,18 @@ public class CriterioRechazoController implements Serializable {
     }
 
     /**
-     * Método que se expone al front para la modificación de criterios de rechazo.
+     * Método que se expone al front para la modificación de criterios de
+     * rechazo.
      *
      * @param event
      */
     public void modificarCriterioRechazo(ActionEvent event) {
         try {
+            System.out.println("DEBUG IIPG --> Lo que regresa en nivel de rechazo: " + this.nivelRechazo);
+            
+            this.criterioRechazo.setNivel(this.nivelRechazo ? "Grave" : "Moderado");
             this.criterioRechazoService.actualizar(criterioRechazo);
+            this.init();
             this.addMessage(Mensajes.EXITO_MODIFICAR_CRITERIO_RECHAZO, true);
         } catch (ServiceException e) {
             logger.error("Error Servicio [criterioRechazoService.actualizar]", e);
@@ -90,14 +104,25 @@ public class CriterioRechazoController implements Serializable {
      *
      * @param event
      */
-    public void eliminarCliente(ActionEvent event) {
+    public void eliminarCriterioRechazo(ActionEvent event) {
         try {
             this.criterioRechazoService.eliminar(criterioRechazo);
+            this.init();
             this.addMessage(Mensajes.EXITO_MODIFICAR_CRITERIO_RECHAZO, true);
         } catch (ServiceException e) {
             logger.error("Error Servicio [criterioRechazoService.eliminar]", e);
             this.addMessage(Mensajes.ERROR_MODIFICAR_CRITERIO_RECHAZO, false);
         }
+    }
+
+    /**
+     * Método para instanciar el objeto criterio de rechazo que se va a eliminar
+     * del catálogo.
+     *
+     * @param event JSF parametro.
+     */
+    public void objetoEliminar(ActionEvent event) {
+        this.criterioRechazo = (CriterioRechazo) event.getComponent().getAttributes().get("criterioRechazoEliminar");
     }
 
     /**
@@ -140,5 +165,13 @@ public class CriterioRechazoController implements Serializable {
     public void setCriterioRechazo(CriterioRechazo criterioRechazo) {
         this.criterioRechazo = criterioRechazo;
     }
-    
+
+    public boolean isNivelRechazo() {
+        return nivelRechazo;
+    }
+
+    public void setNivelRechazo(boolean nivelRechazo) {
+        this.nivelRechazo = nivelRechazo;
+    }
+
 }

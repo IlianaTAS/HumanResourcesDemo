@@ -5,12 +5,161 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <body>
-        <div>TODO write content</div>
+        <ui:composition template="../../../templates/templateMenu.xhtml">
+            <ui:define name="content">
+                <p:growl id="growl" showDetail="false" life="3000"/>
+
+                <h:form id="form">
+                    <div align="center">
+                        <p:panel id="display" header="Catálogo Criterio de Rechazo" style="width: 50%; margin-top: 2%; font-size: .9em;">
+
+                            <div align="right">
+                                <h:panelGrid>
+                                    <p:commandButton value="Nuevo Registro"
+                                                     actionListener="#{criterioRechazoController.init}"
+                                                     styleClass="style_botones" icon="ui-icon-plus"
+                                                     update=":formCrear:display"
+                                                     oncomplete="PF('crearCriterio').show();"/>
+                                </h:panelGrid>
+                            </div>
+
+                            <p:dataTable id="dataTable" var="criterio" value="#{criterioRechazoController.listaCriteriosRechazo}"
+                                         style="width: 100%; font-size: .8em; margin-top: 10px;"
+                                         emptyMessage="No se encontraron registros"
+                                         rowKey="#{criterio.idCriterioRechazo}" selection="#{criterioRechazoController.criterioRechazo}"
+                                         selectionMode="single"
+                                         paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         scrollable="true" scrollHeight="305" rows="15">
+
+                                <p:ajax event="rowSelect" update=":formActualizar:display"
+                                        oncomplete="PF('actualizarCriterioDlg').show()" />
+
+                                <f:facet name="header">
+                                    <div align="right">
+                                        <h:commandLink>
+                                            <h:graphicImage id="exporter" width="30" height="30"
+                                                            url="/resources/images/iconos/xls_table.png" />
+                                            <p:dataExporter type="csv" target="dataTable"
+                                                            fileName="criterio_rechazo" />
+                                        </h:commandLink>
+                                    </div>
+                                </f:facet>
+                                <p:column headerText="Criterio de Rechazo" style="width: 60%">
+                                    <h:outputText value="#{criterio.descripcion}"/>
+                                </p:column>
+
+                                <p:column headerText="Nivel" style="width: 30%">
+                                    <h:outputText value="#{criterio.nivel}"/>
+                                </p:column>
+
+                                <p:column headerText="Eliminar" style="width:10%; text-align:center;">
+                                    <p:commandButton icon="ui-icon-trash"
+                                                     oncomplete="PF('eliminarCriterioDlg').show()"
+                                                     actionListener="#{criterioRechazoController.objetoEliminar}">
+                                        <f:attribute name="criterioRechazoEliminar" value="#{criterio}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </div>
+                </h:form>
+
+                <h:form id="formCrear">
+                    <p:dialog id="crearDialog" header="Nuevo criterio de rechazo" widgetVar="crearCriterio" resizable="false" position="center,center"
+                              showEffect="fade" hideEffect="explode" closable="false"
+                              modal="true">
+                        <h:panelGrid id="display" columns="3" cellpadding="5">
+                            <h:outputLabel value="Nombre:*" />
+                            <p:inputText id="idNombre" value="#{criterioRechazoController.criterioRechazo.descripcion}"
+                                         style="color:black; width: 350px;" required="true"
+                                         requiredMessage="Favor de ingresar el nombre" />
+                            <p:message for="idNombre" />
+                            <h:outputLabel value="Nivel:*" />
+                            <p:selectBooleanButton id="idNivel" value="#{criterioRechazoController.nivelRechazo}"
+                                                   offLabel="Moderado" onLabel="Grave" styleClass="style_botones"/>
+                        </h:panelGrid>
+
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Guardar" actionListener="#{criterioRechazoController.crearCriterioRechazo}" icon="ui-icon-disk"
+                                                 styleClass="style_botones"
+                                                 ajax="false"
+                                                 update=":formCrear:crearDialog, :growl, :form:display"
+                                                 validateClient="true" />
+                                <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                                 styleClass="style_botones" immediate="true" ajax="false">
+                                    <p:resetInput target="display" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog> 
+                </h:form>
+
+                <h:form id="formActualizar">
+                    <p:dialog widgetVar="actualizarCriterioDlg" header="Modificar Criterio de Rechazo"
+                              resizable="false" position="center,center" showEffect="fade"
+                              hideEffect="explode" closable="false" modal="true">
+
+                        <h:panelGrid id="display" columns="3" cellpadding="5">
+                            <h:outputLabel value="Nombre:*" />
+                            <p:inputText id="idNombre" value="#{criterioRechazoController.criterioRechazo.descripcion}"
+                                         style="color:black; width: 400px;" required="true"
+                                         requiredMessage="Favor de ingresar el nombre" />
+                            <p:message for="idNombre" />
+                            <h:outputLabel value="Nivel:*" />
+                            <p:selectBooleanButton id="idNivel" value="#{criterioRechazoController.nivelRechazo}"
+                                                   offLabel="Moderado" onLabel="Grave" styleClass="style_botones"/>
+                            <p:message for="idNivel" />
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Modificar"
+                                                 actionListener="#{criterioRechazoController.modificarCriterioRechazo}" icon="ui-icon-pencil"
+                                                 styleClass="style_botones" ajax="false"
+                                                 update=":formActualizar:display, :growl, :form:display"
+                                                 validateClient="true" />
+                                <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                                 styleClass="style_botones" immediate="true" ajax="false">
+                                    <p:resetInput target="display" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formEliminar">
+                    <p:dialog id="display" widgetVar="eliminarCriterioDlg"
+                              header="Confirmación" resizable="false" position="center,center"
+                              showEffect="fade" hideEffect="explode" closable="false"
+                              modal="true">
+
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <h:outputLabel value="¿Desea eliminar el registro?" />
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Si" icon="ui-icon-check"
+                                                 actionListener="#{criterioRechazoController.eliminarCriterioRechazo}"
+                                                 styleClass="style_botones" ajax="false" process="@this"
+                                                 update="formEliminar:display, :growl, :form:display" />
+                                <p:commandButton value="No" icon="ui-icon-close" ajax="false"
+                                                 onsuccess="PF('eliminarCriterioDlg').hide();"
+                                                 styleClass="style_botones">
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
     </body>
 </html>

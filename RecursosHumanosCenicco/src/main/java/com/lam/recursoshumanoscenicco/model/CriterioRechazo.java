@@ -6,45 +6,55 @@ package com.lam.recursoshumanoscenicco.model;
  */
 public class CriterioRechazo implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8150308967114357580L;
-	private long idCriterioRechazo;
-	private String descripcion;
-	private String nivel;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8150308967114357580L;
+    private long idCriterioRechazo;
+    private String descripcion;
+    private String nivel;
 
-	public CriterioRechazo() {
-	}
+    private boolean nivelRechazo;
 
-	public CriterioRechazo(long idCriterioRechazo, String descripcion, String nivel) {
-		this.idCriterioRechazo = idCriterioRechazo;
-		this.descripcion = descripcion;
-		this.nivel = nivel;
-	}
+    public CriterioRechazo() {
+    }
 
-	public long getIdCriterioRechazo() {
-		return this.idCriterioRechazo;
-	}
+    public CriterioRechazo(long idCriterioRechazo, String descripcion, String nivel) {
+        this.idCriterioRechazo = idCriterioRechazo;
+        this.descripcion = descripcion;
+        this.nivel = nivel;
+    }
 
-	public void setIdCriterioRechazo(long idCriterioRechazo) {
-		this.idCriterioRechazo = idCriterioRechazo;
-	}
+    public long getIdCriterioRechazo() {
+        return this.idCriterioRechazo;
+    }
 
-	public String getDescripcion() {
-		return this.descripcion;
-	}
+    public void setIdCriterioRechazo(long idCriterioRechazo) {
+        this.idCriterioRechazo = idCriterioRechazo;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return this.descripcion;
+    }
 
-	public String getNivel() {
-		return this.nivel;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public void setNivel(String nivel) {
-		this.nivel = nivel;
-	}
+    public String getNivel() {
+        return this.nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
+
+    public boolean isNivelRechazo() {
+        return "Grave".equals(this.getNivel());
+    }
+
+    public void setNivelRechazo(boolean nivelRechazo) {
+        this.nivelRechazo = nivelRechazo;
+    }
 
 }
