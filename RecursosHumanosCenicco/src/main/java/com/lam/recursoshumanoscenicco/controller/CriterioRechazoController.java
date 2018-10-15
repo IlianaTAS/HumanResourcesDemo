@@ -9,6 +9,7 @@ import com.lam.recursoshumanoscenicco.exception.ServiceException;
 import com.lam.recursoshumanoscenicco.model.CriterioRechazo;
 import com.lam.recursoshumanoscenicco.service.CriterioRechazoService;
 import com.lam.recursoshumanoscenicco.utils.Mensajes;
+import com.lam.recursoshumanoscenicco.utils.Util;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +44,10 @@ public class CriterioRechazoController implements Serializable {
         this.consultarCriterioRechazo();
     }
 
-    /**
-     * Método para consultar todos los criterios de rechazo registrados por el
-     * usuario.
-     */
+        /**
+         * Método para consultar todos los criterios de rechazo registrados por el
+         * usuario.
+         */
     public void consultarCriterioRechazo() {
         try {
             this.listaCriteriosRechazo = this.criterioRechazoService.buscarTodo();
@@ -63,10 +64,9 @@ public class CriterioRechazoController implements Serializable {
      */
     public void crearCriterioRechazo(ActionEvent event) {
         try {
-            System.out.println("DEBUG IIPG --> Lo que regresa en nivel de rechazo: " + this.nivelRechazo);
-            
             this.criterioRechazo.setNivel(this.nivelRechazo ? "Grave" : "Moderado");
             Long idCriterio = this.criterioRechazoService.guardar(criterioRechazo);
+            logger.info("El criterio de rechazo que se crea: " + Util.debugImprimirContenidoObjecto(this.criterioRechazo));
             if (idCriterio != null) {
                 this.addMessage(Mensajes.EXITO_CREAR_CRITERIO_RECHAZO, true);
             } else {
@@ -87,10 +87,9 @@ public class CriterioRechazoController implements Serializable {
      */
     public void modificarCriterioRechazo(ActionEvent event) {
         try {
-            System.out.println("DEBUG IIPG --> Lo que regresa en nivel de rechazo: " + this.nivelRechazo);
-            
             this.criterioRechazo.setNivel(this.nivelRechazo ? "Grave" : "Moderado");
             this.criterioRechazoService.actualizar(criterioRechazo);
+            logger.info("El criterio de rechazo que se modifica: " + Util.debugImprimirContenidoObjecto(this.criterioRechazo));
             this.init();
             this.addMessage(Mensajes.EXITO_MODIFICAR_CRITERIO_RECHAZO, true);
         } catch (ServiceException e) {
@@ -107,11 +106,12 @@ public class CriterioRechazoController implements Serializable {
     public void eliminarCriterioRechazo(ActionEvent event) {
         try {
             this.criterioRechazoService.eliminar(criterioRechazo);
+            logger.info("El criterio de rechazo que se elimina: " + Util.debugImprimirContenidoObjecto(this.criterioRechazo));
             this.init();
-            this.addMessage(Mensajes.EXITO_MODIFICAR_CRITERIO_RECHAZO, true);
+            this.addMessage(Mensajes.EXITO_ELIMINAR_CRITERIO_RECHAZO, true);
         } catch (ServiceException e) {
             logger.error("Error Servicio [criterioRechazoService.eliminar]", e);
-            this.addMessage(Mensajes.ERROR_MODIFICAR_CRITERIO_RECHAZO, false);
+            this.addMessage(Mensajes.ERROR_ELIMINAR_CRITERIO_RECHAZO, false);
         }
     }
 
