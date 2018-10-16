@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <ui:composition template="../../templates/templateMenu.xhtml">
+
+            <ui:define name="content">
+
+                <p:growl id="msgs" showDetail="false"/>
+                <h:form id="form">
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <p:graphicImage library="images"  name="loader.gif" />
+                    </p:dialog>
+                    <div align="center">
+                        <h:panelGrid columns="2" style="margin-top: 10px">
+                            <h:panelGrid columns="4">
+                                <p:outputLabel value="Estatus: "/>
+                                <p:selectOneMenu    style="width: 200px">
+                                    <f:selectItem itemLabel="Todos" itemValue="0"/>
+                                    <f:selectItem itemLabel="Activas" itemValue="1"/>
+                                    <f:selectItem itemLabel="Cubiertas" itemValue="3"/>
+                                    <f:selectItem itemLabel="On Hold" itemValue="4"/>
+                                    <f:selectItem itemLabel="Prospección" itemValue="5"/>
+                                    <f:selectItem itemLabel="Canceladas" itemValue="2"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Cliente: "/>
+                                <p:selectOneMenu value="#{procesoRegistradoBean.clienteVacante}" style="width: 200px" filter="true">
+                                    <f:selectItem itemLabel="Todos" itemValue="0"/>
+                                    <f:selectItems value="#{procesoRegistradoBean.clientesVacante}" var="cliente" itemValue="" itemLabel="#{cliente}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="División: "/>
+                                <p:selectOneMenu value="#{procesoRegistradoBean.divisionVacante}" style="width: 200px" filter="true">
+                                    <f:selectItem itemLabel="Todos" itemValue="0"/>
+                                    <f:selectItems value="#{divisionBean.list}" var="division" itemValue="#{division.id}" itemLabel="#{division.descripcion}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Puesto: "/>
+                                <p:selectOneMenu value="#{procesoRegistradoBean.puestoVacante}" style="width: 200px" filter="true">
+                                    <f:selectItem itemLabel="Todos" itemValue="0"/>
+                                    <f:selectItems value="#{procesoRegistradoBean.clientesVacante}" var="puesto" itemValue="" itemLabel="#{puesto}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid> 
+                            <p:commandButton value="Consultar" icon="ui-icon-search" styleClass="style_botones"
+                                              update="candidatoScroller"/>
+                        </h:panelGrid>
+                    </div>
+                    <br/>
+                    <p:dataScroller value="#{procesoRegistradoBean.list}"  var="vacante"  mode="inline" id="candidatoScroller"
+                                    scrollHeight="430" chunkSize="10" style="width: 100%; border: none">
+                        <f:facet name="header">
+                            <div align="center">
+                                <p:outputLabel value="Cantidad de registros encontrados"/>    
+                            </div>
+                        </f:facet>
+                        <br/>
+                        <div align="center">
+                            <h:panelGrid columns="4"  style="width: 900px">
+                                <p:outputLabel value="No. Vacante" style="font-size: 1em;font-weight: bold;"/>
+                                <p:outputLabel value="#{vacante.numeroVacante}" style="width: 200px"/>
+                                <p:outputLabel value="Estatus" style="font-size: 1em;font-weight: bold;"/>
+                                <p:outputLabel value="#{vacante.estatus == 1 ? 'Activa' : vacante.estatus == 2 ? 'Cancelada' : vacante.estatus == 3 ? 'Cubierta' : vacante.estatus == 4 ? 'On Hold' : 'Prospección'}" style="width: 200px"/>
+                                <p:outputLabel rendered="#{vacante.estatus == 2}"  value="Usuario cancelación" style="font-size: 1em;font-weight: bold;"/>
+                                <p:outputLabel rendered="#{vacante.estatus == 2}"  value="Liliana Orozco Fávila"/>
+                                <p:outputLabel rendered="#{vacante.estatus == 2}"  value="Motivo cancelación" style="font-size: 1em;font-weight: bold;"/>
+                                <p:outputLabel rendered="#{vacante.estatus == 2}"  value="Posición cerrada por el cliente" style="font-size: .8em;"/>
+                                <p:outputLabel value="Cliente" style="font-size: 1em;font-weight: bold;"/>
+                                <p:outputLabel value="#{vacante.nombreComercial} - #{vacante.ciudad}" style="width: 200px"/>
+                                <p:outputLabel value="Puesto / Nivel" style="font-size: 1em;font-weight: bold;"/>
+                                <p:outputLabel value="#{vacante.puestoNivel}" style="width: 200px"/>
+                                <p:outputLabel value="Candidatos en proceso" style="font-size: 1em;font-weight: bold;"/>
+                                <p:outputLabel value="#{vacante.cantidadProcesados}" style="width: 200px"/>
+                                <p:outputLabel value="Candidatos rechazados" style="font-size: 1em;font-weight: bold;"/>
+                                <p:outputLabel value="#{vacante.cantidadRechazados}" style="width: 200px" />
+                            </h:panelGrid>
+                        </div>
+                        <br/>
+                        <div align="center">
+                            <p:panelGrid style= " vertical-align: top;">
+                                <p:row>
+                                    <p:column style="vertical-align: top">
+                                        <h:panelGrid columns="4" style="width: 780px; vertical-align: top;">
+                                            <f:facet name="header">
+                                                <p:outputLabel value="Candidatos" style="color: darkgreen"/>
+                                            </f:facet>
+                                            <p:dataTable value="#{vacante.candidatos}" var="candidato" style="font-size: .8em;">
+                                                <p:column width="250">
+                                                    <f:facet name="header">
+                                                        <p:outputLabel value="Nombre"
+                                                                       style="font-weight: bold;color: blue"/>
+                                                    </f:facet>
+                                                    <p:outputLabel value="#{candidato.nombre} #{candidato.apellidoPaterno} #{candidato.apellidoMaterno}"/>
+                                                </p:column>
+                                                <p:column width="150">
+                                                    <f:facet name="header">
+                                                        <p:outputLabel value="Estatus"
+                                                                       style="font-weight: bold;color: blue"/>
+                                                    </f:facet>
+                                                    <p:outputLabel value="#{candidato.estatus}"/>
+                                                </p:column>
+                                                <p:column width="250">
+                                                    <f:facet name="header">
+                                                        <p:outputLabel value="Motivo del rechazo"
+                                                                       style="font-weight: bold;color: blue"/>
+                                                    </f:facet>
+                                                    <p:outputLabel value="#{candidato.criterioRechazo}"
+                                                                   style="#{candidato.estatus == 'Rechazado' ? 'color: #B40431 !important' : 'color: #666666 !important'}"/>
+                                                </p:column>
+                                                <p:column width="110">
+                                                    <f:facet name="header">
+                                                        <p:outputLabel value="Analista"
+                                                                       style="font-weight: bold;color: blue"/>
+                                                    </f:facet>
+                                                    <p:outputLabel value="#{candidato.analista}"/>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>  
+                                    </p:column>
+                                    <p:column style="vertical-align: top">
+                                        <h:panelGrid columns="2" style="width: 200px;vertical-align: top">
+                                            <f:facet name="header">
+                                                <p:outputLabel value="Analistas Asignados" style="color: darkgreen"/>
+                                            </f:facet>
+                                          
+                                        </h:panelGrid>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </div>
+                        <br/>
+                        <p:separator/>
+                    </p:dataScroller>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,1819 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+    </head>
+    <body>
+
+        <ui:composition template="../../templates/templateMenu.xhtml">
+            <ui:define name="content">
+
+                <p:growl id="msgs" showDetail="false"/>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage library="images"  name="loader.gif" />
+                </p:dialog>
+                <h:form id="form">
+                    <div align="right">
+                        <h:panelGrid columns="1" id="display" style="margin-top: 10px">
+                            <p:commandButton value="Agregar requisición" icon="ui-icon-plus"
+                                             onclick="PF('createDialog').show();"
+                                             actionListener="#{vacanteBean.limpiar}" 
+                                             update=":formCreate:display"
+                                             icon="ui-icon-plusthick"
+                                             styleClass="style_botones"
+                                             global="false"/>
+                        </h:panelGrid>
+                    </div>
+                    <div align="center">
+                        <p:dataTable id="dataTable" var="vacante"
+                                     value="#{vacanteBean.vacantes}"
+                                     filteredValue="#{vacanteBean.fileteredVacantes}"
+                                     selection="#{vacanteBean.vacante}" selectionMode="single" 
+                                     resizableColumns="true" scrollable="true"
+                                     scrollHeight="390" style="margin-top: 5px;width: 97%;font-size: 1em;"
+                                     emptyMessage="#{appBean.mensajeTablaVacia}" 
+                                     widgetVar="registrosTable"
+                                     rowKey="#{vacante.id}"
+                                     editable="true" editMode="cell">
+                            <p:ajax event="filter" global="false"></p:ajax>
+                            <p:ajax event="page" global="false"/>
+                            <p:ajax event="rowToggle" global="false"/>
+
+                            <p:ajax event="rowSelect" update=":formUpdateInterno,:formUpdate" listener="#{vacanteBean.listenerSelect}"  global="true"/>
+
+                            <f:facet name="header">
+                                <p:outputLabel value="#{vacanteBean.informacion}"/>   
+                                <p:outputPanel>
+                                    <h:outputText value="Buscador:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('registrosTable').filter();" style="width:150px"  placeholder="#{appBean.mensajeBusqueda}"/>  
+                                    <div class="datableImagenes" id="csv">
+                                        <h:commandLink immediate="true" id="csv">  
+                                            <p:graphicImage value="/resources/images/csvTable.png" />  
+                                            <p:dataExporter type="csv" target="dataTable" encoding="iso-8859-1" fileName="RequerimientosClientes" />  
+                                        </h:commandLink>
+                                    </div>
+                                </p:outputPanel>           
+                            </f:facet>
+
+                            <p:column style="width:2%" exportable="false">
+                                <p:rowToggler />
+                            </p:column>
+
+                            <p:column width="40" style="white-space : normal;text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="No. Posiciones"/>
+                                </f:facet>
+                                <p:outputLabel value="#{vacante.cantidadposiciones}"/>
+                            </p:column>
+
+                            <p:column filterMatchMode="contains" width="100" 
+                                      filterBy="#{vacante.cliente.nombrecomercial} #{vacante.ciudad.descripcion}"
+                                      sortBy="#{vacante.cliente.nombrecomercial} #{vacante.ciudad.descripcion}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Cliente"/>
+                                </f:facet>
+                                <p:outputLabel value="#{vacante.cliente.nombrecomercial} - #{vacante.ciudad.descripcion}"/>
+                            </p:column>
+                            <p:column filterMatchMode="contains" width="150"
+                                      filterBy="#{vacante.puestonivel.puesto.descripcion} #{vacante.puestonivel.nivel.descripcion}"
+                                      sortBy="#{vacante.puestonivel.puesto.descripcion} #{vacante.puestonivel.nivel.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="Puesto / Nivel"/>
+                                </f:facet>
+                                <p:outputLabel value="#{vacante.puestonivel.puesto.descripcion} / #{vacante.puestonivel.nivel.descripcion}"/>
+                            </p:column>
+                            <p:column filterMatchMode="contains" width="50" style="text-align: center;">
+                                <f:facet name="header">
+                                    <h:outputText value="Experiencia"/>
+                                </f:facet>
+                                <p:outputLabel value="#{vacante.aniosexperiencia}"/>
+                            </p:column>
+                            <p:column width="100">
+                                <f:facet name="header">
+                                    <h:outputText value="Rango salarial"/>
+                                </f:facet>
+                                <p:outputLabel value="#{vacante.sueldo}">
+                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:outputLabel>
+                                <p:outputLabel value="#{vacante.sueldodos eq null ? '' : '-'}"/>
+                                <p:outputLabel value="#{vacante.sueldodos}">
+                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:outputLabel>
+                                <p:outputLabel value="#{vacante.tipodecambio.codigo}"/>
+                            </p:column>
+                            <p:column width="100">
+                                <f:facet name="header">
+                                    <h:outputText value="Sueldo en pesos"/>
+                                </f:facet>
+                                <p:outputLabel value="#{vacante.sueldopesos}">
+                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:outputLabel>
+                                <p:outputLabel value="#{vacante.sueldopesosdos eq null ? '' : '-'}"/>
+                                <p:outputLabel value="#{vacante.sueldopesosdos}">
+                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:outputLabel>
+                                <p:outputLabel value="MXN"/>
+                            </p:column>
+                            <p:column width="70" sortBy="#{vacante.estatus}" style="z-index: 1;text-align: center" headerText="Estatus">
+                                <p:cellEditor >
+                                    <f:facet name="output">
+                                        <p:outputLabel value="#{vacanteBean.getNombreEstatus(vacante.estatus)}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu id="opciones" value="#{vacante.estatus}" disabled="#{vacante.estatus eq 2 or vacante.estatus eq 3}"
+                                                         style="width: 100%" valueChangeListener="#{vacanteBean.editEstatus}" >
+                                            <p:ajax event="change" listener="#{vacanteBean.editEstatusw(vacante)}" update=":formEliminarRequerimiento:rechazarReqDlg,:form:dataTable:opciones"/>
+                                            <f:selectItems value="#{appBean.comboEstatusVacante}"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:rowExpansion>
+                                <div align="left">
+                                    <p:panelGrid columns="1" style="width: 100%">
+                                        <h:outputText value="Competencias Básicas: | #{vacante.competenciasbasicas}"/>
+                                        <h:outputText value="         Descripción: | #{vacante.descripcion}"/>
+                                        <h:outputText value="         Experiencia: | #{vacante.experiencia}"/>
+                                        <p:commandButton value="Generar oferta" actionListener="#{vacanteBean.generarOferta}"
+                                                         update=":formOferta:ofertaDlg" global="true" styleClass="style_botones">
+                                            <f:attribute name="vacante" value="#{vacante}" />
+                                        </p:commandButton>
+                                    </p:panelGrid>
+                                </div>
+                            </p:rowExpansion>
+                        </p:dataTable>
+                    </div>
+                </h:form>
+                <!--ELIMINAR REQUERIMIENTO-->
+                <h:form id="formEliminarRequerimiento">
+                    <p:dialog header="Cancelar Requerimiento"
+                              widgetVar="rechazarRequerimientoDialog" resizable="false" id="rechazarReqDlg"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="true"
+                              showEffect="fade" hideEffect="explode" modal="true" closable="false">
+                        <center>
+                            <p>¿Estás seguro de cancelar el requerimiento?</p> 
+                        </center>
+                        <h:panelGrid columns="1">
+                            <p:inputTextarea value="#{vacanteBean.vacante.motivocancelacion}" required="true" requiredMessage="#{appBean.cancelacionVacante}"
+                                             rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} caracteres restantes." autoResize="false"
+                                             placeholder="Motivo de cancelación" style="width: 300px"/>
+                            <h:outputText id="display" />
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <p:commandButton value="Si" icon="ui-icon-check"
+                                             actionListener="#{vacanteBean.delete}"
+                                             oncomplete="if (args &amp;&amp; !args.validationFailed){
+                                             PF('rechazarRequerimientoDialog').hide();
+                                             PF('registrosTable').filter();}"
+                                             update=":msgs"
+                                             process="@this,@parent,:formEliminarRequerimiento"
+                                             styleClass="style_botones">
+                            </p:commandButton>
+                            <p:commandButton value="No" icon="ui-icon-close"
+                                             onsuccess="PF('rechazarRequerimientoDialog').hide();PF('registrosTable').filter();"
+                                             styleClass="style_botones"
+                                             immediate="true"
+                                             actionListener="#{vacanteBean.resetVacante}"
+                                             update=":form:dataTable:opciones,:form:dataTable,:form"
+                                             process="@this,@parent,:formEliminarRequerimiento"
+                                             global="false">
+                            </p:commandButton>
+                        </f:facet>
+
+                    </p:dialog>
+                </h:form>
+                <h:form id="formCreate">
+                    <p:dialog header="Nuevo Requerimiento" 
+                              widgetVar="createDialog" resizable="false" id="createDlg" closable="false"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="true"
+                              showEffect="fade" hideEffect="puff" modal="true" width="50%" height="70%">
+                        <div align="center">
+                            <h:panelGrid id="display" rendered="#{!vacanteBean.seleccion2}" style="font-size: .8em">
+                                <h:panelGrid columns="4" style="margin-left: 18%">
+                                    <p:outputLabel value="Rango salarial"/>
+                                    <p:inputText id="idSueldo" value="#{vacanteBean.vacante.sueldo}" style="width: 150px"
+                                                 required="true" requiredMessage="#{appBean.mensajeErrorSueldo}"
+                                                 converter="javax.faces.Double" converterMessage="No es un número válido" 
+                                                 onchange="this.value = this.value.trim()">
+                                        <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                        <p:ajax event="change" global="false" update="idSueldo"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="-"/>
+                                    <p:inputText id="idSueldoDos" value="#{vacanteBean.vacante.sueldodos}" style="width: 150px"
+                                                 converter="javax.faces.Double" converterMessage="No es un número válido" 
+                                                 onchange="this.value = this.value.trim()">
+                                        <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                        <p:ajax event="change" global="false" update="idSueldoDos"/>
+                                    </p:inputText>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4" style="margin-left: 13%">
+                                    <h:outputText value="Divisa: *"/>
+                                    <p:selectOneMenu id="idDivisa" value="#{vacanteBean.vacante.tipodecambio.id}"
+                                                     style="width: 150px; text-align: left"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorDivisa}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{tipodecambioBean.list}" var="tipodecambio" itemValue="#{tipodecambio.id}" itemLabel="#{tipodecambio.codigo}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Periodicidad Pago: *"/>
+                                    <p:selectOneMenu id="idPeriodicidadPago" value="#{vacanteBean.vacante.periodicidadpago}"
+                                                     style="width: 150px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorPeriodicidadPago}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{appBean.comboPeriodicidadPagoVacante}" var="periodicidadPago" itemValue="#{periodicidadPago.value}" itemLabel="#{periodicidadPago.label}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Cliente: *"/>
+                                    <p:selectOneMenu id="idCliente" value="#{vacanteBean.vacante.cliente.id}" disabled="#{vacanteBean.loginClient == true ? 'true' : 'false'}"
+                                                     style="width: 150px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{clienteBean.list}" var="cliente" itemValue="#{cliente.id}" itemLabel="#{cliente.nombrecomercial}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Ciudad: *"/>
+                                    <p:selectOneMenu id="idCiudad" value="#{vacanteBean.vacante.ciudad.id}"
+                                                     style="width: 150px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorCiudad}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{ciudadBean.list}" var="ciudad" itemValue="#{ciudad.id}" itemLabel="#{ciudad.descripcion}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Puesto: *"/>
+                                    <p:selectOneMenu id="idPuesto" value="#{vacanteBean.vacante.puestonivel.puesto.id}"
+                                                     style="width: 150px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorPuesto}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{puestoBean.list}" var="puesto" itemValue="#{puesto.id}" itemLabel="#{puesto.descripcion}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Nivel: *"/>
+                                    <p:selectOneMenu id="idNivel" value="#{vacanteBean.vacante.puestonivel.nivel.id}"
+                                                     style="width: 150px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorNivel}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{nivelBean.list}" var="nivel" itemValue="#{nivel.id}" itemLabel="#{nivel.descripcion}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="División: *"/>
+                                    <p:selectOneMenu id="idDivision" value="#{vacanteBean.vacante.division.id}"
+                                                     style="width: 150px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorDivision}"
+                                                     disabled="#{vacanteBean.disabledDivision}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{divisionBean.list}" var="division" itemValue="#{division.id}" itemLabel="#{division.descripcion}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Sub-División: *"/>
+                                    <p:selectOneMenu id="idSubdivision" value="#{vacanteBean.vacante.subdivision.id}"
+                                                     style="width: 150px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorSubdivision}"
+                                                     disabled="#{vacanteBean.disabledDivision}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{subdivisionBean.list}" var="subdivision" itemValue="#{subdivision.id}" itemLabel="#{subdivision.descripcion}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <p:outputLabel value="Competencias básicas: "/>
+                                <p:inputTextarea id="idCompentencias" value="#{vacanteBean.vacante.competenciasbasicas}"
+                                                 style="width: 610px" />
+                                <p:outputLabel value="Descripción: "/>
+                                <p:inputTextarea id="idDescripcion" value="#{vacanteBean.vacante.descripcion}"
+                                                 style="width: 610px"/>
+                                <p:outputLabel value="Experiencia: "/>
+                                <p:inputTextarea id="idExperiencia" value="#{vacanteBean.vacante.experiencia}"
+                                                 style="width: 610px"/>  
+                                <h:panelGrid columns="3">
+                                    <p:outputLabel id="anios" value="Años de experiencia"/>
+                                    <p:outputLabel id="horas" value="Horas Laborales"/>
+                                    <p:outputLabel id="fechaUno" value="Duración del proyecto"/>
+
+                                    <p:inputText id="idaniosExperiencia" value="#{vacanteBean.vacante.aniosexperiencia}"
+                                                 style="width: 120px"/>
+
+                                    <p:inputText id="idhorasLaborales" value="#{vacanteBean.vacante.horaslaborales}"
+                                                 style="width: 120px"/>
+
+                                    <p:inputText id="idFechaInicio" value="#{vacanteBean.vacante.fechainicio}"
+                                                 style="width: 347px"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="6" cellpadding="3">
+                                    <p:outputLabel value="Idioma(s): "/>
+                                    <h:panelGrid columns="4" id="display5">
+                                        <p:selectOneMenu id="idIdioma" value="#{vacanteBean.idioma.id}" label="#{appBean.mensajeSeleccione}"
+                                                         panelStyle="width:150px">
+                                            <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                            <f:selectItems value="#{idiomaBean.list}" var="idioma" itemValue="#{idioma.id}"
+                                                           itemLabel="#{idioma.descripcion}"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="Disponibilidad de Viaje: "/>
+                                    <h:panelGrid columns="2" id="display6">
+                                        <p:selectOneRadio value="#{vacanteBean.vacante.disponibilidadviaje}">
+                                            <f:selectItems value="#{appBean.comboDisponibilidadViaje}" var="disponibilidad"/>
+                                        </p:selectOneRadio>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="Cantidad Posición(es):"/>
+                                    <p:inputText value="#{vacanteBean.vacante.cantidadposiciones}"
+                                                 style="width: 32px"
+                                                 required="true" requiredMessage="#{appBean.mensajeErrorPosicionesCubiertas}"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </div>
+                        <f:facet name="footer">
+                            <p:commandButton value="Guardar" icon="ui-icon-disk" 
+                                             actionListener="#{vacanteBean.create}"
+                                             oncomplete="validar(args)"
+                                             update=":msgs,:form, :formCreate:display"
+                                             styleClass="style_botones"
+                                             process="@form">
+
+                            </p:commandButton> 
+                            <p:commandButton value="Cancelar" icon="ui-icon-closethick" 
+                                             onclick="PF('createDialog').hide();"
+                                             global="false"
+                                             immediate="true"
+                                             styleClass="style_botones"
+                                             update=":formCreate:display,:formCreate"
+                                             actionListener="#{vacanteBean.limpiar}">
+                                <p:ajax update=":formCreate:display,:formCreate" resetValues="true" />
+                            </p:commandButton> 
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formCreateInterno">
+                    <p:dialog header="Nuevo Requerimiento Interno"
+                              widgetVar="createInternoDialog" resizable="false" id="createInternoDlg"
+                              styleClass="style_outputText" position="bottom,center" closeOnEscape="true"
+                              showEffect="fade" hideEffect="puff" modal="true" width="77%" height="100%">
+                        <f:facet name="header">
+                            <p:graphicImage value="/resources/images/interno_1.png"/>
+                            <h:outputText value="Nuevo Requerimiento Interno"/>
+                        </f:facet>
+                        <div align="center">
+                            <p:scrollPanel style="width: 950px;height: 500px" id="display">
+                                <h:panelGrid columns="1">
+                                    <center>
+                                        <h:panelGrid columns="4" style="font-size: .8em">
+                                            <p:outputLabel value="Puesto a cubrir: *"/>
+                                            <p:selectOneMenu id="idPuesto" value="#{vacanteBean.vacante.puestonivel.puesto.id}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorPuesto}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{puestoBean.list}" var="puesto" itemValue="#{puesto.id}" itemLabel="#{puesto.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Condición de la posición: *"/>
+                                            <p:selectOneMenu id="console" value="#{vacanteBean.vacante.condicionposicion}" style="width: 210px; text-align: left"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorCondicion}">
+                                                <f:selectItem itemLabel="#{appBean.mensajeSeleccione}" itemValue="" />
+                                                <f:selectItems  value="#{vacanteBean.condicionposiciones}" var="posicion" itemValue="#{posicion.valor}" itemLabel="#{posicion.nombre}"/>
+                                                <p:ajax process="@this" event="change" global="false" update="idpersonasustituida"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Persona a quien va a sustituir: *"/>
+                                            <p:inputText id="idpersonasustituida" required="true" style="width: 200px"
+                                                         value="#{vacanteBean.vacante.nombresustitucion}"
+                                                         maxlength="200"
+                                                         disabled="#{vacanteBean.vacante.condicionposicion == 0 ? 'false' : 'true'}"
+                                                         requiredMessage="#{appBean.mensajeErrorSustitucion}"/>
+
+                                            <p:outputLabel value="División: *"/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.division.id}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorDivision}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{divisionBean.list}" var="division" itemValue="#{division.id}" itemLabel="#{division.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Puesto del jefe directo: "/>
+                                            <p:inputText id="idjefedirecto" value="#{vacanteBean.vacante.puestojefedirecto}" style="width: 200px"
+                                                         maxlength="200"/>
+
+                                            <p:outputLabel value="Requiere Seguro Social: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.segurosocial}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.segurosociales}" var="seguro" itemValue="#{seguro.valor}" itemLabel="#{seguro.nombre}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Gastos Médicos Mayores: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.gastosmedicosmayores}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItem itemValue="1" itemLabel="Si"/>
+                                                <f:selectItem itemValue="0" itemLabel="No"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Tipo de contrato: *"/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.tipocontrato}" 
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorTipoContrato}"
+                                                             valueChangeListener="#{vacanteBean.cambioContrato}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.tipoContratos}" var="contrato" itemValue="#{contrato.valor}" itemLabel="#{contrato.nombre}"/>
+
+                                            </p:selectOneMenu>
+
+
+                                        </h:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Información de puesto vacante" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="4" style="font-size: .8em">
+                                            <p:outputLabel value="Escolaridad: *"/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.escolaridad}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorEscolaridad}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.escolaridades}" var="escolaridad" itemValue="#{escolaridad.valor}" itemLabel="#{escolaridad.nombre}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Carrera: "/>
+                                            <p:inputText value="#{vacanteBean.vacante.carrera}" 
+                                                         style="width: 200px"
+                                                         maxlength="200"/>
+
+                                            <p:outputLabel value="Cant.de años de Experiencia: *"/>
+                                            <p:inputText 
+                                                value="#{vacanteBean.vacante.aniosexperiencia}" style="width: 200px"
+                                                required="true" requiredMessage="#{appBean.mensajeErrorAniosExperiencia}"
+                                                maxlength="100">
+                                            </p:inputText>
+
+                                            <p:outputLabel value="Nivel: *"/>
+                                            <p:selectOneMenu id="idNivel" value="#{vacanteBean.vacante.puestonivel.nivel.id}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorNivel}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{nivelBean.list}" var="nivel" itemValue="#{nivel.id}" itemLabel="#{nivel.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Otro: "/>
+                                            <p:inputText value="#{vacanteBean.vacante.comentarios}" style="width: 200px"
+                                                         maxlength="500"/>
+
+                                            <p:outputLabel value="Edo. Civil: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.edocivil}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.edoCiviles}" var="edocivil"
+                                                               itemValue="#{edocivil.valor}" itemLabel="#{edocivil.nombre}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Género: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.genero}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.generos}" var="genero"
+                                                               itemValue="#{genero.valor}" itemLabel="#{genero.nombre}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Idioma(s): *"/>
+                                            <p:selectOneMenu id="idIdioma" 
+                                                             value="#{vacanteBean.idioma.id}" 
+                                                             label="#{appBean.mensajeSeleccione}"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorIdioma}"
+                                                             style="width: 210px">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{idiomaBean.list}" var="idioma" itemValue="#{idioma.id}" itemLabel="#{idioma.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Rango Salarial: *"/>
+                                            <h:panelGrid columns="3">
+                                                <p:inputText id="idSueldo" required="true" value="#{vacanteBean.vacante.sueldo}" style="width: 90px"
+                                                             requiredMessage="#{appBean.mensajeErrorSalario}"
+                                                             converter="javax.faces.Double" converterMessage="No es un número válido" 
+                                                             onchange="this.value = this.value.trim()">
+                                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                                    <p:ajax event="change" global="false" update="idSueldo"/>
+                                                </p:inputText>
+                                                <p:outputLabel value="-"/>
+                                                <p:inputText id="idSueldoDos" value="#{vacanteBean.vacante.sueldodos}" 
+                                                             style="width: 90px"
+                                                             converter="javax.faces.Double" converterMessage="No es un número válido" 
+                                                             onchange="this.value = this.value.trim()">
+                                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                                    <p:ajax event="change" global="false" update="idSueldoDos"/>
+                                                </p:inputText>
+                                            </h:panelGrid>
+
+                                            <p:outputLabel value="Disponibilidad de viaje: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.disponibilidadviaje}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{appBean.comboDisponibilidadViaje}" var="dis"
+                                                               itemValue="#{dis.value}" itemLabel="#{dis.label}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Localidad: *" />
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.ciudad.id}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorLocalidad}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{ciudadBean.list}" var="ciudad"
+                                                               itemValue="#{ciudad.id}" itemLabel="#{ciudad.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Horario"/>
+                                            <p:inputText id="idhorasLaborales" 
+                                                         value="#{vacanteBean.vacante.horaslaborales}" 
+                                                         maxlength="100"
+                                                         style="width: 200px"/>
+
+                                            <p:outputLabel value="Certificaciones necesarias: "/>
+                                            <p:inputTextarea value="#{vacanteBean.vacante.certificaciones}" style="width: 200px"
+                                                             maxlength="1500"/>
+
+                                            <p:outputLabel value="Conocimientos: "/>
+                                            <p:inputTextarea value="#{vacanteBean.vacante.competenciasbasicas}"
+                                                             style="width: 200px"
+                                                             maxlength="1500"/>
+
+                                        </h:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Actividades críticas del cargo" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                            <p:outputLabel value="Actividades y/o responsabilidades claves del cargo necesarias para que la persona cumpla con los objetivos del puesto"
+                                                           style="color: blue;font-size: .8em;"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="1.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad1}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="2.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad2}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="3.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad3}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="4.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad4}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="5.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad5}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="6.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad6}" style="width: 700px"
+                                                         maxlength="200"/>
+                                        </h:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Principales retos que enfrentará el cargo" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="1.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.reto1}" style="width: 700px"
+                                                         maxlength="150"/>
+                                            <p:outputLabel value="2.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.reto2}" style="width: 700px"
+                                                         maxlength="150"/>
+                                            <p:outputLabel value="3.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.reto3}" style="width: 700px"
+                                                         maxlength="150"/>
+                                        </h:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Habilidades, Competencias y Aptitudes" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                            <p:outputLabel value="Marcar con una X el nivel de prioridad que el candidato debe tener en todas las habilidades, competencias y aptitudes que apliquen:"
+                                                           style="color: blue;font-size: .8em;"/>
+                                            <p:outputLabel value="Prioridad Alta, Media o Baja y dejar en blanco las que no apliquen."
+                                                           style="color: blue;font-size: .8em;"/>
+                                        </h:panelGrid>
+                                        <p:panelGrid columns="4" style="font-size: .8em">
+                                            <p:outputLabel value="Orientado a resultados"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.orientadoaresultados}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Habilidad verbal para comunicarse"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.habilidadverbal}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Capacidad analítica"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.capacidadanalitica}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Liderazgo"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.liderazgo}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Habilidad escrita para comunicarse"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.habilidadescrita}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Negociación"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.negociacion}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Trabajo bajo presión"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.trabajobajopresion}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Capacidad de análisis"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.capacidadanalisis}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Visión Estratégica"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.visionestrategica}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Receptivo"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.receptivo}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Capacidad p/conducir gpos de trabajo"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.capacidadconducirgrupos}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Competencias admin y gerenciales"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.competencias}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio >
+                                            <p:outputLabel value="Actitud al cambio"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.actitudalcambio}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Responsabilidad"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.responsabilidad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Innovación y creatividad"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.innovacioncreatividad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Trabajo en equipo"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.trabajoenequipo}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Motivación"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.motivacion}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Proactividad e Iniciativa"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.proactividad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Servicio al cliente"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.serviciocliente}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Compromiso"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.compromiso}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Lealtad"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.lealtad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Buena capacidad de adaptación"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.adaptacion}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Puntualidad"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.puntualidad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Capacidad p/establecer rel. interpersonales"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.relacionesinterpersonales}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                        </p:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Información del proyecto" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2" style="font-size: .8em">
+                                            <p:outputLabel value="Cliente: *"/>
+                                            <p:selectOneMenu id="idCliente" value="#{vacanteBean.vacante.cliente.id}" disabled="#{vacanteBean.loginClient == true ? 'true' : 'false'}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{clienteBean.list}" var="cliente" itemValue="#{cliente.id}" itemLabel="#{cliente.nombrecomercial}"/>
+                                            </p:selectOneMenu>
+                                            <p:outputLabel value="Lugar de Trabajo"/>
+                                            <p:inputText value="#{vacanteBean.vacante.lugardetrabajo}" style="width: 200px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="Período:"/>
+                                            <p:inputText value="#{vacanteBean.vacante.periodo}" style="width: 200px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="Cant. Posición (es)*"/>
+                                            <p:inputText value="#{vacanteBean.vacante.cantidadposiciones}" style="width: 200px"
+                                                         required="true" requiredMessage="#{appBean.mensajeErrorPosicionesCubiertas}"
+                                                         maxlength="3"
+                                                         converterMessage="Favor de ingresar un valor numérico en cantidad de posiciones"/>
+                                        </h:panelGrid>
+                                    </center>
+                                </h:panelGrid>
+                            </p:scrollPanel>
+                        </div>
+                        <f:facet name="footer">
+                            <p:commandButton value="Guardar" icon="ui-icon-disk" 
+                                             actionListener="#{vacanteBean.create}"
+                                             oncomplete="validar(args)"
+                                             update=":msgs,:form,:formCreateInterno:display"
+                                             styleClass="style_botones"
+                                             process="@form">
+
+                            </p:commandButton> 
+                            <p:commandButton value="Cancelar" icon="ui-icon-closethick" 
+                                             onclick="PF('createInternoDialog').hide();"
+                                             global="false"
+                                             immediate="true"
+                                             styleClass="style_botones"
+                                             update=":formCreateInterno:display,:formCreateInterno"
+                                             actionListener="#{vacanteBean.limpiar}">
+                                <p:ajax update=":formCreateInterno:display,:formCreateInterno" resetValues="true" />
+                            </p:commandButton> 
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formUpdateInterno">
+                    <p:dialog header="Editar Requerimiento Interno" closable="false"
+                              widgetVar="updateInternoDialog" resizable="false" id="updateInternoDlg"
+                              styleClass="style_outputText" position="bottom,center" closeOnEscape="true"
+                              showEffect="fade" hideEffect="puff" modal="true" width="80%" height="100%">
+                        <f:facet name="header">
+                            <h:outputText value="Editar Requerimiento Interno"/>
+                        </f:facet>
+                        <div align="right">
+                            <h:commandLink immediate="true" id="reporteInterno">  
+                                <p:graphicImage value="/resources/images/pdfTable.png" /> 
+                                <p:fileDownload value="#{vacanteBean.file}" />
+                            </h:commandLink>
+                        </div>
+
+                        <div align="center">
+                            <p:scrollPanel style="width: 950px;height: 500px">
+                                <h:panelGrid id="idAnalistasAsignados">
+                                    <p:accordionPanel style="width: 610px">
+                                        <p:tab title="Asignación Requerimiento">
+                                            <p:dataTable id="analistasAsignados" var="analista"
+                                                         value="#{vacanteBean.analistasAsignados}"
+                                                         style="font-size: .8em"
+                                                         rows="30"
+                                                         emptyMessage="#{appBean.mensajeTablaVacia}">
+
+                                                <p:column headerText="Nombre" width="400">
+                                                    <p:outputLabel value="#{analista.usuario.nombre} #{analista.usuario.apellidopaterno} #{analista.usuario.apellidomaterno}"/> 
+                                                </p:column>
+                                                <p:column width="100" style="text-align: center">
+                                                    <p:commandButton icon="ui-icon-trash"
+                                                                     immediate="true"
+                                                                     disabled="#{vacanteBean.asignar}"
+                                                                     actionListener="#{vacanteBean.analistaEliminado}"
+                                                                     onclick="PF('deleteAnalistaAsignado').show();"
+                                                                     title="Desasignar">
+                                                        <f:attribute name="analistaEliminado" value="#{analista}"/>
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
+                                            <br/>
+                                            <div align="right">
+                                                <p:commandButton value="Asignar" icon="ui-icon-plus"
+                                                                 disabled="#{vacanteBean.asignar}"
+                                                                 onclick="PF('analistasDialog').show()" immediate="true"
+                                                                 update=":formAsignarAnalistas:idAsignarAnalista"
+                                                                 styleClass="style_botones"/>
+                                            </div>
+                                        </p:tab>
+                                    </p:accordionPanel>
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <center>
+                                        <h:panelGrid columns="4" style="font-size: .8em">
+                                            <p:outputLabel value="Puesto a cubrir: "/>
+                                            <p:selectOneMenu id="idPuesto" value="#{vacanteBean.vacante.puestonivel.puesto.id}"
+                                                             style="width: 210px; text-align: left" filter="true" disabled="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorPuesto}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{puestoBean.list}" var="puesto" itemValue="#{puesto.id}" itemLabel="#{puesto.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Condición de la posición: *"/>
+                                            <p:selectOneMenu id="console" value="#{vacanteBean.vacante.condicionposicion}" style="width: 210px; text-align: left"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorCondicion}">
+                                                <f:selectItem itemLabel="#{appBean.mensajeSeleccione}" itemValue="" />
+                                                <f:selectItems  value="#{vacanteBean.condicionposiciones}" var="posicion" itemValue="#{posicion.valor}" itemLabel="#{posicion.nombre}"/>
+                                                <p:ajax process="@this" event="change" global="false" update="idpersonasustituida"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Persona a quien va a sustituir: *"/>
+                                            <p:inputText id="idpersonasustituida" required="true" style="width: 200px" 
+                                                         value="#{vacanteBean.vacante.nombresustitucion}"
+                                                         disabled="#{vacanteBean.vacante.condicionposicion == 0 ? 'false' : 'true'}"
+                                                         requiredMessage="#{appBean.mensajeErrorSustitucion}"
+                                                         maxlength="200"/>
+
+                                            <p:outputLabel value="División: *"/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.division.id}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorDivision}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{divisionBean.list}" var="division" itemValue="#{division.id}" itemLabel="#{division.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Puesto del jefe directo: "/>
+                                            <p:inputText id="idjefedirecto" value="#{vacanteBean.vacante.puestojefedirecto}" 
+                                                         style="width: 200px"
+                                                         maxlength="200"/>
+
+                                            <p:outputLabel value="Requiere Seguro Social: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.segurosocial}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.segurosociales}" var="seguro" itemValue="#{seguro.valor}" itemLabel="#{seguro.nombre}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Gastos Médicos Mayores: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.gastosmedicosmayores}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItem itemValue="1" itemLabel="Si"/>
+                                                <f:selectItem itemValue="0" itemLabel="No"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Tipo de contrato: *"/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.tipocontrato}" 
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorTipoContrato}"
+                                                             valueChangeListener="#{vacanteBean.cambioContrato}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.tipoContratos}" var="contrato" itemValue="#{contrato.valor}" itemLabel="#{contrato.nombre}"/>
+
+                                            </p:selectOneMenu>
+
+
+                                        </h:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Información de puesto vacante" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="4" style="font-size: .8em">
+                                            <p:outputLabel value="Escolaridad: *"/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.escolaridad}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorEscolaridad}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.escolaridades}" var="escolaridad" itemValue="#{escolaridad.valor}" itemLabel="#{escolaridad.nombre}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Carrera: "/>
+                                            <p:inputText value="#{vacanteBean.vacante.carrera}" 
+                                                         style="width: 200px"
+                                                         maxlength="200"/>
+
+                                            <p:outputLabel value="Cant.de años de Experiencia: *"/>
+                                            <p:inputText 
+                                                maxlength="100"
+                                                value="#{vacanteBean.vacante.aniosexperiencia}" style="width: 200px"
+                                                required="true" requiredMessage="#{appBean.mensajeErrorAniosExperiencia}">
+                                            </p:inputText>
+
+                                            <p:outputLabel value="Nivel: *"/>
+                                            <p:selectOneMenu id="idNivel" value="#{vacanteBean.vacante.puestonivel.nivel.id}"
+                                                             style="width: 210px; text-align: left" filter="true" disabled="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorNivel}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{nivelBean.list}" var="nivel" itemValue="#{nivel.id}" itemLabel="#{nivel.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Otro: "/>
+                                            <p:inputText value="#{vacanteBean.vacante.comentarios}"
+                                                         maxlength="500" 
+                                                         style="width: 200px"/>
+
+                                            <p:outputLabel value="Edo. Civil: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.edocivil}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.edoCiviles}" var="edocivil"
+                                                               itemValue="#{edocivil.valor}" itemLabel="#{edocivil.nombre}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Género: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.genero}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{vacanteBean.generos}" var="genero"
+                                                               itemValue="#{genero.valor}" itemLabel="#{genero.nombre}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Idioma(s): *"/>
+                                            <p:selectOneMenu id="idIdioma"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorIdioma}"
+                                                             value="#{vacanteBean.idioma.id}" 
+                                                             label="#{appBean.mensajeSeleccione}"
+                                                             style="width: 210px">
+                                                <f:selectItems value="#{idiomaBean.list}" var="idioma" itemValue="#{idioma.id}" itemLabel="#{idioma.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Rango Salarial: *"/>
+                                            <h:panelGrid columns="3">
+                                                <p:inputText id="idSueldo" required="true" value="#{vacanteBean.vacante.sueldo}" style="width: 90px"
+                                                             requiredMessage="#{appBean.mensajeErrorSalario}"
+                                                             converter="javax.faces.Double" converterMessage="No es un número válido" 
+                                                             onchange="this.value = this.value.trim()">
+                                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                                    <p:ajax event="change" global="false" update="idSueldo"/>
+                                                </p:inputText>
+                                                <p:outputLabel value="-"/>
+                                                <p:inputText id="idSueldoDos" value="#{vacanteBean.vacante.sueldodos}" 
+                                                             style="width: 90px"
+                                                             converter="javax.faces.Double" converterMessage="No es un número válido" 
+                                                             onchange="this.value = this.value.trim()">
+                                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                                    <p:ajax event="change" global="false" update="idSueldoDos"/>
+                                                </p:inputText>
+                                            </h:panelGrid>
+
+                                            <p:outputLabel value="Disponibilidad de viaje: "/>
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.disponibilidadviaje}"
+                                                             style="width: 210px; text-align: left" filter="true">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{appBean.comboDisponibilidadViaje}" var="dis"
+                                                               itemValue="#{dis.value}" itemLabel="#{dis.label}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Localidad: *" />
+                                            <p:selectOneMenu value="#{vacanteBean.vacante.ciudad.id}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorLocalidad}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{ciudadBean.list}" var="ciudad"
+                                                               itemValue="#{ciudad.id}" itemLabel="#{ciudad.descripcion}"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="Horario"/>
+                                            <p:inputText id="idhorasLaborales" 
+                                                         value="#{vacanteBean.vacante.horaslaborales}" 
+                                                         maxlength="100"
+                                                         style="width: 200px"/>
+
+                                            <p:outputLabel value="Certificaciones necesarias: "/>
+                                            <p:inputTextarea value="#{vacanteBean.vacante.certificaciones}" 
+                                                             maxlength="1500" style="width: 200px"/>
+
+                                            <p:outputLabel value="Conocimientos: "/>
+                                            <p:inputTextarea value="#{vacanteBean.vacante.competenciasbasicas}" 
+                                                             style="width: 200px"
+                                                             maxlength="1500"/>
+
+                                        </h:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Actividades críticas del cargo" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                            <p:outputLabel value="Actividades y/o responsabilidades claves del cargo necesarias para que la persona cumpla con los objetivos del puesto"
+                                                           style="color: blue;font-size: .8em;"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="1.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad1}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="2.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad2}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="3.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad3}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="4.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad4}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="5.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad5}" style="width: 700px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="6.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.actividad6}" style="width: 700px"
+                                                         maxlength="200"/>
+                                        </h:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Principales retos que enfrentará el cargo" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="1.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.reto1}" style="width: 700px"
+                                                         maxlength="150"/>
+                                            <p:outputLabel value="2.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.reto2}" style="width: 700px"
+                                                         maxlength="150"/>
+                                            <p:outputLabel value="3.-" style="font-weight:bold"/>
+                                            <p:inputText value="#{vacanteBean.reto3}" style="width: 700px"
+                                                         maxlength="150"/>
+                                        </h:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Habilidades, Competencias y Aptitudes" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                            <p:outputLabel value="Marcar con una X el nivel de prioridad que el candidato debe tener en todas las habilidades, competencias y aptitudes que apliquen:"
+                                                           style="color: blue;font-size: .8em;"/>
+                                            <p:outputLabel value="Prioridad Alta, Media o Baja y dejar en blanco las que no apliquen."
+                                                           style="color: blue;font-size: .8em;"/>
+                                        </h:panelGrid>
+                                        <p:panelGrid columns="4" style="font-size: .8em">
+                                            <p:outputLabel value="Orientado a resultados"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.orientadoaresultados}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Habilidad verbal para comunicarse"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.habilidadverbal}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Capacidad analítica"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.capacidadanalitica}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Liderazgo"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.liderazgo}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Habilidad escrita para comunicarse"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.habilidadescrita}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Negociación"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.negociacion}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Trabajo bajo presión"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.trabajobajopresion}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Capacidad de análisis"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.capacidadanalisis}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Visión Estratégica"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.visionestrategica}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Receptivo"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.receptivo}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Capacidad p/conducir gpos de trabajo"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.capacidadconducirgrupos}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Competencias admin y gerenciales"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.competencias}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio >
+                                            <p:outputLabel value="Actitud al cambio"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.actitudalcambio}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Responsabilidad"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.responsabilidad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Innovación y creatividad"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.innovacioncreatividad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Trabajo en equipo"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.trabajoenequipo}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Motivación"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.motivacion}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Proactividad e Iniciativa"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.proactividad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Servicio al cliente"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.serviciocliente}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Compromiso"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.compromiso}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Lealtad"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.lealtad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Buena capacidad de adaptación"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.adaptacion}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Puntualidad"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.puntualidad}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                            <p:outputLabel value="Capacidad p/establecer rel. interpersonales"/>
+                                            <p:selectOneRadio value="#{vacanteBean.vacante.habilidadesaptitudes.relacionesinterpersonales}">
+                                                <f:selectItems value="#{appBean.comboPrioridad}" var="prioridad"
+                                                               itemValue="#{prioridad.value}" itemLabel="#{prioridad.label}"/>
+                                            </p:selectOneRadio>
+                                        </p:panelGrid>
+                                    </center>
+                                    <p:separator/>
+                                    <center>
+                                        <h:panelGrid columns="1">
+                                            <p:outputLabel value="Información del proyecto" style="color: blue;font-size: 1.1em;font-weight: bold"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2" style="font-size: .8em">
+                                            <p:outputLabel value="Cliente: *"/>
+                                            <p:selectOneMenu id="idCliente" value="#{vacanteBean.vacante.cliente.id}" disabled="#{vacanteBean.loginClient == true ? 'true' : 'false'}"
+                                                             style="width: 210px; text-align: left" filter="true"
+                                                             required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                                <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                <f:selectItems value="#{clienteBean.list}" var="cliente" itemValue="#{cliente.id}" itemLabel="#{cliente.nombrecomercial}"/>
+                                            </p:selectOneMenu>
+                                            <p:outputLabel value="Lugar de Trabajo"/>
+                                            <p:inputText value="#{vacanteBean.vacante.lugardetrabajo}" style="width: 200px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="Periodo"/>
+                                            <p:inputText value="#{vacanteBean.vacante.periodo}" style="width: 200px"
+                                                         maxlength="200"/>
+                                            <p:outputLabel value="Cant. Posición (es)"/>
+                                            <p:inputText value="#{vacanteBean.vacante.cantidadposiciones}" style="width: 200px"
+                                                         required="true" requiredMessage="#{appBean.mensajeErrorPosicionesCubiertas}"
+                                                         maxlength="3"
+                                                         converterMessage="Favor de ingresar un valor numérico en cantidad de posiciones"/>
+                                        </h:panelGrid>
+                                    </center>
+                                </h:panelGrid>
+                            </p:scrollPanel>
+                        </div>
+                        <f:facet name="footer">
+                            <p:commandButton value="Editar" icon="ui-icon-pencil" 
+                                             actionListener="#{vacanteBean.edit}"
+                                             update=":msgs"
+                                             oncomplete="validarEditar(args)"
+                                             styleClass="style_botones"/> 
+                            <p:commandButton value="Cancelar" icon="ui-icon-closethick" 
+                                             actionListener="#{vacanteBean.limpiar}"
+                                             immediate="true"
+                                             onclick="PF('updateInternoDialog').hide()"
+                                             update=":formUpdateInterno"
+                                             styleClass="style_botones"
+                                             global="false">
+                                <p:ajax update=":formUpdateInterno" resetValues="true"/>
+                            </p:commandButton> 
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formUpdate">
+                    <p:dialog header="Editar Requerimiento" 
+                              widgetVar="updateDialog" resizable="false"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="true"
+                              showEffect="fade" hideEffect="puff" modal="true" width="55%" height="70%" style="font-size: .9em"> 
+                        <div align="center">
+                            <h:panelGrid id="idAnalistasAsignados">
+                                <p:accordionPanel style="width: 610px">
+                                    <p:tab title="Asignación Requerimiento">
+                                        <p:dataTable id="analistasAsignados" var="analista"
+                                                     value="#{vacanteBean.analistasAsignados}"
+                                                     rows="30"
+                                                     emptyMessage="#{appBean.mensajeTablaVacia}">
+
+                                            <p:column headerText="Nombre" width="400">
+                                                <p:outputLabel value="#{analista.usuario.nombre} #{analista.usuario.apellidopaterno} #{analista.usuario.apellidomaterno}"/> 
+                                            </p:column>
+                                            <p:column width="100" style="text-align: center">
+                                                <p:commandButton icon="ui-icon-trash"
+                                                                 immediate="true"
+                                                                 disabled="#{vacanteBean.asignar}"
+                                                                 actionListener="#{vacanteBean.analistaEliminado}"
+                                                                 onclick="PF('deleteAnalistaAsignado').show();">
+                                                    <f:attribute name="analistaEliminado" value="#{analista}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <br/>
+                                        <div align="right">
+                                            <p:commandButton value="Asignar" icon="ui-icon-plus"
+                                                             disabled="#{vacanteBean.asignar}"
+                                                             onclick="PF('analistasDialog').show()" immediate="true"
+                                                             update=":formAsignarAnalistas:idAsignarAnalista"
+                                                             styleClass="style_botones"/>
+                                        </div>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1">
+                                <h:panelGrid columns="4" style="margin-left: 18%">
+                                    <p:outputLabel value="Rango salarial"/>
+                                    <p:inputText id="idSueldo" value="#{vacanteBean.vacante.sueldo}" style="width: 150px"
+                                                 required="true" requiredMessage="#{appBean.mensajeErrorSueldo}"
+                                                 converter="javax.faces.Double" converterMessage="No es un número válido" 
+                                                 onchange="this.value = this.value.trim()">
+                                        <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                        <p:ajax event="change" global="false" update="idSueldo"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="-"/>
+                                    <p:inputText id="idSueldoDos" value="#{vacanteBean.vacante.sueldodos}" style="width: 150px"
+                                                 converter="javax.faces.Double" converterMessage="No es un número válido" 
+                                                 onchange="this.value = this.value.trim()">
+                                        <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                        <p:ajax event="change" global="false" update="idSueldoDos"/>
+                                    </p:inputText>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4" style="margin-left: 13%">
+                                    <h:outputText value="Divisa: *"/>
+                                    <p:selectOneMenu id="idDivisa" value="#{vacanteBean.vacante.tipodecambio.id}"
+                                                     style="width: 180px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorDivisa}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{tipodecambioBean.list}" var="tipodecambio" itemValue="#{tipodecambio.id}" itemLabel="#{tipodecambio.codigo}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Periodicidad Pago: *"/>
+                                    <p:selectOneMenu id="idPeriodicidadPago" value="#{vacanteBean.vacante.periodicidadpago}"
+                                                     style="width: 180px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorPeriodicidadPago}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{appBean.comboPeriodicidadPagoVacante}" var="periodicidadPago" itemValue="#{periodicidadPago.value}" itemLabel="#{periodicidadPago.label}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Cliente: *"/>
+                                    <p:selectOneMenu id="idCliente" value="#{vacanteBean.vacante.cliente.id}" disabled="#{vacanteBean.loginClient == true ? 'true' : 'false'}"
+                                                     style="width: 180px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{clienteBean.list}" var="cliente" itemValue="#{cliente.id}" itemLabel="#{cliente.nombrecomercial}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Ciudad: *"/>
+                                    <p:selectOneMenu id="idCiudad" value="#{vacanteBean.vacante.ciudad.id}"
+                                                     style="width: 180px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorCiudad}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{ciudadBean.list}" var="ciudad" itemValue="#{ciudad.id}" itemLabel="#{ciudad.descripcion}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="División: *"/>
+                                    <p:selectOneMenu id="idDivision" value="#{vacanteBean.vacante.division.id}"
+                                                     style="width: 180px; text-align: left" filter="true"
+                                                     disabled="#{vacanteBean.disabledDivision}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{divisionBean.list}" var="division" itemValue="#{division.id}" itemLabel="#{division.descripcion}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Sub-División: *"/>
+                                    <p:selectOneMenu id="idSubdivision" value="#{vacanteBean.vacante.subdivision.id}"
+                                                     style="width: 180px; text-align: left" filter="true"
+                                                     disabled="#{vacanteBean.disabledDivision}">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{subdivisionBean.list}" var="subdivision" itemValue="#{subdivision.id}" itemLabel="#{subdivision.descripcion}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Puesto: *"/>
+                                    <p:selectOneMenu id="idPuesto" value="#{vacanteBean.vacante.puestonivel.puesto.id}"
+                                                     style="width: 180px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorPuesto}"
+                                                     disabled="true">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{puestoBean.list}" var="puesto" itemValue="#{puesto.id}" itemLabel="#{puesto.descripcion}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Nivel: *"/>
+                                    <p:selectOneMenu id="idNivel" value="#{vacanteBean.vacante.puestonivel.nivel.id}"
+                                                     style="width: 180px; text-align: left" filter="true"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorNivel}" disabled="true">
+                                        <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                        <f:selectItems value="#{nivelBean.list}" var="nivel" itemValue="#{nivel.id}" itemLabel="#{nivel.descripcion}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <p:outputLabel value="Competencias básicas: "/>
+                                <p:inputTextarea id="idCompentencias" value="#{vacanteBean.vacante.competenciasbasicas}"
+                                                 style="width: 610px" />
+                                <p:outputLabel value="Descripción: "/>
+                                <p:inputTextarea id="idDescripcion" value="#{vacanteBean.vacante.descripcion}"
+                                                 style="width: 610px" />
+                                <p:outputLabel value="Experiencia: "/>
+                                <p:inputTextarea id="idExperiencia" value="#{vacanteBean.vacante.experiencia}"
+                                                 style="width: 610px" />
+                                <h:panelGrid columns="3">
+                                    <p:outputLabel value="Años de experiencia"/>
+                                    <p:outputLabel value="Horas Laborales"/>
+                                    <p:outputLabel value="Duración del proyecto"/>
+                                    <p:inputText id="idaniosExperiencia" value="#{vacanteBean.vacante.aniosexperiencia}"
+                                                 style="width: 120px"/>
+                                    <p:inputText id="idhorasLaborales" value="#{vacanteBean.vacante.horaslaborales}"
+                                                 style="width: 120px"/>
+                                    <p:inputText id="idFechaInicio" value="#{vacanteBean.vacante.fechainicio}"
+                                                 style="width: 347px"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="6" cellpadding="3">
+                                    <p:outputLabel value="Idioma(s): "/>
+                                    <h:panelGrid columns="4">
+                                        <p:selectOneMenu id="idIdioma" value="#{vacanteBean.idioma.id}" label="#{appBean.mensajeSeleccione}"
+                                                         panelStyle="width:150px" required="true" requiredMessage="Favor de seleccionar el idioma">
+                                            <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                            <f:selectItems value="#{idiomaBean.list}" var="idioma" itemValue="#{idioma.id}"
+                                                           itemLabel="#{idioma.descripcion}"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="Disponibilidad de Viaje: "/>
+                                    <h:panelGrid columns="4">
+                                        <p:selectOneRadio value="#{vacanteBean.vacante.disponibilidadviaje}">
+                                            <f:selectItems value="#{appBean.comboDisponibilidadViaje}" var="disponibilidad"/>
+                                        </p:selectOneRadio><p:outputLabel value="Cantidad Posición(es):"/>
+                                        <p:inputText value="#{vacanteBean.vacante.cantidadposiciones}"
+                                                     style="width: 32px"
+                                                     required="true" requiredMessage="#{appBean.mensajeErrorPosicionesCubiertas}"/>
+
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Fecha registro temporal"/>
+                                    <p:calendar value="#{vacanteBean.vacante.fecharegistro}"
+                                                placeholder="Mes Inicio" pattern="dd/MM/yyyy" style="width: 100px"/>
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+                            <f:facet name="footer">
+                                <p:commandButton value="Editar" icon="ui-icon-pencil" 
+                                                 actionListener="#{vacanteBean.edit}"
+                                                 update=":msgs"
+                                                 oncomplete="validarEditar(args)"
+                                                 styleClass="style_botones"/> 
+                                <p:commandButton value="Cancelar" icon="ui-icon-closethick" 
+                                                 actionListener="#{vacanteBean.limpiar}"
+                                                 immediate="true"
+                                                 onclick="PF('updateDialog').hide()"
+                                                 update=":formUpdate"
+                                                 styleClass="style_botones"
+                                                 global="false">
+                                    <p:ajax update=":formUpdate" resetValues="true"/>
+                                </p:commandButton> 
+                            </f:facet>
+                        </div>         
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formAsignarAnalistas">
+                    <p:dialog header="Analistas disponibles"
+                              widgetVar="analistasDialog" resizable="false"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="true"
+                              showEffect="fade" hideEffect="puff" modal="true" width="28%">
+                        <h:panelGrid columns="3" id="idAsignarAnalista">
+                            <p:outputLabel value="Analista(s): *"/>
+                            <p:selectCheckboxMenu value="#{vacanteBean.selectedAnalistas}" label="#{appBean.mensajeSeleccione}"
+                                                  style="width: 250px;">
+                                <f:selectItems id="idListUsuarios" value="#{vacanteBean.usuariosAnalistas}" var="usuario" itemValue="#{usuario.id}"
+                                               itemLabel="#{usuario.nombre} #{usuario.apellidopaterno} #{usuario.apellidomaterno}"/>
+                            </p:selectCheckboxMenu>
+                        </h:panelGrid>
+                        <br/><br/>
+                        <f:facet name="footer">
+                            <p:commandButton value="Aceptar" icon="ui-icon-check"
+                                             actionListener="#{vacanteBean.agregarAnalistasVacante}"
+                                             styleClass="style_botones" update=":formUpdate:idAnalistasAsignados, :formAsignarAnalistas, :msgs, :formUpdateInterno:idAnalistasAsignados"/>
+                            <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                             onclick="PF('analistasDialog').hide();"
+                                             styleClass="style_botones" />
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id ="formDeleteAnalista">
+                    <p:dialog header="Eliminar analista"
+                              widgetVar="deleteAnalistaAsignado" resizable="false"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="true"
+                              showEffect="fade" hideEffect="puff" modal="true" width="20%">
+                        <p:outputLabel value="¿Esta seguro de eliminar la asignación del analista?"/>
+                        <br/><br/>
+                        <f:facet name="footer">
+                            <p:commandButton value ="Aceptar" icon="ui-icon-check"
+                                             actionListener="#{vacanteBean.eliminarAnalistaVacante}"
+                                             update=":formUpdate:idAnalistasAsignados, :formDeleteAnalista, :msgs, :formUpdateInterno:idAnalistasAsignados"
+                                             styleClass="style_botones"/>
+                            <p:commandButton value ="Cancelar" icon="ui-icon-close"
+                                             onclick="PF('deleteAnalistaAsignado').hide();"
+                                             styleClass="style_botones"/> 
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formOferta">
+                    <p:dialog header="Crear ofrecimiento"
+                              widgetVar="ofertaDialog" resizable="false" id="ofertaDlg"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="true"
+                              showEffect="fade" hideEffect="puff" modal="true" width="40%">
+                        <div align="left">
+                            <p:outputPanel>
+                                <p:outputLabel value="#{vacanteBean.ofrecimiento}" escape="false" onclick="$(this).select();"/>
+                            </p:outputPanel>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formUploadVacantes">
+                    <p:dialog header="Vacante(s)" 
+                              widgetVar="vacantesArchivoDialog" resizable="false" id="archivoDlg"
+                              styleClass="style_outputText" position="center,center" closeOnEscape="true" closable="false"
+                              showEffect="fade" hideEffect="explode" modal="true" width="98%">
+                        <div align="center">
+                            <p:panelGrid columns="1" id="display">
+                                <f:facet name="header">
+                                    <div align="center">
+                                        <p:outputLabel value="#{vacanteBean.informacionArchivo}"/>    
+                                    </div>
+                                </f:facet>                         
+                                <p:dataTable id="idTableUploadVacantes" var="vacanteArchivo"
+                                             paginator="true"
+                                             paginatorPosition="bottom"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             currentPageReportTemplate="{currentPage} de {totalPages}"
+                                             rowsPerPageTemplate="5,10,15"
+                                             value="#{vacanteBean.vacantesArchivo}"
+                                             filteredValue="#{vacanteBean.fileteredVacantesArchivo}"
+                                             resizableColumns="true" scrollable="true" scrollWidth="50%"
+                                             scrollHeight="320"
+                                             style="margin-top: 15px;width: 100%;font-size: 1em;text-align: center"
+                                             emptyMessage="#{appBean.mensajeTablaVacia}" 
+                                             widgetVar="registrosTableUpload"
+                                             editable="true" editMode="cell">
+
+                                    <p:column headerText="No." width="40" style="font-size: .8em">
+                                        <h:outputText value="#{vacanteArchivo.numeroVacante}"/>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Posicion (es)" width="100" style="font-size: .8em">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{vacanteArchivo.cantidadposiciones}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{vacanteArchivo.cantidadposiciones}" size="50"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Cliente" width="135" style="font-size: .8em">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:selectOneMenu value="#{vacanteArchivo.cliente.id}" disabled="true"
+                                                                 style="width: 130px; text-align: left" filter="true">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{clienteBean.list}" var="cliente" itemValue="#{cliente.id}" itemLabel="#{cliente.nombrecomercial}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{vacanteArchivo.cliente.id}"
+                                                                 style="width: 130px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{clienteBean.list}" var="cliente" itemValue="#{cliente.id}" itemLabel="#{cliente.nombrecomercial}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Ciudad" width="135" style="font-size: .8em">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:selectOneMenu value="#{vacanteArchivo.ciudad.id}" disabled="true"
+                                                                 style="width: 130px; text-align: left" filter="true">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{ciudadBean.list}" var="ciudad" itemValue="#{ciudad.id}" itemLabel="#{ciudad.descripcion}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{vacanteArchivo.ciudad.id}"
+                                                                 style="width: 130px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{ciudadBean.list}" var="ciudad" itemValue="#{ciudad.id}" itemLabel="#{ciudad.descripcion}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Puesto/Nivel" width="230" style="font-size: .8em">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:selectOneMenu value="#{vacanteArchivo.puestonivel.puesto.id}" disabled="true"
+                                                                 style="width: 110px; text-align: left" filter="true">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{puestoBean.list}" var="puesto" itemValue="#{puesto.id}" itemLabel="#{puesto.descripcion}"/>
+                                                </p:selectOneMenu>
+                                                <p:selectOneMenu value="#{vacanteArchivo.puestonivel.nivel.id}" disabled="true"
+                                                                 style="width: 110px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorNivel}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{nivelBean.list}" var="nivel" itemValue="#{nivel.id}" itemLabel="#{nivel.descripcion}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{vacanteArchivo.puestonivel.puesto.id}"
+                                                                 style="width: 110px; text-align: left" filter="true">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{puestoBean.list}" var="puesto" itemValue="#{puesto.id}" itemLabel="#{puesto.descripcion}"/>
+                                                </p:selectOneMenu>
+                                                <p:selectOneMenu value="#{vacanteArchivo.puestonivel.nivel.id}"
+                                                                 style="width: 110px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorNivel}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{nivelBean.list}" var="nivel" itemValue="#{nivel.id}" itemLabel="#{nivel.descripcion}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="División" width="135" style="font-size: .8em">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:selectOneMenu value="#{vacanteArchivo.division.id}" disabled="true"
+                                                                 style="width: 130px; text-align: left" filter="true">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{divisionBean.list}" var="division" itemValue="#{division.id}" itemLabel="#{division.descripcion}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{vacanteArchivo.division.id}"
+                                                                 style="width: 130px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{divisionBean.list}" var="division" itemValue="#{division.id}" itemLabel="#{division.descripcion}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Subdivisión" width="135" style="font-size: .8em">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:selectOneMenu value="#{vacanteArchivo.subdivision.id}" disabled="true"
+                                                                 style="width: 130px; text-align: left" filter="true">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{subdivisionBean.list}" var="subdivision" itemValue="#{subdivision.id}" itemLabel="#{subdivision.descripcion}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{vacanteArchivo.subdivision.id}"
+                                                                 style="width: 130px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{subdivisionBean.list}" var="subdivision" itemValue="#{subdivision.id}" itemLabel="#{subdivision.descripcion}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Tipo de Cambio" width="105" style="font-size: .8em;">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:selectOneMenu value="#{vacanteArchivo.tipodecambio.id}" disabled="true"
+                                                                 style="width: 100px; text-align: left" filter="true">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{tipodecambioBean.list}" var="tipocambio" itemValue="#{tipocambio.id}" itemLabel="#{tipocambio.codigo}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{vacanteArchivo.tipodecambio.id}"
+                                                                 style="width: 100px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorCliente}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{tipodecambioBean.list}" var="tipocambio" itemValue="#{tipocambio.id}" itemLabel="#{tipocambio.codigo}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Sueldo" width="80" style="font-size: .8em">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{vacanteArchivo.sueldo}"/>
+                                            </f:facet> 
+                                            <f:facet name="input">
+                                                <p:inputText value="#{vacanteArchivo.sueldo}" size="10"/>    
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Periodicidad de Pago" width="140" style="font-size: .8em;">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:selectOneMenu value="#{vacanteArchivo.periodicidadpago}" disabled="true"
+                                                                 style="width: 130px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorPeriodicidadPago}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{appBean.comboPeriodicidadPagoVacante}" var="periodicidadPago" itemValue="#{periodicidadPago.value}" itemLabel="#{periodicidadPago.label}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{vacanteArchivo.periodicidadpago}"
+                                                                 style="width: 130px; text-align: left" filter="true"
+                                                                 required="true" requiredMessage="#{appBean.mensajeErrorPeriodicidadPago}">
+                                                    <f:selectItem itemValue="" itemLabel="#{appBean.mensajeSeleccione}"/>
+                                                    <f:selectItems value="#{appBean.comboPeriodicidadPagoVacante}" var="periodicidadPago" itemValue="#{periodicidadPago.value}" itemLabel="#{periodicidadPago.label}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Competencias Básicas" width="200" style="font-size: .8em;white-space : normal">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{vacanteArchivo.competenciasbasicas}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{vacanteArchivo.competenciasbasicas}" size="50"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Descripción" width="200" style="font-size: .8em;white-space : normal">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{vacanteArchivo.descripcion}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{vacanteArchivo.descripcion}" size="50"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Experiencia" width="200" style="font-size: .8em;white-space : normal">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{vacanteArchivo.experiencia}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{vacanteArchivo.experiencia}" size="50"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Años de experiencia" width="80" style="font-size: .8em;white-space : normal">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{vacanteArchivo.aniosexperiencia}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{vacanteArchivo.aniosexperiencia}" size="12"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Horas laborales" width="80" style="font-size: .8em;white-space : normal">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{vacanteArchivo.horaslaborales}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{vacanteArchivo.horaslaborales}" size="11"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Fechas" width="150" style="font-size: .8em">
+                                        <h:outputText value="#{vacanteArchivo.fechaInicioStr} - #{vacanteArchivo.fechaFinStr}"/> 
+                                    </p:column>
+
+                                    <p:column filterMatchMode="contains" headerText="Comentarios" width="13%" style="font-size: .8em;white-space : normal">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <p:outputLabel value="#{vacanteArchivo.comentarios}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText value="#{vacanteArchivo.comentarios}" size="40"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                </p:dataTable>                           
+                            </p:panelGrid> 
+                        </div>
+                        <f:facet name="footer">
+                            <div align="left">
+                                <p:commandButton value="Guardar" icon="ui-icon-disk" 
+                                                 actionListener="#{vacanteBean.crearCargaMasiva}"
+                                                 update=":msgs,:form"
+                                                 process="@this display"
+                                                 onsuccess="PF('registrosTable').filter()"
+                                                 styleClass="style_botones"/>
+                                <p:commandButton value="Cancelar" icon="ui-icon-closethick" 
+                                                 onclick="PF('vacantesArchivoDialog').hide()" 
+                                                 styleClass="style_botones"
+                                                 global="false"/>
+                            </div>
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formArchivoVacantes"  enctype="multipart/form-data">
+                    <p:dialog header="Alta Vacante(s)" widgetVar="archivoVacantesDialog" resizable="false" id="archivoVacantesDlg"  
+                              showEffect="fade" hideEffect="explode">  
+                        <h:panelGrid columns="1" id="display" style="margin:0 auto;">
+                            <p:fileUpload value="#{vacanteBean.archivo}" mode="advanced" oncomplete="PF('vacantesArchivoDialog').show();PF('archivoVacantesDialog').hide();PF('registrosTableUpload').filter()"
+                                          fileUploadListener="#{vacanteBean.fileUploadListener}" update=":formUploadVacantes:display"
+                                          uploadLabel="Cargar" cancelLabel="Cancelar" label="Seleccionar" fileLimit="1" fileLimitMessage="Solo puede subir un archivo a la vez"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <script type="text/javascript">
+                    function start() {
+                        PF('statusDialog').show();
+                    }
+
+                    function stop() {
+                        PF('statusDialog').hide();
+                    }
+                </script>
+
+                <script type="text/javascript" src="js/JSbpms.js"/> 
+
+                <script type="text/javascript" target="body">
+                    function validar(args) {
+                        if (args.isValidate) {
+                            PF('createDialog').hide();
+                            PF('createInternoDialog').hide();
+                            PF('registrosTable').filter();
+                        }
+                    }
+
+                    function validarEditar(args) {
+                        if (args.isValidate) {
+                            PF('updateDialog').hide();
+                            PF('updateInternoDialog').hide()
+                            PF('registrosTable').filter();
+                        }
+                    }
+                </script>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

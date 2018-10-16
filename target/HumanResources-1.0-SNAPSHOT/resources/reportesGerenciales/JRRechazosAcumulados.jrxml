@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="JRRechazosAcumulados" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d88a995d-866c-4225-ae85-d44c36a3c20f">
+	<property name="ireport.zoom" value="9.189945972714456"/>
+	<property name="ireport.x" value="3447"/>
+	<property name="ireport.y" value="1054"/>
+	<parameter name="informacion" class="java.lang.String"/>
+	<parameter name="totalRechazos" class="java.lang.Integer"/>
+	<field name="criterioRechazo.descripcion" class="java.lang.String"/>
+	<field name="cantidadCliente" class="java.lang.Double"/>
+	<field name="cliente.nombrecomercial" class="java.lang.String"/>
+	<field name="cantidadEmpresa" class="java.lang.Double"/>
+	<field name="usuario.nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="248" y="10" width="82" height="20" uuid="8ac630c0-058a-45a6-af7a-660d8085e487"/>
+				<textElement>
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-HCMWORK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="30" width="169" height="20" uuid="4d1b3639-442b-41f8-a6dc-0e132f9e016b"/>
+				<textElement>
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECHAZOS ACUMULABLES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="174" y="65" width="233" height="20" uuid="4d17bc3d-c9a8-419b-b9d4-c907d0f12370"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{informacion}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="437" y="0" width="117" height="50" uuid="a15424a3-b81f-4ea5-b759-a5811136eccc"/>
+				<imageExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateImage" + File.separator + "LOGONUBAJ.png"))]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="217" y="0" width="135" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="31b854e2-4430-4c3e-8d15-533967b8c4fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo de rechazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="73" y="0" width="142" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="7a0053b7-934c-419e-8a09-d19b2b304057"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Analista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="354" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="75ac8780-54df-427a-bf58-b33f2b54694b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Imp./Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="0" width="70" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="49e57831-3234-4464-af48-f2bfa4b161d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="455" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="b8df2654-0057-4319-94f3-589a5dc86c27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Imp./Empresa]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="0" width="554" height="20" backcolor="#D8D8D8" uuid="a135bade-f668-409d-b076-2849a91d36fb">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="217" y="0" width="135" height="20" uuid="198de907-25e2-4484-ae2a-44e20c651506"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{criterioRechazo.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="73" y="0" width="142" height="20" uuid="0e70e3b2-c7dd-47ef-ae9c-e6448828b8da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario.nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="71" height="20" uuid="b74d4a09-eeae-4977-b4fd-ac2a394ae63d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="70" height="20" uuid="06c01529-d4bb-4bed-9ee0-8b31bb538b55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente.nombrecomercial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="423" y="0" width="24" height="20" uuid="17462a44-92cd-4b46-a0e6-8e28e05c86e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadCliente}==null ? 0.0:($F{cantidadCliente}*100)/$P{totalRechazos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="446" y="0" width="8" height="20" uuid="78844621-c0d8-46d6-a0a5-4854072159d8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="454" y="0" width="71" height="20" uuid="7b987864-3035-41bb-a44f-d9c7e11ce692"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="524" y="0" width="24" height="20" uuid="45c7110a-eab4-4f19-91ee-6ee848eebda9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadEmpresa}==null ? 0.0:($F{cantidadEmpresa}*100)/$P{totalRechazos}
+]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="547" y="0" width="8" height="20" uuid="4a160e51-02db-402e-9c15-a0e0880968e4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="2" width="80" height="20" uuid="a0a2506d-9585-4c66-8177-fa45d7da5044"/>
+				<textElement textAlignment="Right">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="2" width="40" height="20" uuid="14eb1f51-1559-4653-b57e-896ca2378da8"/>
+				<textElement>
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

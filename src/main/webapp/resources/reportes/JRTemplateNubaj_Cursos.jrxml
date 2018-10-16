@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="JRTemplateNubaj_Cursos" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="caaa9a8e-1ee7-4c2c-a5cb-5676e06e96a7">
+	<property name="ireport.zoom" value="1.6528925619834718"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="comentarios" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="0" y="0" width="540" height="20" backcolor="#CCCCCC" uuid="8a4d72b4-8b1d-4ee4-abe4-e47693c8af46"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="20" width="480" height="20" uuid="6181f293-224f-4fa1-b6c0-693dbd2e5f75"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comentarios}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="40" width="480" height="20" uuid="5e4a78f7-ce68-4643-b8f0-1b69eb19b653"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

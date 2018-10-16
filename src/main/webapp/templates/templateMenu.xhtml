@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/custom-theme/theme.css" />
+        <link rel="shortcut icon" href="#{request.contextPath}/resources/images/faviconss.png" type="image/x-icon" />
+        <title>BPMS</title>
+    </h:head>
+
+    <h:body >
+        <div id="top" class="top" style="height: 50px">
+            <ui:insert name="top">
+                <div align="right">
+                    <h:form id="botones">
+                        <h:panelGrid columns="7">
+                            <p:notificationBar id="tableAlarmas"
+                                               position="bottom" effect="slide" styleClass="bottom" widgetVar="bar" style="height: 74%">
+                                <h:outputText value="Procesos pendientes:" style="font-size:25px; color: red"/>
+                                <br/><br/><br/>
+                                <h:form>
+                                    <div align="center">
+                                        <h:panelGrid style="width: 90%">
+
+                                            <h:panelGrid columns="1">
+                                                <h:outputText value="Requerimiento próximo a vencer: Desarrolador Java Sr.|IBM|Monterrey"/> 
+                                                <h:outputText value="Nuevo requerimiento: Analista de Sistemas.|NUBAJ|D.F"/>
+                                                <h:outputText value="Verificación de referencias: Vacante 001|Iliana Pérez|Líder de Proyecto"/>
+                                            </h:panelGrid>
+
+                                            <br/><br/><br/>
+                                            <f:facet name="footer">
+                                                <p:commandButton value="Cerrar" onclick="PF('bar').hide()"
+                                                                 styleClass="style_botones" icon="ui-icon-close"/>
+                                            </f:facet>
+                                        </h:panelGrid>
+                                    </div>
+                                </h:form>
+                            </p:notificationBar>
+                            <p:commandButton id="botonAlarma" value="Alarmas" onclick="PF('bar').show()" type="button" icon="ui-icon-alert"/>
+
+                            <p:commandButton icon="ui-icon-person" value="Usuario logeado"
+                                             styleClass="style_botones" global="false"/>
+
+                            <p:commandButton icon="ui-icon-power" value="SALIR"
+                                             styleClass="style_botones"
+                                             global="false"/>
+                            <p:clock mode="server" pattern="dd-MM-yyyy HH:mm:ss"/>
+                            <p:graphicImage library="images" name="bmt.png" style="width:50px"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </ui:insert>
+        </div>
+
+        <div id="menu-top">
+            <ui:insert name="menu-top">
+                <h:form id="form2">
+                    <p:poll listener="#{alarmaBean.mostrarAlarma}" interval="#{3600}"
+                            update=":botones:botonAlarma, mensajesAlarma, :botones:tableAlarmas"/>
+                    <p:growl autoUpdate="true" id="mensajesAlarma" showDetail="true" showSummary="" escape="true"/>
+                    <p:tabMenu>
+                        <p:menuitem value="Requisiciones" url="/views/requisiciones/requerimientoCliente.xhtml"/>
+                        <p:menuitem value="Gestión de reclutamiento" url="/views/requisiciones/procesoVacantes.xhtml"/>
+
+
+
+                    </p:tabMenu>
+                    <p:idleMonitor timeout="#{120000*30}">
+                        <p:ajax event="idle" listener="#{appBean.dialog}"/>
+                    </p:idleMonitor>
+
+                </h:form>
+            </ui:insert>
+        </div>
+        <div id="content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+        <script type="text/javascript">
+            $("#left").height($("#content").height());
+        </script>
+    </h:body>
+
+</html>

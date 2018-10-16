@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="JRVacantes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d2ac238b-af08-4db9-bfff-6c6351a991e6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="informacion" class="java.lang.String"/>
+	<field name="cliente.nombrecomercial" class="java.lang.String"/>
+	<field name="ciudad.descripcion" class="java.lang.String"/>
+	<field name="puestonivel.puesto.descripcion" class="java.lang.String"/>
+	<field name="puestonivel.nivel.descripcion" class="java.lang.String"/>
+	<field name="experiencia" class="java.lang.String"/>
+	<field name="sueldo" class="java.lang.Double"/>
+	<field name="sueldopesos" class="java.lang.Double"/>
+	<field name="estatus" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="225" y="0" width="100" height="20" uuid="7553604b-e734-458e-8236-913c1cd599b5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-HCMWORK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="20" width="184" height="20" uuid="e9407000-0230-4b77-8231-98bda203220f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REQUERIMIENTOS CLIENTES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="48" width="302" height="20" uuid="8999b63e-adeb-42ea-b6dc-05040652c5ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{informacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="1" width="100" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="6d1f5ad1-5394-4bda-a2d9-57dabf4a126b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="102" y="1" width="168" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="00f3ed00-9b31-4688-93fa-0d54d2c8b43e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Puesto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="272" y="1" width="74" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="496a38a8-5a69-40bd-a54c-f8f4b41c442e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Experiencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="348" y="1" width="58" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="cee74b45-c0d4-4cd9-8783-68c7c8907a52"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sueldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="408" y="1" width="83" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="b86a54af-c085-453c-8af0-16212ee604d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sueldo en pesos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="493" y="1" width="62" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="353d94e9-03fe-407e-a5d6-4d9b0c63b02f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="553" height="20" backcolor="#D8D8D8" uuid="b5582b2e-2d51-4f7f-96c1-bd4807f22e35">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="0" width="50" height="20" uuid="af0c5feb-64ce-4485-8cf7-739b917ce4d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente.nombrecomercial}==null ? "" : $F{cliente.nombrecomercial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="51" y="0" width="50" height="20" uuid="19b7408e-d2dc-4291-9a07-673a01ff0b91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciudad.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="0" width="71" height="20" uuid="8f0fea1e-8422-4c29-8367-d755683418ec"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{puestonivel.puesto.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="0" width="87" height="20" uuid="2ea9c513-8ab4-4e4a-b559-1982094bf0d7"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{puestonivel.nivel.descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="173" y="0" width="9" height="20" uuid="c7785879-5e7f-4a98-a879-04ea70034435"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="271" y="0" width="76" height="20" uuid="ec7637fb-b6b7-4496-8020-50f0475be7d8"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{experiencia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="348" y="0" width="58" height="20" uuid="5d09d41a-e68c-4295-9366-953850679673"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sueldo}==null ? "-" : $F{sueldo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="408" y="0" width="83" height="20" uuid="04d578c8-9d13-4e63-959b-dfc05eb0d21b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sueldopesos}==null ? "-" : $F{sueldopesos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="0" width="62" height="20" uuid="1fbaed96-1def-47de-84bd-567e03c7af36"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estatus}.equals(new java.lang.Integer(1)) ? "Activa" :
+$F{estatus}.equals(new java.lang.Integer(2)) ? "Cancelada" :
+$F{estatus}.equals(new java.lang.Integer(3)) ? "Cubierta" :
+$F{estatus}.equals(new java.lang.Integer(4)) ? "On Hold" :
+$F{estatus}.equals(new java.lang.Integer(5)) ? "Prospección" : "-"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="434" y="1" width="80" height="20" uuid="c307e69e-abe6-4140-8345-7a94512b967f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="1" width="40" height="20" uuid="2e27cc63-2508-42ae-9256-67c00136bb07"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

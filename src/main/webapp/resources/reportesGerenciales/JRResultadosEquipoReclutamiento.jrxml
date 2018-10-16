@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3f068f16-8a0c-4a23-a9f4-26815badf9fa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="informacion" class="java.lang.String"/>
+	<field name="usuario.nombre" class="java.lang.String"/>
+	<field name="usuario.apellidomaterno" class="java.lang.String"/>
+	<field name="usuario.apellidopaterno" class="java.lang.String"/>
+	<field name="candidatosEnviadosSemana" class="java.lang.Integer"/>
+	<field name="candidatosEnviadosMes" class="java.lang.Integer"/>
+	<field name="posicionesCubiertasSemana" class="java.lang.Integer"/>
+	<field name="posicionesCubiertasMes" class="java.lang.Integer"/>
+	<field name="rechazosSemana" class="java.lang.Integer"/>
+	<field name="rechazosMes" class="java.lang.Integer"/>
+	<field name="eficienciaSemana" class="java.lang.Double"/>
+	<field name="eficienciaMes" class="java.lang.Double"/>
+	<variable name="candidatosEnviadosSemana" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{candidatosEnviadosSemana}]]></variableExpression>
+	</variable>
+	<variable name="candidatosEnviadosMes" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{candidatosEnviadosMes}]]></variableExpression>
+	</variable>
+	<variable name="posicionesCubiertasSemana" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{posicionesCubiertasSemana}]]></variableExpression>
+	</variable>
+	<variable name="posicionesCubiertasMes" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{posicionesCubiertasMes}]]></variableExpression>
+	</variable>
+	<variable name="rechazosSemana" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{rechazosSemana}]]></variableExpression>
+	</variable>
+	<variable name="rechazosMes" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{rechazosMes}]]></variableExpression>
+	</variable>
+	<variable name="eficienciaSemana" class="java.lang.Double">
+		<variableExpression><![CDATA[new Double($V{posicionesCubiertasSemana}.doubleValue() == 0 ? 0 :
+($V{posicionesCubiertasSemana}.doubleValue()/$V{candidatosEnviadosSemana}.doubleValue()))*100.0]]></variableExpression>
+	</variable>
+	<variable name="eficienciaMes" class="java.lang.Double">
+		<variableExpression><![CDATA[new Double($V{posicionesCubiertasMes}.doubleValue() == 0 ? 0 :
+($V{posicionesCubiertasMes}.doubleValue()/$V{candidatosEnviadosMes}.doubleValue()))*100.0]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="350" y="14" width="100" height="20" uuid="d9725ba3-e67b-42d2-bf30-e6598e9964dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-HCMWORK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="40" width="383" height="20" uuid="44bf0a2e-1620-4056-bc28-647d368ba0a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[ANALISIS DE RESULTADOS DEL EQUIPO DE RECLUTAMIENTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="257" y="60" width="281" height="20" uuid="b35b9cc3-c9fb-448d-931b-2aa57561162b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{informacion}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="663" y="0" width="119" height="69" uuid="6e05b9b1-9204-4f98-b86c-081725f7697c"/>
+				<imageExpression><![CDATA[new String((System.getProperty("user.home")+ File.separator + "templateImage" + File.separator + "LOGONUBAJ.png"))]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="1" width="246" height="42" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="4c809fe6-898b-4fbf-ab32-f250a5815482"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reclutamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="249" y="23" width="67" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="557251f0-5d75-4dea-86b8-369c5b5d1b38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Semana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="318" y="23" width="66" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="4da475d4-86a2-4575-8043-3708714ea0fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="387" y="23" width="67" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="cf3ad38f-9e18-41be-b0e0-10d3a38536db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Semana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="456" y="23" width="66" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="12066070-127a-40c5-9c31-a844061a4eed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="525" y="23" width="67" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="25f7f686-5731-46c3-8faf-8e3b55da43a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Semana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="594" y="23" width="66" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="45a3af4a-3375-40d1-8838-c6162348b107"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="249" y="1" width="135" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="4a4e7bd8-50db-40ae-804a-aab6cad30aa0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Candidatos Enviados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="387" y="1" width="135" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="5c823e48-ba47-43fe-a833-11e30fe42cf3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Posiciones Cubiertas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="663" y="23" width="67" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="1f34f8f0-c64a-453a-b0ac-3815e6673cd8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Semana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="732" y="23" width="66" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="58756ecc-5d67-4a1c-95ec-82be1da71cb8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="525" y="1" width="135" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="ed2fd971-7272-406a-ab90-6d3e011e868c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rechazos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="663" y="1" width="135" height="20" forecolor="#FFFFFF" backcolor="#3ABFE7" uuid="8e087b0e-149a-4176-967e-2d42d57addaf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Eficiencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="798" height="20" backcolor="#D8D8D8" uuid="a303de8b-b67a-4fc7-b184-235bd30ac73e">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="74" height="20" uuid="9518de35-df63-4909-8d7e-8ff20e3cdaa0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario.nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="0" width="84" height="20" uuid="a77ac635-0a5c-4ce1-b85f-f61977692c2d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario.apellidopaterno}!= null ? $F{usuario.apellidopaterno}: ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="0" width="67" height="20" uuid="93190351-7907-4e3a-917f-3d56558a8f74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{candidatosEnviadosSemana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="319" y="0" width="67" height="20" uuid="19b06f74-1c3f-4040-b72f-3ac0cb96c724"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{candidatosEnviadosMes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="0" width="67" height="20" uuid="89f2b28c-a561-4990-bdb3-e4434a6fbf29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{posicionesCubiertasSemana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="67" height="20" uuid="62065335-fac2-437d-83c4-7d588646c730"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{posicionesCubiertasMes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="525" y="0" width="67" height="20" uuid="4c9f9336-d5b6-4d61-b7b4-974da61f4a13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rechazosSemana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="593" y="0" width="67" height="20" uuid="d950b221-dcd8-45d0-96a4-2a918caf6912"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rechazosMes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="663" y="0" width="49" height="20" uuid="e8d6fa60-282f-4067-a8ae-1227efa81daf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eficienciaSemana}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="732" y="0" width="49" height="20" uuid="70b7d689-7428-4798-8c6e-0eb85cbf93bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eficienciaMes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="712" y="0" width="18" height="20" uuid="a3dde0e7-7cbc-4bb3-a499-cf9d2b54b013"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="781" y="0" width="17" height="20" uuid="f56a5a35-0736-4c2a-ae63-5ea395f6fcf3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="159" y="0" width="85" height="20" uuid="cf9480a1-7241-4695-bd52-438dd74193e7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario.apellidomaterno} != null ? $F{usuario.apellidomaterno} : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="679" y="0" width="80" height="20" uuid="5ef4b24e-f7d2-482d-a6fa-a1424cbf0feb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="759" y="0" width="40" height="20" uuid="09868bd4-5673-48c2-9260-9601d93aaab3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<line>
+				<reportElement x="249" y="4" width="550" height="1" uuid="a9ede6db-04d4-4a75-85a4-415491b53a21"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="5" width="248" height="20" uuid="1fec07f9-2a41-4308-a90c-21f32328b782"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="249" y="5" width="67" height="20" uuid="33d9cc0b-83d5-4ae4-b597-3939c454ca98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{candidatosEnviadosSemana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="5" width="66" height="20" uuid="a33b99d8-f40e-43fd-a031-be23a820ae6e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{candidatosEnviadosMes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="5" width="67" height="20" uuid="4951c32a-5a60-4911-be8e-1824f99adec0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{posicionesCubiertasSemana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="5" width="66" height="20" uuid="0802d928-7de0-411e-9ef3-d5e1b8ee2485"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{posicionesCubiertasMes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="525" y="5" width="67" height="20" uuid="d9702725-ee59-4499-83e7-5070d58511e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{rechazosSemana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="594" y="5" width="66" height="20" uuid="9600562e-8646-47b8-b344-db041da33405"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{rechazosMes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="712" y="5" width="18" height="20" uuid="df6fefee-fd59-4f0a-99e9-a18d8f842896"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="780" y="5" width="18" height="20" uuid="78560768-69ea-4c75-b7fd-b3157e0371ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement x="663" y="5" width="49" height="20" uuid="8f6aa3b3-fba2-428a-a540-93ffc4fbfd2b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{eficienciaSemana}>100 ? 100 : $V{eficienciaSemana}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="732" y="5" width="48" height="20" uuid="e9dc112e-f4c8-4238-8541-b25f1f9a4f7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{eficienciaMes} > 100 ? 100 : $V{eficienciaMes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
