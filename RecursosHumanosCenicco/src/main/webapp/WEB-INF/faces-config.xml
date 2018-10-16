@@ -29,6 +29,20 @@
     </managed-bean>
         
     <managed-bean>
+        <managed-bean-name>estadoController</managed-bean-name>
+        <managed-bean-class>com.lam.recursoshumanoscenicco.controller.EstadoController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>estadoService</property-name>
+            <value>#{estadoService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>paisService</property-name>
+            <value>#{paisService}</value>
+        </managed-property>
+    </managed-bean>
+        
+    <managed-bean>
         <managed-bean-name>puestoController</managed-bean-name>
         <managed-bean-class>com.lam.recursoshumanoscenicco.controller.PuestoController</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>

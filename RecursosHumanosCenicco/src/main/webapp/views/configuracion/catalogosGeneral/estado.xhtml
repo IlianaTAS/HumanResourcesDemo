@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../templates/templateMenu.xhtml">
+            <ui:define name="content">
+                <p:growl id="growl" showDetail="false" life="3000"/>
+
+                <h:form id="form">
+                    <div align="center">
+                        <p:panel id="display" header="Catálogo Estados" style="width: 50%; margin-top: 2%; font-size: .9em;">
+
+                            <div align="right">
+                                <h:panelGrid>
+                                    <p:commandButton value="Agregar Estado"
+                                                     actionListener="#{estadoController.init}"
+                                                     styleClass="style_botones" icon="ui-icon-plus"
+                                                     update=":formCrear:display"
+                                                     oncomplete="PF('crearEstado').show();"/>
+                                </h:panelGrid>
+                            </div>
+
+                            <p:dataTable id="dataTable" var="estado" value="#{estadoController.listaEstados}"
+                                         style="width: 100%; font-size: .8em; margin-top: 10px;"
+                                         emptyMessage="No se encontraron registros"
+                                         rowKey="#{estado.idEstado}" selection="#{estadoController.estado}"
+                                         selectionMode="single"
+                                         paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         scrollable="true" scrollHeight="305" rows="15">
+
+                                <p:ajax event="rowSelect" update=":formActualizar:display"
+                                        oncomplete="PF('actualizarEstadoDlg').show()" />
+
+                                <f:facet name="header">
+                                    <div align="right">
+                                        <h:commandLink>
+                                            <h:graphicImage id="exporter" width="30" height="30"
+                                                            url="/resources/images/iconos/xls_table.png" />
+                                            <p:dataExporter type="csv" target="dataTable"
+                                                            fileName="estado" />
+                                        </h:commandLink>
+                                    </div>
+                                </f:facet>
+                                <p:column headerText="Pais" style="width: 40%">
+                                    <h:outputText value="#{estado.pais.descripcion}"/>
+                                </p:column>
+
+                                <p:column headerText="Estado" style="width: 40%">
+                                    <h:outputText value="#{estado.descripcion}"/>
+                                </p:column>
+
+                                <p:column headerText="Eliminar" style="width:20%; text-align:center;">
+                                    <p:commandButton icon="ui-icon-trash"
+                                                     oncomplete="PF('eliminarEstadoDlg').show()"
+                                                     actionListener="#{estadoController.objetoEliminar}">
+                                        <f:attribute name="estadoEliminar" value="#{estado}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </div>
+                </h:form>
+
+                <h:form id="formCrear">
+                    <p:dialog id="crearDialog" header="Nuevo estado" widgetVar="crearEstado" resizable="false" position="center,center"
+                              showEffect="fade" hideEffect="explode" closable="false"
+                              modal="true">
+                        <h:panelGrid id="display" columns="3" cellpadding="5">
+                            <p:outputLabel value="Pais: " />
+                            <p:selectOneMenu id="idPais" value="#{estadoController.estado.pais.idPais}"
+                                             style="width:230px; color: black"
+                                             required="true" requiredMessage="Favor de seleccionar el pais">
+                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                <f:selectItems value="#{estadoController.listaPaises}" var="pais"
+                                               itemValue="#{pais.idPais}" itemLabel="#{pais.descripcion}"/>
+                            </p:selectOneMenu>
+                            <p:message for="idPais" />
+
+                            <h:outputLabel value="Estado:*" />
+                            <p:inputText id="idNombre" value="#{estadoController.estado.descripcion}"
+                                         style="color:black; width: 250px;" required="true"
+                                         requiredMessage="Favor de ingresar el nombre" />
+                            <p:message for="idNombre" />
+                        </h:panelGrid>
+
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Guardar" actionListener="#{estadoController.crearEstado}"
+                                                 icon="ui-icon-disk" styleClass="style_botones"
+                                                 ajax="false" update=":formCrear:crearDialog, :growl, :form:display"
+                                                 validateClient="true" />
+                                <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                                 styleClass="style_botones" immediate="true" ajax="false">
+                                    <p:resetInput target="display" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog> 
+                </h:form>
+
+                <h:form id="formActualizar">
+                    <p:dialog widgetVar="actualizarEstadoDlg" header="Modificar Estado"
+                              resizable="false" position="center,center" showEffect="fade"
+                              hideEffect="explode" closable="false" modal="true">
+
+                        <h:panelGrid id="display" columns="3" cellpadding="5">
+                            <p:outputLabel value="Pais: " />
+                            <p:selectOneMenu id="idPais" value="#{estadoController.estado.pais.idPais}"
+                                             style="width:230px; color: black"
+                                             required="true" requiredMessage="Favor de seleccionar el pais">
+                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                <f:selectItems value="#{estadoController.listaPaises}" var="pais"
+                                               itemValue="#{pais.idPais}" itemLabel="#{pais.descripcion}"/>
+                            </p:selectOneMenu>
+                            <p:message for="idPais" />
+
+                            <h:outputLabel value="Estado:*" />
+                            <p:inputText id="idNombre" value="#{estadoController.estado.descripcion}"
+                                         style="color:black; width: 250px;" required="true"
+                                         requiredMessage="Favor de ingresar el nombre" />
+                            <p:message for="idNombre" />
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Modificar"
+                                                 actionListener="#{estadoController.modificarEstado}" icon="ui-icon-pencil"
+                                                 styleClass="style_botones" ajax="false"
+                                                 update=":formActualizar:display, :growl, :form:display"
+                                                 validateClient="true" />
+                                <p:commandButton value="Cancelar" icon="ui-icon-close"
+                                                 styleClass="style_botones" immediate="true" ajax="false">
+                                    <p:resetInput target="display" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formEliminar">
+                    <p:dialog id="display" widgetVar="eliminarEstadoDlg"
+                              header="Confirmación" resizable="false" position="center,center"
+                              showEffect="fade" hideEffect="explode" closable="false"
+                              modal="true">
+
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <h:outputLabel value="¿Desea eliminar el registro?" />
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Si" icon="ui-icon-check"
+                                                 actionListener="#{estadoController.eliminarEstado}"
+                                                 styleClass="style_botones" ajax="false" process="@this"
+                                                 update="formEliminar:display, :growl, :form:display" />
+                                <p:commandButton value="No" icon="ui-icon-close" ajax="false"
+                                                 actionListener="#{estadoController.init}"
+                                                 onsuccess="PF('eliminarEstadoDlg').hide();"
+                                                 styleClass="style_botones">
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

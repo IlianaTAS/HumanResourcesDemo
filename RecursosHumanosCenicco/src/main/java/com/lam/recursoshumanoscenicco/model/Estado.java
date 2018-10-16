@@ -19,6 +19,7 @@ public class Estado implements java.io.Serializable {
 	private Set<Ciudad> ciudades = new HashSet<Ciudad>();
 
 	public Estado() {
+            this.pais = new Pais();
 	}
 
 	public Estado(long idEstado, Pais pais, String descripcion) {

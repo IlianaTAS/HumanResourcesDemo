@@ -22,6 +22,15 @@ public class Mensajes {
     public static final String ERROR_MODIFICAR_PAIS = "Error al modificar el país";
     public static final String ERROR_ELIMINAR_PAIS = "Error al eliminar el país";
     
+    public static final String EXITO_CREAR_ESTADO = "Se creó correctamente el estado";
+    public static final String EXITO_MODIFCAR_ESTADO = "Se modificó correctamente el estado";
+    public static final String EXITO_ELIMINAR_ESTADO = "Se eliminó correctamente el estado";
+    
+    public static final String ERROR_CONSULTAR_ESTADO = "Error al consultar los estados";
+    public static final String ERROR_CREAR_ESTADO = "Error al crear el estado";
+    public static final String ERROR_MODIFICAR_ESTADO = "Error al modificar el estado";
+    public static final String ERROR_ELIMINAR_ESTADO = "Error al eliminar el estado";
+    
     public static final String EXITO_CREAR_PUESTO = "Se creó correctamente el puesto";
     public static final String EXITO_MODIFICAR_PUESTO = "Se modificó correctamente el puesto";
     public static final String EXITO_ELIMINAR_PUESTO = "Se eliminó correctamente el peusto";
